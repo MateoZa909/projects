@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+:root {
+    --roboto: 'Roboto', sans-serif;
+    --padding-general: 15px 15px;
+    --blue: rgba(13,59,241,1);
+}
+
+/* INFO RUTA */
+.info-route {
+    padding: var(--padding-general);
+}
+.info-route span  {
+    font-size: 12px;
+}
+
+/* CONTENEDOR FORM-FIELDS */
+.form-fields{
+    background-color: rgb(238, 238, 238);
+    margin: 0 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px 4px;
+    height: auto;
+}
+.form-fields .content-one label,
+.form-fields .content-two label {
+    background-color: white;
+    border: 1px solid rgb(157, 157, 157);
+    border-radius: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 13px;
+    height: 35px;
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+    padding: 5px 0;
+}
+.form-fields .content-one input,
+#estado,
+.select-empresa,
+.select-encargado,
+.form-fields .content-two input {
+    width: 210px;
+    background-color: rgb(206, 204, 204);
+    height: 35px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+}
+.form-fields .content-two {
+    /* background-color: lightcoral; */
+    width: 50%;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+}
+#asignacion,
+#fecha_inicio,
+#fecha_fin {
+    padding-left: 5px;
+}
+
+/* BOTON FORMULARIO */
+.btn-save {
+    /* background-color: lightblue; */
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    justify-content: end;
+    padding: 10px 10px;
+}
+.btn-save button {
+    width: 170px;
+    background-color: var(--blue);
+    color: white;
+    border: none;
+    height: 35px;
+    font-family: var(--roboto);
+    box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.btn-save button:active {
+    transform: scale(.99);
+}
+
+/* INFO COMPONENTE */
+.info-componente {
+    padding: var(--padding-general);
+}
+.info-componente h5 {
+    font-size: 15px;
+    color: rgb(174, 174, 174);
+}
+
+/* CONTENEDOR TEXT0 */
+.info-fill {
+    padding: var(--padding-general);
+}
+

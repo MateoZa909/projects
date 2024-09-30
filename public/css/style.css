@@ -1,0 +1,46 @@
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.wrapper {
+    background: #b7b7b7; /* Color de fondo de la página */
+}
+
+.main-header {
+    background: rgb(37,122,254);
+    background: linear-gradient(90deg, rgba(37,122,254,1) 0%, rgba(13,59,241,1) 100%);
+}
+
+.main-sidebar {
+    background: rgb(37,122,254);
+    background: linear-gradient(184deg, rgba(37,122,254,1) 0%, rgba(13,59,241,1) 100%);
+    color: white;
+}
+
+/* SPAN DEL ACRONIMO DE NOMBRE */
+.span-ab {
+    font-size: 25px;
+}
+
+/* TEXTO DEL SIDEBAR (Constructor de proyectos) */
+.builder {
+    font-size: 15px
+}
+
+/* CONTENEDOR DE LOGO */
+.logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: none;
+}
+
+.sidebar h2 {
+    font-size: 20px;
+}
+
+.main-footer {
+    background-color: #343a40;
+    color: white;
+}
+
