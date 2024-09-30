@@ -21,10 +21,10 @@ class ProStaff extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'STF_CNAME',
-        'STF_DCREATRE'
+        'STF_DCREATED'
     ];
 
-    protected $incrementing = true;
+    public $incrementing = true;
 
     protected $keyType = 'int';
 }

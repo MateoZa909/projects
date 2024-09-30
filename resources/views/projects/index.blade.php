@@ -38,17 +38,17 @@
                                 <div class="col-md-4"> <!-- Columna para Empresa -->
                                     <label for="empresa">Empresa</label>
                                     <select name="com_ncode" id="empresa" class="select-empresa" required>
-                                        <option value="1">IAS Technology</option>
-                                        <option value="2">Frisson Tech</option>
-                                        <!-- Asegúrate de usar los IDs correctos para COM_NCODE -->
+                                        @foreach ($empresas as $empresa)
+                                            <option value="{{ $empresa->COM_NCODE }}">{{ $empresa->COM_CNAME }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-4"> <!-- Columna para Encargado -->
                                     <label for="encargado">Encargado</label>
                                     <select name="stf_ncode_incharge" id="encargado" class="select-encargado" required>
-                                        <option value="1">Alejandro Bello</option>
-                                        <option value="2">Cesar Pajoy</option>
-                                        <!-- Asegúrate de usar los IDs correctos para STF_NCODE_INCHARGE -->
+                                        @foreach ($encargados as $encargado)
+                                            <option class="text-black" value="{{ $encargado->STF_NCODE }}">{{ $encargado->STF_CNAME }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -61,17 +61,17 @@
                                 <div class="col-md-4"> <!-- Columna para Estado -->
                                     <label for="estado">Estado</label>
                                     <select name="sta_ncode" id="estado" required>
-                                        <option value="1">Activo</option>
-                                        <option value="2">Inactivo</option>
-                                        <!-- Asegúrate de usar los IDs correctos para STA_NCODE -->
+                                        @foreach ($estados as $estado)
+                                            <option value="{{ $estado->STA_NCODE }}">{{ $estado->STA_CNAME }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="col-md-4"> <!-- Columna para Supervisor -->
                                     <label for="supervisor">Supervisor</label>
                                     <select name="stf_ncode_supervisor" id="supervisor" required>
-                                        <option value="1">Alejandro Bello</option>
-                                        <option value="2">Cesar Pajoy</option>
-                                        <!-- Asegúrate de usar los IDs correctos para STF_NCODE_SUPERVISOR -->
+                                        @foreach ($encargados as $encargado)
+                                            <option class="text-black" value="{{ $encargado->STF_NCODE }}">{{ $encargado->STF_CNAME }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>

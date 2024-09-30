@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ProCompany;
 use App\Models\ProProject;
+use App\Models\ProStaff;
+use App\Models\ProState;
 use Illuminate\Http\Request;
 
 class ProyectoController extends Controller
@@ -10,12 +13,21 @@ class ProyectoController extends Controller
     // Método para mostrar la vista de proyectos
     public function index()
     {
+        // Obtener todas las empresas
+        $empresas = ProCompany::all();
+
+        // Obtener todos los encargados
+        $encargados = ProStaff::all();
+
+        // Obtener todos los estados
+        $estados = ProState::all();
+
         // Aquí puedes obtener datos adicionales si es necesario
         $datos = []; // Puedes cargar datos de la base de datos si es necesario
         $encabezadosCategorias = []; // Cargar encabezados de categorías
         $encabezadosMeses = []; // Cargar encabezados de meses
 
-        return view('projects.index', compact('datos', 'encabezadosCategorias', 'encabezadosMeses'));
+        return view('projects.index', compact('datos', 'encabezadosCategorias', 'encabezadosMeses', 'empresas', 'encargados', 'estados'));
     }
 
     // Método para almacenar un nuevo proyecto

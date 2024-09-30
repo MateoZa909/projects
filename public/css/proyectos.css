@@ -39,6 +39,7 @@
 #estado,
 .select-empresa,
 .select-encargado,
+#supervisor,
 .form-fields .content-two input {
     width: 210px;
     background-color: rgb(206, 204, 204);
