@@ -68,6 +68,10 @@
 
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                     <li class="nav-item">
+                        <!-- <a href="{{ route('projects.index') }}" class="nav-link">
+                            <i class="nav-icon fas fa-project-diagram"></i>
+                            <p class="projects">Proyectos en curso</p>
+                        </a> -->
                         <a href="{{ route('projects.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-project-diagram"></i>
                             <p class="builder">Constructor de proyectos</p>

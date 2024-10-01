@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\FacturacionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\UserRoleController;
@@ -62,6 +63,8 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::get('/users/{user}/edit-role', [UserRoleController::class, 'edit'])->name('users.editRole');
     Route::post('/users/{user}/update-role', [UserRoleController::class, 'update'])->name('users.updateRole');
 });
+
+Route::post('/facturacion', [ProyectoController::class, 'store'])->name('facturacion.store');
 
 // Mostrar tabla
 Route::get('/tabla', [ProyectoController::class, 'generarTabla'])->name('tabla.mostrar');

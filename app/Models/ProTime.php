@@ -21,6 +21,7 @@ class ProTime extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'PRO_NCODE',
+        'TIM_PROJECTED',
         'TIM_MONTH',
         'TIM_REAL',
         'TIM_DCREATE'

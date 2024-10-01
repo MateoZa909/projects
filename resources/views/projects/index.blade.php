@@ -18,7 +18,7 @@
         <h5>Agregar información del proyecto</h5>
     </div>
 
-    <!-- CONTENEDOR RELLENO DE INFORMACION DEL PROYECTO -->
+    <!-- Contenedor diligenciamiento de información proyecto -->
     <div class="form-fields">
         <div class="info-fill"> <!-- Contenedor texto -->
             <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
@@ -99,29 +99,44 @@
 
     </div>
 
+    <!-- Componente de Facturación -->
     <div class="content-billing">
-        <!-- Componente de Facturación -->
-        @component('components.facturacion-table', [
-                'datos' => $datos,
-                'encabezadosCategorias' => $encabezadosCategorias,
-                'encabezadosMeses' => $encabezadosMeses,
-        ]) @endcomponent
+        @component('components.facturacion-table', ['proyecto' => $proyectos])
+        @endcomponent
     </div>
 
-
+    <!-- Logica manejo de rango de fechas y calculos -->
     <script src="{{ asset('js/facturacion.js') }}"></script>
 
     <script>
-       // Pasar datos desde PHP a JavaScript
-        const datos = @json($datos);
-        const encabezadosCategorias = @json($encabezadosCategorias); // Asegúrate de que esto sea un array
-        const encabezadosMeses = @json($encabezadosMeses);
+        function enviarDatos() {
+            const projectedInputs = document.querySelectorAll('.input-projected');
+            const realInputs = document.querySelectorAll('.input-real');
 
-        console.log(encabezadosCategorias); // Verifica qué hay aquí
-        console.log(Array.isArray(encabezadosCategorias)); // Esto debería imprimir "true"
+            const datos = Array.from(projectedInputs).map((input, index) => ({
+                mes: secondContainer.querySelectorAll('.content-title-month span')[index].textContent,
+                proyectada: parseFloat(input.value) || 0,
+                real: parseFloat(realInputs[index].value) || 0
+            }));
 
-        // Aquí puedes llamar a una función para procesar los datos
-        processData(datos, encabezadosCategorias, encabezadosMeses);
+            fetch('/facturacion', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Token CSRF para Laravel
+                },
+                body: JSON.stringify(datos)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Datos guardados:', data);
+            })
+            .catch(error => {
+                console.error('Error al guardar:', error);
+            });
+        }
 
+        // Llama a enviarDatos cuando desees guardar (por ejemplo, al cambiar un valor)
+        secondContainer.addEventListener('input', enviarDatos);
     </script>
 @endsection
