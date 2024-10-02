@@ -64,7 +64,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/users/{user}/update-role', [UserRoleController::class, 'update'])->name('users.updateRole');
 });
 
-Route::post('/facturacion', [ProyectoController::class, 'store'])->name('facturacion.store');
 
 // Mostrar tabla
 Route::get('/tabla', [ProyectoController::class, 'generarTabla'])->name('tabla.mostrar');

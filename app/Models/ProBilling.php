@@ -28,7 +28,7 @@ class ProBilling extends Model
     ];
 
     // Clave primaria es autoincremental
-    protected $incrementing = true;
+    public $incrementing = true;
 
     // Tipo de la clave primaria
     protected $keyType = 'int';

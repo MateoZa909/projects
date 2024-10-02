@@ -20,7 +20,7 @@
     margin: 0 10px;
     display: flex;
     flex-direction: column;
-    padding: 5px 4px;
+    padding: 10px 4px;
     height: auto;
 }
 .form-fields .content-one label,

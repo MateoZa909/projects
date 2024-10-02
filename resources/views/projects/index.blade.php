@@ -24,7 +24,7 @@
             <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
         </div>
 
-        <form action="{{ route('projects.store') }}" method="POST">
+        <form id="form-proyecto" action="{{ route('projects.store') }}" method="POST">
             @csrf
             <div class="container">
                 <div class="row g-3">
@@ -92,9 +92,6 @@
                 </div>
             </div>
 
-            <div class="btn-save">
-                <button type="submit">Guardar</button>
-            </div>
         </form>
 
     </div>
@@ -106,9 +103,9 @@
     </div>
 
     <!-- Logica manejo de rango de fechas y calculos -->
-    <script src="{{ asset('js/facturacion.js') }}"></script>
+    <!-- <script src="{{ asset('js/facturacion.js') }}"></script> -->
 
-    <script>
+    <!-- <script>
         function enviarDatos() {
             const projectedInputs = document.querySelectorAll('.input-projected');
             const realInputs = document.querySelectorAll('.input-real');
@@ -138,5 +135,5 @@
 
         // Llama a enviarDatos cuando desees guardar (por ejemplo, al cambiar un valor)
         secondContainer.addEventListener('input', enviarDatos);
-    </script>
+    </script> -->
 @endsection

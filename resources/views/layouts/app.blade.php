@@ -15,6 +15,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- Token csrf -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     @stack('styles')
 </head>
 <body class="hold-transition sidebar-mini">
@@ -25,12 +28,15 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Dropdown para roles -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-white" href="#" id="rolesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Roles
-                    </a>
+                    @if(!in_array(auth()->user()->role->name, ['Editor', 'Lectura']))
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="rolesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Roles
+                        </a>
+                    @endif
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="rolesDropdown">
-                        <a class="dropdown-item" href="{{ route('users.index') }}">Ver usuarios y roles</a>
-                        <a class="dropdown-item" href="{{ route('users.editRole', auth()->user()->id) }}">Asignar roles</a>
+                    <!-- Cambia 'Lectura' por el nombre de rol que quieras usar -->
+                            <a class="dropdown-item" href="{{ route('users.index') }}">Ver usuarios y roles</a>
+                            <a class="dropdown-item" href="{{ route('users.editRole', auth()->user()->id) }}">Asignar roles</a>
                     </div>
                 </li>
 

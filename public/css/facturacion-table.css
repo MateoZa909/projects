@@ -15,22 +15,11 @@
     background-color: rgb(238, 238, 238);
     padding: var(--padding-general);
     display: grid;
-    grid-template-columns: 230px 1100px 100px;
-    gap: 50px;
+    grid-template-columns: 230px 830px 100px;
+    gap: 30px;
     margin-top: 20px;
-    height: 300px;
-}
-/* Estilo para el scrollbar (solo para navegadores webkit) */
-.table-responsive::-webkit-scrollbar {
-    width: 12px; /* Ancho del scrollbar */
-    height: 8px; /* Altura del scrollbar */
-}
-.table-responsive::-webkit-scrollbar-thumb {
-    background-color: #888; /* Color del thumb del scrollbar */
-    border-radius: 10px; /* Bordes redondeados del thumb */
-}
-.table-responsive::-webkit-scrollbar-thumb:hover {
-    background-color: #555; /* Color del thumb al pasar el mouse */
+    height: 350px;
+    position: relative;
 }
 .table-responsive .first-container {
     /* background-color: lightcyan; */
@@ -74,14 +63,35 @@
 }
 
 /* SECOND CONTAINER */
+.container-overflow {
+    width: 100%; /* Ajusta según el tamaño deseado */
+    overflow-x: auto; /* Desplazamiento horizontal */
+    white-space: nowrap; /* Evita que el contenido baje a la siguiente línea */
+    /* background-color: rgb(128, 212, 240); */
+    height: 175px;
+    display: flex;
+    flex-direction: row;
+
+    box-shadow: inset -10px 0 10px -5px rgba(0, 0, 0, 0.1);
+}
+/* Estilo para el scrollbar (solo para navegadores webkit) */
+.container-overflow::-webkit-scrollbar {
+    width: 12px; /* Ancho del scrollbar */
+    height: 8px; /* Altura del scrollbar */
+}
+.container-overflow::-webkit-scrollbar-thumb {
+    background-color: #888; /* Color del thumb del scrollbar */
+    border-radius: 10px; /* Bordes redondeados del thumb */
+}
+.container-overflow::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Color del thumb al pasar el mouse */
+}
 .table-responsive .second-container {
     /* background-color: rgb(128, 212, 240); */
-    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 175px;
-    margin-top: 5px;
+    margin-top: 10px;
 }
 .table-responsive .second-container .content-title-month {
     /* background-color: lightcoral; */
@@ -100,29 +110,15 @@
     color: white;
     font-size: 12px;
     word-wrap: break-word;
-    position: relative;
     flex-grow: 1;
 }
-.content-title-month span::before {
-    content: attr(data-year); /* Mostrar el año */
-    font-size: 12px; /* Tamaño más pequeño para el año */
-    color: #888; /* Color gris para el año */
-    position: absolute;
-    top: -18px; /* Ajusta esta posición según la altura que necesites */
-    left: 50%; /* Para centrar el año horizontalmente */
-    transform: translateX(-50%); /* Para centrar el elemento respecto a su span */
-    background-color: #f0f0f0; /* Fondo del mini contenedor */
-    padding: 2px 5px; /* Espaciado dentro del mini contenedor */
-    border-radius: 4px; /* Bordes redondeados para el mini contenedor */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Sombra para darle un efecto flotante */
-}
 .table-responsive .second-container .content-inputs {
-    /* background-color: lightgreen; */
     width: 100%;
     margin-top: 5px;
     padding: 4px 5px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 .table-responsive .second-container .content-inputs .content {
     width: 100%;
@@ -136,23 +132,19 @@
     border: 1px solid rgb(158, 155, 155);
 }
 .table-responsive .second-container .percent {
-    /* background-color: lightcoral; */
-    width: 100%;
-    padding: 4px 5px;
     display: flex;
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 5px;
+    padding: 4px 5px;
 }
 .table-responsive .second-container .percent span {
     background-color: var(--gris-content);
-    width: 210px;
     text-align: center;
-    color: white;
     font-size: 12px;
     border: 1px solid rgb(159, 159, 159);
-    color:  black;
-    flex-grow: 1;
+    color: black;
+    flex-grow: 1; /* Cada span se expande para ocupar el espacio */
 }
 
 /* THIRD-CONTAINER */
@@ -197,5 +189,20 @@
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
+}
+.table-responsive .total-inputs .total-projected,
+.table-responsive .total-inputs .total-real,
+.table-responsive .total-percent span {
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    overflow: hidden;    /* Esconde el texto que se salga del contenedor */
+    text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
+    display: inline-block;
+    width: 100%;         /* Asegura que ocupe todo el ancho disponible */
+    padding: 5px;        /* Añade algo de espacio interior si es necesario */
+    box-sizing: border-box; /* Incluye padding y border en el tamaño total */
+}
+.btn-save {
+    position: absolute;
+    bottom: 10px;
 }
 
