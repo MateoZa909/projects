@@ -65,7 +65,4 @@ Route::middleware(['auth', 'admin'])->group(function () {
 });
 
 
-// Mostrar tabla
-Route::get('/tabla', [ProyectoController::class, 'generarTabla'])->name('tabla.mostrar');
-
 require __DIR__.'/auth.php';

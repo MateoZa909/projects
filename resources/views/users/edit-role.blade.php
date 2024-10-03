@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.app') <!-- Asegúrate de que estás extendiendo la plantilla principal -->
 
 @section('title', 'Editar Rol de Usuario')
 

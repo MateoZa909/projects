@@ -105,40 +105,12 @@
         @endcomponent
     </div>
 
-    <!-- Logica manejo de rango de fechas y calculos -->
-    <!-- <script src="{{ asset('js/facturacion.js') }}"></script> -->
+    <!-- Componente de Facturación -->
+    <div class="content-billing">
+        @component('components.tiempos', ['proyecto' => $proyectos])
+        @endcomponent
+    </div>
 
-    <!-- <script>
-        function enviarDatos() {
-            const projectedInputs = document.querySelectorAll('.input-projected');
-            const realInputs = document.querySelectorAll('.input-real');
-
-            const datos = Array.from(projectedInputs).map((input, index) => ({
-                mes: secondContainer.querySelectorAll('.content-title-month span')[index].textContent,
-                proyectada: parseFloat(input.value) || 0,
-                real: parseFloat(realInputs[index].value) || 0
-            }));
-
-            fetch('/facturacion', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') // Token CSRF para Laravel
-                },
-                body: JSON.stringify(datos)
-            })
-            .then(response => response.json())
-            .then(data => {
-                console.log('Datos guardados:', data);
-            })
-            .catch(error => {
-                console.error('Error al guardar:', error);
-            });
-        }
-
-        // Llama a enviarDatos cuando desees guardar (por ejemplo, al cambiar un valor)
-        secondContainer.addEventListener('input', enviarDatos);
-    </script> -->
 @endsection
 
 <!-- SweetAlert2 JS -->

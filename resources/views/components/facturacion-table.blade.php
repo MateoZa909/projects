@@ -1,7 +1,6 @@
 @props(['proyecto'])
 
 @push('styles')
-    <link rel="stylesheet" href="{{ asset('css/FinantialTableStyles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/facturacion-table.css') }}">
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
