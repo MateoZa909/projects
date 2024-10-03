@@ -166,22 +166,43 @@ function calcularTotales() {
         totalReal += parseFloat(input.value) || 0; // Sumar solo si es un número
     });
 
-    // Mostrar totales
-    document.querySelector('.total-projected-value').textContent = totalProjected.toFixed(2); // Actualizar total proyectado
-    document.querySelector('.total-real-value').textContent = totalReal.toFixed(2); // Actualizar total real
+    // Mostrar totales en formato de moneda COP
+    document.querySelector('.total-projected-value').textContent = totalProjected.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }); // Actualizar total proyectado
+    document.querySelector('.total-real-value').textContent = totalReal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }); // Actualizar total real
 
-    // Calcular y mostrar porcentaje
-    const percent = (totalReal > 0) ? ((totalProjected - totalReal) / totalReal) * 100 : 0; // Calcular porcentaje
-    document.querySelector('.total-percent-value').textContent = percent.toFixed(2); // Actualizar porcentaje
+    // Calcular y mostrar porcentaje total
+    const percent = (totalProjected > 0) ? (totalReal / totalProjected) * 100 : 0; // Calcular porcentaje total
+    document.querySelector('.total-percent-value').textContent = percent > 0 ? percent.toFixed(0) + '%' : '0%'; // Actualizar porcentaje
 
     // Actualizar porcentajes individuales de cada mes
     percentElements.forEach((el, index) => {
         const projectedValue = parseFloat(projectedInputs[index].value) || 0;
         const realValue = parseFloat(realInputs[index].value) || 0;
 
-        const monthPercent = (realValue > 0) ? ((projectedValue - realValue) / realValue) * 100 : 0; // Calcular porcentaje mensual
-        el.textContent = monthPercent.toFixed(2); // Actualizar porcentaje mensual
+        const monthPercent = (projectedValue > 0) ? (realValue / projectedValue) * 100 : 0; // Calcular porcentaje mensual
+        el.textContent = monthPercent > 0 ? monthPercent.toFixed(0) + '%' : '0%'; // Actualizar porcentaje mensual
     });
+}
+
+// Función para limpiar los campos del formulario
+function limpiarFormulario() {
+    // Si tienes los inputs dentro de un form, puedes usar reset:
+    document.getElementById('form-proyecto').reset();
+    document.getElementById('form-facturacion').reset();
+
+    // O si no están dentro de un <form>, puedes limpiar los inputs manualmente
+    document.getElementById('nombre-proyecto').value = '';
+    document.getElementById('empresa').value = '';
+    document.getElementById('encargado').value = '';
+    document.getElementById('asignacion').value = '';
+    document.getElementById('estado').value = '';
+    document.getElementById('supervisor').value = '';
+    document.getElementById('fecha_inicio').value = '';
+    document.getElementById('fecha_fin').value = '';
+
+    // Limpiar las facturas generadas dinámicamente
+    secondContainer.innerHTML = '<p class="mensaje-inicial">Seleccione un rango de fechas para desplegar los meses.</p>';
+    thirdContainer.innerHTML = ''; // Limpiar el contenedor de totales
 }
 
 // ENVIO AL BACKEND
@@ -235,11 +256,23 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
         return response.json();
     })
     .then(data => {
-        alert(data.message || 'Proyecto creado con éxito.');
+        Swal.fire({
+            title: '¡Éxito!',
+            text: data.message || 'Proyecto creado con éxito.',
+            icon: 'success',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            limpiarFormulario(); // Llama a la función para limpiar los campos después de cerrar el modal
+        });;
     })
     .catch(error => {
         console.error('Error al enviar los datos:', error);
-        alert('Hubo un problema al crear el proyecto.');
+        Swal.fire({
+            title: 'Error',
+            text: 'Hubo un problema al crear el proyecto.',
+            icon: 'error',
+            confirmButtonText: 'Cerrar'
+        });
     });
 });
 

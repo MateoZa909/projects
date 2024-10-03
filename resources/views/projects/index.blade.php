@@ -4,6 +4,9 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/proyectos.css') }}">
+
+    <!-- SweetAlert2 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -137,3 +140,6 @@
         secondContainer.addEventListener('input', enviarDatos);
     </script> -->
 @endsection
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

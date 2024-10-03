@@ -15,7 +15,7 @@
     background-color: rgb(238, 238, 238);
     padding: var(--padding-general);
     display: grid;
-    grid-template-columns: 230px 830px 100px;
+    grid-template-columns: 230px 790px 130px;
     gap: 30px;
     margin-top: 20px;
     height: 350px;
@@ -68,9 +68,11 @@
     overflow-x: auto; /* Desplazamiento horizontal */
     white-space: nowrap; /* Evita que el contenido baje a la siguiente línea */
     /* background-color: rgb(128, 212, 240); */
-    height: 175px;
+    height: 195px;
     display: flex;
     flex-direction: row;
+    gap: 20px;
+    padding-top: 5px;
 
     box-shadow: inset -10px 0 10px -5px rgba(0, 0, 0, 0.1);
 }
@@ -179,12 +181,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 10px;
 }
 .table-responsive .total-inputs .total-projected,
 .table-responsive .total-inputs .total-real,
 .table-responsive .total-percent {
-    width: 80px;
+    /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
