@@ -18,7 +18,7 @@
     grid-template-columns: 230px 790px 130px;
     gap: 30px;
     margin-top: 20px;
-    height: 350px;
+    height: 300px;
     position: relative;
 }
 .table-responsive .first-container {
@@ -94,6 +94,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin-top: 10px;
+    gap: 15px;
 }
 .table-responsive .second-container .content-title-month {
     /* background-color: lightcoral; */
@@ -106,13 +107,12 @@
 }
 .table-responsive .second-container .content-title-month span {
     background-color: var(--color-thead);
-    width: 250px;
+    width: 150px;
     text-align: center;
     border-radius: 5px;
     color: white;
     font-size: 12px;
     word-wrap: break-word;
-    flex-grow: 1;
 }
 .table-responsive .second-container .content-inputs {
     width: 100%;
@@ -146,7 +146,7 @@
     font-size: 12px;
     border: 1px solid rgb(159, 159, 159);
     color: black;
-    flex-grow: 1; /* Cada span se expande para ocupar el espacio */
+    flex-grow: 1;
 }
 
 /* THIRD-CONTAINER */

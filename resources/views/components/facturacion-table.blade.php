@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <div id="guardar-btn" class="btn-save">
-        <button type="submit">Guardar</button>
+    <div class="btn-save">
+        <button id="guardar-btn" type="submit">Guardar</button>
     </div>
 </form>
 
