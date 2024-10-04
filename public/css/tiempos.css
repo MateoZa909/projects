@@ -30,30 +30,30 @@
     height: 150px;
     gap: 10px;
 }
-.table-tiempos .first-container-tiempos .back {
+.table-tiempos .first-container-tiempos .back-time {
     /* background-color: lightcoral; */
     height: 35px;
 }
-.table-tiempos .first-container-tiempos .back:nth-child(1) {
+.table-tiempos .first-container-tiempos .back-time:nth-child(1) {
     background-color: var(--color-blue-second);
     border-radius: 7px;
     padding: 5px 5px;
     color: white;
     font-family: var(--roboto);
 }
-.table-tiempos .first-container-tiempos .proyectada-acumulado-real {
+.table-tiempos .first-container-tiempos .proyectada-real-tiempos {
     margin-top: 20px;
     background-color: var(--gris-content);
     display: flex;
     flex-direction: column;
     height: auto;
 }
-.table-tiempos .first-container-tiempos .proyectada-acumulado-real span {
+.table-tiempos .first-container-tiempos .proyectada-real-tiempos span {
     border: 1px solid rgb(158, 155, 155);
     padding: 2px 5px;
     font-family: var(--roboto);
 }
-.table-tiempos .first-container-tiempos .back:nth-child(3) {
+.table-tiempos .first-container-tiempos .back-time:nth-child(3) {
     margin-top: 10px;
     background-color: var(--color-thead);
     border-radius: 7px;
@@ -71,22 +71,21 @@
     height: 195px;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     gap: 20px;
     padding-top: 5px;
 
     box-shadow: inset -10px 0 10px -5px rgba(0, 0, 0, 0.1);
 }
 /* Estilo para el scrollbar (solo para navegadores webkit) */
-.container-overflow::-webkit-scrollbar {
+.container-overflow-tiempos::-webkit-scrollbar {
     width: 12px; /* Ancho del scrollbar */
     height: 8px; /* Altura del scrollbar */
 }
-.container-overflow::-webkit-scrollbar-thumb {
+.container-overflow-tiempos::-webkit-scrollbar-thumb {
     background-color: #888; /* Color del thumb del scrollbar */
     border-radius: 10px; /* Bordes redondeados del thumb */
 }
-.container-overflow::-webkit-scrollbar-thumb:hover {
+.container-overflow-tiempos::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
 .table-tiempos .second-container-tiempos {
@@ -97,7 +96,7 @@
     margin-top: 10px;
     gap: 15px;
 }
-.table-tiempos .second-container-tiempos .content-title-month-tiempos {
+.table-tiempos .second-container-tiempos .content-title-month {
     /* background-color: lightcoral; */
     width: 100%;
     padding: 4px 5px;
@@ -106,7 +105,7 @@
     gap: 10px;
     position: relative;
 }
-.table-tiempos .second-container-tiempos .content-title-month-tiempos span {
+.table-tiempos .second-container-tiempos .content-title-month span {
     background-color: var(--color-thead);
     width: 150px;
     text-align: center;
@@ -115,7 +114,7 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-.table-tiempos .second-container-tiempos .content-inputs-tiempos{
+.table-tiempos .second-container-tiempos .content-inputs {
     width: 100%;
     margin-top: 5px;
     padding: 4px 5px;
@@ -123,26 +122,26 @@
     flex-direction: column;
     position: relative;
 }
-.table-tiempos .second-container-tiempos .content-inputs-tiempos .content {
+.table-tiempos .second-container-tiempos .content-inputs .content {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.table-tiempos .second-container-tiempos .content-inputs-tiempos input {
+.table-tiempos .second-container-tiempos .content-inputs input {
     flex-grow: 1;
     width: 80px;
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: end;
 }
-.table-tiempos .second-container-tiempos .percent-tiempos {
+.table-tiempos .second-container-tiempos .percent {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 5px;
     padding: 4px 5px;
 }
-.table-tiempos .second-container-tiempos .percent-tiempos span {
+.table-tiempos .second-container-tiempos .percent span {
     background-color: var(--gris-content);
     text-align: center;
     font-size: 12px;
@@ -151,7 +150,7 @@
     flex-grow: 1;
 }
 
-/* THIRD-CONTAINER */
+/* third-container-tiempos */
 .table-tiempos .third-container-tiempos {
     /* background-color: lightcoral; */
     margin-top: 5px;
@@ -162,7 +161,7 @@
     display: flex;
     justify-content: space-between;
 }
-.table-tiempos .back-total {
+.table-tiempos .back-total-tiempos {
     background-color: var(--color-thead);
     width: 100%;
     text-align: center;
@@ -172,11 +171,10 @@
     word-wrap: break-word;
 }
 .table-tiempos .total-inputs-tiempos {
-    background-color: lightcoral;
     width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 .table-tiempos .total-percent-tiempos {
@@ -187,8 +185,7 @@
 }
 .table-tiempos .total-inputs-tiempos .total-projected-tiempos,
 .table-tiempos .total-inputs-tiempos .total-real-tiempos,
-.table-tiempos .total-inputs-tiempos .total-acumulado-tiempos,
-.table-tiempos .total-percent-tiempos {
+.table-tiempos .total-percent-tiempos-tiempos {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
@@ -197,8 +194,8 @@
 }
 .table-tiempos .total-inputs-tiempos .total-projected-tiempos,
 .table-tiempos .total-inputs-tiempos .total-real-tiempos,
-.table-tiempos .total-inputs-tiempos .total-acumulado-tiempos,
-.table-tiempos .total-percent-tiempos span {
+.table-tiempos .total-inputs-tiempos .total-real-tiempos,
+.table-tiempos .total-percent-tiempos-tiempos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */

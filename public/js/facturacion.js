@@ -275,7 +275,3 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
         });
     });
 });
-
-
-
-

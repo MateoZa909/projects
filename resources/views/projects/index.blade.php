@@ -4,6 +4,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/proyectos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/facturacion-table.css') }}">
 
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
@@ -23,13 +24,14 @@
 
     <!-- Contenedor diligenciamiento de información proyecto -->
     <div class="form-fields">
-        <div class="info-fill"> <!-- Contenedor texto -->
-            <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
-        </div>
-
-        <form id="form-proyecto" action="{{ route('projects.store') }}" method="POST">
+        <form id="form-unifed" action="{{ route('projects.store') }}" method="POST">
             @csrf
-            <div class="container">
+            <!-- Primer Formulario -->
+            <div class="container proyecto-data">
+                <div class="info-fill"> <!-- Contenedor texto -->
+                    <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
+                </div>
+
                 <div class="row g-3">
                     <div class="col-md-6 content-one"> <!-- Primer columna -->
                         <div class="content-one">
@@ -95,23 +97,56 @@
                 </div>
             </div>
 
+            <!-- Componente de Facturación -->
+            <div class="content-billing">
+                <input type="hidden" name="proyecto" value="{{ $proyectos }}">
+                <div class="first-container">
+                    <div class="back facturacion">
+                        <span>Facturación</span>
+                    </div>
+
+                    <div class="back proyectada-real">
+                        <span>Proyectada</span>
+                        <span>Real</span>
+                    </div>
+
+                    <div class="back cumplimiento">
+                        <span>% Cumplimiento</span>
+                    </div>
+                </div>
+
+                <div class="container-overflow">
+                    <div class="second-container">
+
+                    </div>
+                </div>
+
+                <div class="third-container">
+                    <div class="back-total">Total</div>
+                    <div class="total-inputs">
+                        <div class="total-projected">
+                            <span class="total-projected-value">0</span> <!-- Mostrar total proyectado -->
+                        </div>
+                        <div class="total-real">
+                            <span class="total-real-value">0</span> <!-- Mostrar total real -->
+                        </div>
+                    </div>
+                    <div class="total-percent">
+                        <span class="total-percent-value">0</span> % <!-- Mostrar porcentaje -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="btn-save">
+                <button id="guardar-btn" type="submit">Guardar</button>
+            </div>
         </form>
-
     </div>
 
-    <!-- Componente de Facturación -->
-    <div class="content-billing">
-        @component('components.facturacion-table', ['proyecto' => $proyectos])
-        @endcomponent
-    </div>
-
-    <!-- Componente de Facturación -->
-    <div class="content-billing">
-        @component('components.tiempos', ['proyecto' => $proyectos])
-        @endcomponent
-    </div>
-
+    <script src="{{ asset('js/facturacion.js') }}"></script>
 @endsection
+
+
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

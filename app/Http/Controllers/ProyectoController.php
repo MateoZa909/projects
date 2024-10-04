@@ -7,6 +7,7 @@ use App\Models\ProCompany;
 use App\Models\ProProject;
 use App\Models\ProStaff;
 use App\Models\ProState;
+use App\Models\ProTime;
 use Illuminate\Http\Request;
 use Log;
 
@@ -32,55 +33,73 @@ class ProyectoController extends Controller
 
     // Método para almacenar un nuevo proyecto
     public function store(Request $request)
-{
-    try {
-        // Validación de los datos del formulario
-        $request->validate([
-            'nombre_proyecto' => 'required|string|max:255',
-            'com_ncode' => 'required|integer|exists:PRO_COMPANY,COM_NCODE',
-            'stf_ncode_incharge' => 'required|integer',
-            'pro_dassignment' => 'required|date',
-            'sta_ncode' => 'required|integer',
-            'stf_ncode_supervisor' => 'required|integer',
-            'pro_dstart' => 'required|date',
-            'pro_dend' => 'required|date|after_or_equal:pro_dstart',
-            'facturacion' => 'required|array',
-            'facturacion.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
-            'facturacion.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
-            'facturacion.*.real' => 'nullable|numeric', // Real puede estar vacía
-        ]);
+    {
+        try {
+            // Validación de los datos del formulario
+            $request->validate([
+                'nombre_proyecto' => 'required|string|max:255',
+                'com_ncode' => 'required|integer|exists:PRO_COMPANY,COM_NCODE',
+                'stf_ncode_incharge' => 'required|integer',
+                'pro_dassignment' => 'required|date',
+                'sta_ncode' => 'required|integer',
+                'stf_ncode_supervisor' => 'required|integer',
+                'pro_dstart' => 'required|date',
+                'pro_dend' => 'required|date|after_or_equal:pro_dstart',
+                'facturacion' => 'required|array',
+                'facturacion.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
+                'facturacion.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
+                'facturacion.*.real' => 'nullable|numeric', // Real puede estar vacía
+                'tiempos' => 'required|array', // Validación para los tiempos
+                'tiempos.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
+                'tiempos.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
+                'tiempos.*.real' => 'nullable|numeric', // Real puede estar vacía
+            ]);
 
-        // Crear un nuevo proyecto con los datos del formulario
-        $proyecto = ProProject::create([
-            'PRO_CNAME' => $request->nombre_proyecto,
-            'COM_NCODE' => $request->com_ncode,
-            'STF_NCODE_INCHARGE' => $request->stf_ncode_incharge,
-            'PRO_DASSIGNMENT' => $request->pro_dassignment,
-            'STA_NCODE' => $request->sta_ncode,
-            'STF_NCODE_SUPERVISOR' => $request->stf_ncode_supervisor,
-            'PRO_DSTART' => $request->pro_dstart,
-            'PRO_DEND' => $request->pro_dend,
-            'PRO_DCREATED' => now(),
-        ]);
+            // Crear un nuevo proyecto con los datos del formulario
+            $proyecto = ProProject::create([
+                'PRO_CNAME' => $request->nombre_proyecto,
+                'COM_NCODE' => $request->com_ncode,
+                'STF_NCODE_INCHARGE' => $request->stf_ncode_incharge,
+                'PRO_DASSIGNMENT' => $request->pro_dassignment,
+                'STA_NCODE' => $request->sta_ncode,
+                'STF_NCODE_SUPERVISOR' => $request->stf_ncode_supervisor,
+                'PRO_DSTART' => $request->pro_dstart,
+                'PRO_DEND' => $request->pro_dend,
+                'PRO_DCREATED' => now(),
+            ]);
 
-        // Guardar los datos de facturación
-        foreach ($request->facturacion as $factura) {
-            $billing = new ProBilling();
-            $billing->PRO_NCODE = $proyecto->PRO_NCODE; // Asegúrate de que esta propiedad existe
-            $billing->BIL_MONTH = $factura['mes']; // Usar el mes del input oculto
-            $billing->BIL_PROJECTED = $factura['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
-            $billing->BIL_REAL = $factura['real'] ?? 0; // Ajusta esto según la lógica que desees
-            $billing->BIL_DCREATED = now();
-            $billing->save();
+            // Guardar los datos de facturación
+            foreach ($request->facturacion as $factura) {
+                $billing = new ProBilling();
+                $billing->PRO_NCODE = $proyecto->PRO_NCODE; // Asegúrate de que esta propiedad existe
+                $billing->BIL_MONTH = $factura['mes']; // Usar el mes del input oculto
+                $billing->BIL_PROJECTED = $factura['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
+                $billing->BIL_REAL = $factura['real'] ?? 0; // Ajusta esto según la lógica que desees
+                $billing->BIL_DCREATED = now();
+                $billing->save();
+            }
+
+            // Guardar los datos de tiempos
+            foreach ($request->tiempos as $tiempo) {
+                $time = new ProTime(); // Asegúrate de que el modelo ProTime esté correctamente importado
+                $time->PRO_NCODE = $proyecto->PRO_NCODE; // Referencia al proyecto
+                $time->TIM_MONTH = $tiempo['mes']; // Usar el mes del input
+                $time->TIM_PROJECTED = $tiempo['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
+                $time->TIM_REAL = $tiempo['real'] ?? 0; // Ajusta esto según la lógica que desees
+                $time->TIM_DCREATE = now();
+                $time->save();
+            }
+
+            // Redirigir a la lista de proyectos con un mensaje de éxito
+            return response()->json(['message' => 'Proyecto creado con éxito.']);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => $e->getMessage(),
+                'line' => $e->getLine(),
+                'file' => $e->getFile(),
+                'trace' => $e->getTraceAsString()
+            ], 500);
         }
-
-        // Redirigir a la lista de proyectos con un mensaje de éxito
-        return response()->json(['message' => 'Proyecto creado con éxito.']);
-    } catch (\Exception $e) {
-        // Manejo de excepciones
-        return response()->json(['error' => $e->getMessage()], 500);
     }
-}
-
 
 }
