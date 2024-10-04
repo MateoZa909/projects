@@ -10,7 +10,7 @@
     --back-inputs: #f4f4f4;
 }
 
-.table-tiempos {
+.content-times {
     margin-top: 20px;
     background-color: rgb(238, 238, 238);
     padding: var(--padding-general);
@@ -21,7 +21,7 @@
     height: 300px;
     position: relative;
 }
-.table-tiempos .first-container-tiempos {
+.content-times .first-container-tiempos {
     /* background-color: lightcyan; */
     height: auto;
     display: flex;
@@ -30,30 +30,30 @@
     height: 150px;
     gap: 10px;
 }
-.table-tiempos .first-container-tiempos .back-time {
+.content-times .first-container-tiempos .back-time {
     /* background-color: lightcoral; */
     height: 35px;
 }
-.table-tiempos .first-container-tiempos .back-time:nth-child(1) {
+.content-times .first-container-tiempos .back-time:nth-child(1) {
     background-color: var(--color-blue-second);
     border-radius: 7px;
     padding: 5px 5px;
     color: white;
     font-family: var(--roboto);
 }
-.table-tiempos .first-container-tiempos .proyectada-real-tiempos {
+.content-times .first-container-tiempos .proyectada-real-tiempos {
     margin-top: 20px;
     background-color: var(--gris-content);
     display: flex;
     flex-direction: column;
     height: auto;
 }
-.table-tiempos .first-container-tiempos .proyectada-real-tiempos span {
+.content-times .first-container-tiempos .proyectada-real-tiempos span {
     border: 1px solid rgb(158, 155, 155);
     padding: 2px 5px;
     font-family: var(--roboto);
 }
-.table-tiempos .first-container-tiempos .back-time:nth-child(3) {
+.content-times .first-container-tiempos .back-time:nth-child(3) {
     margin-top: 10px;
     background-color: var(--color-thead);
     border-radius: 7px;
@@ -88,7 +88,7 @@
 .container-overflow-tiempos::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
-.table-tiempos .second-container-tiempos {
+.content-times .second-container-tiempos {
     /* background-color: rgb(128, 212, 240); */
     display: flex;
     flex-direction: column;
@@ -96,7 +96,7 @@
     margin-top: 10px;
     gap: 15px;
 }
-.table-tiempos .second-container-tiempos .content-title-month {
+.content-times .second-container-tiempos .content-title-month {
     /* background-color: lightcoral; */
     width: 100%;
     padding: 4px 5px;
@@ -105,7 +105,7 @@
     gap: 10px;
     position: relative;
 }
-.table-tiempos .second-container-tiempos .content-title-month span {
+.content-times .second-container-tiempos .content-title-month span {
     background-color: var(--color-thead);
     width: 150px;
     text-align: center;
@@ -114,7 +114,7 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-.table-tiempos .second-container-tiempos .content-inputs {
+.content-times .second-container-tiempos .content-inputs {
     width: 100%;
     margin-top: 5px;
     padding: 4px 5px;
@@ -122,26 +122,26 @@
     flex-direction: column;
     position: relative;
 }
-.table-tiempos .second-container-tiempos .content-inputs .content {
+.content-times .second-container-tiempos .content-inputs .content {
     width: 100%;
     display: flex;
     justify-content: space-between;
 }
-.table-tiempos .second-container-tiempos .content-inputs input {
+.content-times .second-container-tiempos .content-inputs input {
     flex-grow: 1;
     width: 80px;
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: end;
 }
-.table-tiempos .second-container-tiempos .percent {
+.content-times .second-container-tiempos .percent {
     display: flex;
     justify-content: space-between;
     gap: 10px;
     margin-bottom: 5px;
     padding: 4px 5px;
 }
-.table-tiempos .second-container-tiempos .percent span {
+.content-times .second-container-tiempos .percent span {
     background-color: var(--gris-content);
     text-align: center;
     font-size: 12px;
@@ -151,7 +151,7 @@
 }
 
 /* third-container-tiempos */
-.table-tiempos .third-container-tiempos {
+.content-times .third-container-tiempos {
     /* background-color: lightcoral; */
     margin-top: 5px;
     width: 100%;
@@ -161,7 +161,7 @@
     display: flex;
     justify-content: space-between;
 }
-.table-tiempos .back-total-tiempos {
+.content-times .back-total-tiempos {
     background-color: var(--color-thead);
     width: 100%;
     text-align: center;
@@ -170,32 +170,32 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-.table-tiempos .total-inputs-tiempos {
+.content-times .total-inputs-tiempos {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.table-tiempos .total-percent-tiempos {
+.content-times .total-percent-tiempos {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.table-tiempos .total-inputs-tiempos .total-projected-tiempos,
-.table-tiempos .total-inputs-tiempos .total-real-tiempos,
-.table-tiempos .total-percent-tiempos-tiempos {
+.content-times .total-inputs-tiempos .total-projected-tiempos,
+.content-times .total-inputs-tiempos .total-real-tiempos,
+.content-times .total-percent-tiempos-tiempos {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
 }
-.table-tiempos .total-inputs-tiempos .total-projected-tiempos,
-.table-tiempos .total-inputs-tiempos .total-real-tiempos,
-.table-tiempos .total-inputs-tiempos .total-real-tiempos,
-.table-tiempos .total-percent-tiempos-tiempos span {
+.content-times .total-inputs-tiempos .total-projected-tiempos,
+.content-times .total-inputs-tiempos .total-real-tiempos,
+.content-times .total-inputs-tiempos .total-real-tiempos,
+.content-times .total-percent-tiempos-tiempos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
@@ -203,9 +203,5 @@
     width: 100%;         /* Asegura que ocupe todo el ancho disponible */
     padding: 5px;        /* Añade algo de espacio interior si es necesario */
     box-sizing: border-box; /* Incluye padding y border en el tamaño total */
-}
-.btn-save {
-    position: absolute;
-    bottom: 10px;
 }
 

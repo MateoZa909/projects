@@ -1,78 +1,88 @@
+// Selecciona elementos de los formularios de facturación y tiempos
 let fechaInicioInput = document.getElementById('fecha_inicio');
 let fechaFinInput = document.getElementById('fecha_fin');
-const secondContainer = document.querySelector('.second-container');
-const thirdContainer = document.querySelector('.third-container');
+const secondContainerFacturacion = document.querySelector('.second-container');
+const thirdContainerFacturacion = document.querySelector('.third-container');
+const secondContainerTiempos = document.querySelector('.second-container-tiempos');
+const thirdContainerTiempos = document.querySelector('.third-container-tiempos');
 
-const valoresMeses = {}; // Objeto para almacenar los valores de los meses
+const valoresMesesFacturacion = {};
+const valoresMesesTiempos = {};
 
 // Escuchar los cambios en los inputs de fecha
-fechaInicioInput.addEventListener('change', generarContenedoresMeses);
-fechaFinInput.addEventListener('change', generarContenedoresMeses);
+fechaInicioInput.addEventListener('change', () => {
+    generarContenedoresMeses(secondContainerFacturacion, 'facturacion');
+    generarContenedoresMeses(secondContainerTiempos, 'tiempos');
+});
 
-function generarContenedoresMeses() {
+fechaFinInput.addEventListener('change', () => {
+    generarContenedoresMeses(secondContainerFacturacion, 'facturacion');
+    generarContenedoresMeses(secondContainerTiempos, 'tiempos');
+});
+
+function generarContenedoresMeses(secondContainerFacturacion, tipo) {
     const fechaInicio = new Date(fechaInicioInput.value);
     const fechaFin = new Date(fechaFinInput.value);
 
-    // Verificar si ambas fechas son válidas
     if (fechaInicio && fechaFin && fechaInicio <= fechaFin) {
-        // Limpiar el contenido anterior
-        secondContainer.innerHTML = '';
-        thirdContainer.innerHTML = '';
+        // Limpiar contenido anterior
+        secondContainerFacturacion.innerHTML = '';
+        const valoresMeses = (tipo === 'facturacion') ? valoresMesesFacturacion : valoresMesesTiempos;
 
-        // Guardar valores actuales en el objeto antes de sobrescribir
-        guardarValoresActuales();
+        // Guardar valores actuales antes de sobrescribir
+        guardarValoresActuales(secondContainerFacturacion, valoresMeses, tipo);
 
         const meses = obtenerMesesEnRango(fechaInicio, fechaFin);
         if (meses.length > 0) {
-            // Generar el HTML dinámicamente para los meses, inputs proyectados, reales y los porcentajes
-            let secondContainerHtml = `
+            let secondContainerFacturacionHtml = `
                 <div class="content-title-month">
                     ${meses.map(mes => `<span data-year="${mes.anio}">${mes.nombre}</span>`).join('')}
                 </div>
                 <div class="content-inputs">
                     <div class="content projected">
                         ${meses.map(mes => `
-                            <input type="number" class="input-projected" placeholder="$0" value="${valoresMeses[mes.nombre]?.proyectada || ''}">
+                            <input type="number" class="input-projected-${tipo}" placeholder="$0" value="${valoresMeses[mes.nombre]?.proyectada || ''}">
                         `).join('')}
                     </div>
                     <div class="content real">
                         ${meses.map(mes => `
-                            <input type="number" class="input-real" placeholder="$0" value="${valoresMeses[mes.nombre]?.real || ''}">
+                            <input type="number" class="input-real-${tipo}" placeholder="$0" value="${valoresMeses[mes.nombre]?.real || ''}">
                         `).join('')}
                     </div>
                 </div>
                 <div class="percent">
-                    ${meses.map(mes => `<span class="month-percent" data-month="${mes.nombre}">%</span>`).join('')}
+                    ${meses.map(mes => `<span class="month-percent-${tipo}" data-month="${mes.nombre}">%</span>`).join('')}
                 </div>
             `;
 
-            // Agregar contenido a secondContainer
-            secondContainer.innerHTML = secondContainerHtml;
+            // Agregar contenido a secondContainerFacturacion
+            secondContainerFacturacion.innerHTML = secondContainerFacturacionHtml;
 
-            // ** Aquí agregamos los inputs ocultos **
+            // Inputs ocultos para cada mes
             meses.forEach(mes => {
-                secondContainer.innerHTML += `
+                secondContainerFacturacion.innerHTML += `
                 <div class="factura">
-                    <input type="hidden" name="valores[${mes.nombre}][mes]" value="${mes.nombre}">
-                    <input type="hidden" name="valores[${mes.nombre}][proyectada]" value="${valoresMeses[mes.nombre]?.proyectada || 0}">
-                    <input type="hidden" name="valores[${mes.nombre}][real]" value="${valoresMeses[mes.nombre]?.real || 0}">
+                    <input type="hidden" name="valores_${tipo}[${mes.nombre}][mes]" value="${mes.nombre}">
+                    <input type="hidden" name="valores_${tipo}[${mes.nombre}][proyectada]" value="${valoresMeses[mes.nombre]?.proyectada || 0}">
+                    <input type="hidden" name="valores_${tipo}[${mes.nombre}][real]" value="${valoresMeses[mes.nombre]?.real || 0}">
                 </div>
-                    `;
+                `;
             });
 
-            // Generar el HTML para el total en thirdContainer
+            // Generar HTML para el total
+            let thirdContainer = (tipo === 'facturacion') ? thirdContainerFacturacion : thirdContainerTiempos;
             let thirdContainerHtml = `
-                <div class="back-total">Total</div>
-                <div class="total-inputs">
-                    <div class="total-projected">
-                        <span class="total-projected-value">0</span> <!-- Total proyectado -->
+                <div class="back-total-${tipo}">Total</div>
+                <div class="total-inputs-${tipo}">
+                    <div class="total-projected-${tipo}">
+                        <span class="total-projected-value-${tipo}">0</span> <!-- Total proyectado -->
                     </div>
-                    <div class="total-real">
-                        <span class="total-real-value">0</span> <!-- Total real -->
+                    <div class="total-real-${tipo}">
+                        <span class="total-real-value-${tipo}">0</span> <!-- Total real -->
                     </div>
                 </div>
-                <div class="total-percent">
-                    <span class="total-percent-value">0</span> % <!-- Porcentaje -->
+                <div class="total-percent-${tipo}">
+                    <span class="total-percent-value-${tipo}">0</span> % <!-- Porcentaje -->
                 </div>
             `;
 
@@ -80,30 +90,29 @@ function generarContenedoresMeses() {
             thirdContainer.innerHTML = thirdContainerHtml;
 
             // Agregar evento para calcular totales
-            secondContainer.addEventListener('input', calcularTotales);
-            calcularTotales(); // Calcular totales iniciales
+            secondContainerFacturacion.addEventListener('input', () => calcularTotales(secondContainerFacturacion, tipo));
+            calcularTotales(secondContainerFacturacion, tipo); // Calcular totales iniciales
         }
     } else {
-        // Si las fechas no son válidas, mostrar mensaje inicial
-        secondContainer.innerHTML = '<p class="mensaje-inicial">Seleccione un rango de fechas para desplegar los meses.</p>';
+        // Mensaje inicial si las fechas no son válidas
+        secondContainerFacturacion.innerHTML = '<p class="mensaje-inicial">Seleccione un rango de fechas para desplegar los meses.</p>';
     }
 }
 
-function guardarValoresActuales() {
-    // Obtener todos los inputs proyectados y reales
-    const projectedInputs = secondContainer.querySelectorAll('.input-projected');
-    const realInputs = secondContainer.querySelectorAll('.input-real');
+function guardarValoresActuales(secondContainerFacturacion, valoresMeses, tipo) {
+    const projectedInputs = secondContainerFacturacion.querySelectorAll(`.input-projected-${tipo}`);
+    const realInputs = secondContainerFacturacion.querySelectorAll(`.input-real-${tipo}`);
 
     projectedInputs.forEach((input, index) => {
-        const mesNombre = secondContainer.querySelectorAll('.content-title-month span')[index].textContent;
+        const mesNombre = secondContainerFacturacion.querySelectorAll('.content-title-month span')[index].textContent;
         valoresMeses[mesNombre] = valoresMeses[mesNombre] || {};
-        valoresMeses[mesNombre].proyectada = input.value; // Guardar el valor proyectado
+        valoresMeses[mesNombre].proyectada = input.value; // Guardar valor proyectado
     });
 
     realInputs.forEach((input, index) => {
-        const mesNombre = secondContainer.querySelectorAll('.content-title-month span')[index].textContent;
+        const mesNombre = secondContainerFacturacion.querySelectorAll('.content-title-month span')[index].textContent;
         valoresMeses[mesNombre] = valoresMeses[mesNombre] || {};
-        valoresMeses[mesNombre].real = input.value; // Guardar el valor real
+        valoresMeses[mesNombre].real = input.value; // Guardar valor real
     });
 }
 
@@ -111,36 +120,31 @@ function obtenerMesesEnRango(fechaInicio, fechaFin) {
     const meses = [];
     const mesInicio = fechaInicio.getMonth();
     const anioInicio = fechaInicio.getFullYear();
-    const diaInicio = fechaInicio.getDate(); // Obtener el día de inicio
+    const diaInicio = fechaInicio.getDate();
     const mesFin = fechaFin.getMonth();
     const anioFin = fechaFin.getFullYear();
-    const diaFin = fechaFin.getDate(); // Obtener el día de fin
+    const diaFin = fechaFin.getDate();
 
     let anioActual = anioInicio;
     let mesActual = mesInicio;
-    let diaActual = diaInicio; // Día actual que se usará en el formateo
+    let diaActual = diaInicio;
 
     while (anioActual < anioFin || (anioActual === anioFin && mesActual <= mesFin)) {
-        // Formatear la fecha como 'dd-mmm'
         const fecha = new Date(anioActual, mesActual, diaActual);
-        const dia = fecha.getDate();
-        const mesAbreviado = fecha.toLocaleString('es-ES', { month: 'short' }); // Obtener el mes abreviado (ej. 'oct', 'ene')
-        const fechaFormateada = `${anioActual}-${mesAbreviado}`; // Formato 'mm-yyyy' usando el año correcto (anioActual)
+        const mesAbreviado = fecha.toLocaleString('es-ES', { month: 'short' });
+        const fechaFormateada = `${anioActual}-${mesAbreviado}`;
 
-        const mesFormateado = {
-            nombre: fechaFormateada, // Usamos la fecha formateada
-            anio: anioActual // Año correspondiente
-        };
-        meses.push(mesFormateado);
+        meses.push({
+            nombre: fechaFormateada,
+            anio: anioActual
+        });
 
-        // Saltar al siguiente mes
         mesActual++;
-        if (mesActual > 11) {  // Saltar al siguiente año
+        if (mesActual > 11) {
             mesActual = 0;
             anioActual++;
         }
 
-        // Usar el día de fin si es el último mes
         if (anioActual === anioFin && mesActual === mesFin) {
             diaActual = diaFin;
         }
@@ -149,11 +153,10 @@ function obtenerMesesEnRango(fechaInicio, fechaFin) {
     return meses;
 }
 
-// Función para calcular totales
-function calcularTotales() {
-    const projectedInputs = document.querySelectorAll('.input-projected');
-    const realInputs = document.querySelectorAll('.input-real');
-    const percentElements = document.querySelectorAll('.month-percent');
+function calcularTotales(secondContainerFacturacion, tipo) {
+    const projectedInputs = secondContainerFacturacion.querySelectorAll(`.input-projected-${tipo}`);
+    const realInputs = secondContainerFacturacion.querySelectorAll(`.input-real-${tipo}`);
+    const percentElements = secondContainerFacturacion.querySelectorAll(`.month-percent-${tipo}`);
 
     let totalProjected = 0;
     let totalReal = 0;
@@ -167,42 +170,20 @@ function calcularTotales() {
     });
 
     // Mostrar totales en formato de moneda COP
-    document.querySelector('.total-projected-value').textContent = totalProjected.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }); // Actualizar total proyectado
-    document.querySelector('.total-real-value').textContent = totalReal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' }); // Actualizar total real
+    document.querySelector(`.total-projected-value-${tipo}`).textContent = totalProjected.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+    document.querySelector(`.total-real-value-${tipo}`).textContent = totalReal.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
 
     // Calcular y mostrar porcentaje total
-    const percent = (totalProjected > 0) ? (totalReal / totalProjected) * 100 : 0; // Calcular porcentaje total
-    document.querySelector('.total-percent-value').textContent = percent > 0 ? percent.toFixed(0) + '%' : '0%'; // Actualizar porcentaje
+    const percent = (totalProjected > 0) ? (totalReal / totalProjected) * 100 : 0;
+    document.querySelector(`.total-percent-value-${tipo}`).textContent = percent > 0 ? percent.toFixed(0) + '%' : '0%';
 
     // Actualizar porcentajes individuales de cada mes
     percentElements.forEach((el, index) => {
         const projectedValue = parseFloat(projectedInputs[index].value) || 0;
         const realValue = parseFloat(realInputs[index].value) || 0;
-
-        const monthPercent = (projectedValue > 0) ? (realValue / projectedValue) * 100 : 0; // Calcular porcentaje mensual
-        el.textContent = monthPercent > 0 ? monthPercent.toFixed(0) + '%' : '0%'; // Actualizar porcentaje mensual
+        const percentIndividual = (projectedValue > 0) ? (realValue / projectedValue) * 100 : 0;
+        el.textContent = percentIndividual > 0 ? percentIndividual.toFixed(0) + '%' : '0%';
     });
-}
-
-// Función para limpiar los campos del formulario
-function limpiarFormulario() {
-    // Si tienes los inputs dentro de un form, puedes usar reset:
-    document.getElementById('form-proyecto').reset();
-    document.getElementById('form-facturacion').reset();
-
-    // O si no están dentro de un <form>, puedes limpiar los inputs manualmente
-    document.getElementById('nombre-proyecto').value = '';
-    document.getElementById('empresa').value = '';
-    document.getElementById('encargado').value = '';
-    document.getElementById('asignacion').value = '';
-    document.getElementById('estado').value = '';
-    document.getElementById('supervisor').value = '';
-    document.getElementById('fecha_inicio').value = '';
-    document.getElementById('fecha_fin').value = '';
-
-    // Limpiar las facturas generadas dinámicamente
-    secondContainer.innerHTML = '<p class="mensaje-inicial">Seleccione un rango de fechas para desplegar los meses.</p>';
-    thirdContainer.innerHTML = ''; // Limpiar el contenedor de totales
 }
 
 // ENVIO AL BACKEND
@@ -225,15 +206,28 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
     };
 
     // Obtener datos del segundo formulario (Facturación)
-    let facturacionData = Array.from(secondContainer.querySelectorAll('.factura')).map((factura, index) => {
-        const mes = secondContainer.querySelectorAll('.content-title-month span')[index].textContent; // Mes del título
-        const proyectada = secondContainer.querySelectorAll('.input-projected')[index].value; // Facturación proyectada
-        const real = secondContainer.querySelectorAll('.input-real')[index].value; // Facturación real
+    let facturacionData = Array.from(secondContainerFacturacion.querySelectorAll('.factura')).map((factura, index) => {
+        const mes = secondContainerFacturacion.querySelectorAll('.content-title-month span')[index].textContent; // Mes del título
+        const proyectada = secondContainerFacturacion.querySelectorAll('.input-projected-facturacion')[index].value; // Facturación proyectada
+        const real = secondContainerFacturacion.querySelectorAll('.input-real-facturacion')[index].value; // Facturación real
 
         return {
             mes, // Mes de facturación
             proyectada: proyectada || '', // Facturación proyectada
             real: real || '' // Facturación real
+        };
+    });
+
+    // Obtener datos del tercer formulario (Tiempos)
+    let tiemposData = Array.from(secondContainerTiempos.querySelectorAll('.factura')).map((factura, index) => {
+        const mes = secondContainerTiempos.querySelectorAll('.content-title-month span')[index].textContent; // Mes del título
+        const proyectada = secondContainerTiempos.querySelectorAll('.input-projected-tiempos')[index].value; // Tiempos proyectada
+        const real = secondContainerTiempos.querySelectorAll('.input-real-tiempos')[index].value; // Tiempos real
+
+        return {
+            mes, // Mes de tiempos
+            proyectada: proyectada || '', // Tiempos proyectada
+            real: real || '' // Tiempos real
         };
     });
 
@@ -246,7 +240,8 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
         },
         body: JSON.stringify({
             ...proyectoData,
-            facturacion: facturacionData // Agregar la facturación al request
+            facturacion: facturacionData, // Agregar la facturación al request
+            tiempos: tiemposData // Agregar los tiempos al request
         })
     })
     .then(response => {
@@ -263,7 +258,7 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
             confirmButtonText: 'OK'
         }).then(() => {
             limpiarFormulario(); // Llama a la función para limpiar los campos después de cerrar el modal
-        });;
+        });
     })
     .catch(error => {
         console.error('Error al enviar los datos:', error);
@@ -275,3 +270,4 @@ document.getElementById('guardar-btn').addEventListener('click', function(event)
         });
     });
 });
+
