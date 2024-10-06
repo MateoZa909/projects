@@ -1,5 +1,3 @@
-// facturacion.js
-
 document.addEventListener('DOMContentLoaded', function() {
     const guardarBtn = document.getElementById('guardar-btn');
     const fechaInicioInput = document.getElementById('fecha_inicio');
@@ -62,46 +60,36 @@ document.addEventListener('DOMContentLoaded', function() {
         actualizarTotales();
     }
 
-    function calcularTotal(input) {
-        const inputProyectado = input.closest('.content-inputs').querySelector('.input-projected');
-        const inputReal = input.closest('.content-inputs').querySelector('.input-real');
-        const spanPercent = input.closest('.content-inputs').nextElementSibling.querySelector('.month-percent');
-
-        const proyectado = parseFloat(inputProyectado.value) || 0; // Valor proyectado
-        const real = parseFloat(inputReal.value) || 0; // Valor real
-
-        // Calcular el porcentaje
-        const porcentajeCumplimiento = proyectado > 0 ? (real / proyectado) * 100 : 0;
-
-        // Actualizar el texto del porcentaje
-        spanPercent.textContent = porcentajeCumplimiento.toFixed(2) + '%';
-
-        // Actualizar totales (si es necesario)
-        actualizarTotales();
-    }
-
-    function actualizarTotales() {
-        let totalProyectado = 0;
+    // Función para calcular y mostrar los totales
+    window.calcularTotal = function(input) {
+        let totalProjected = 0;
         let totalReal = 0;
 
-        // Obtener todos los inputs de proyectados y reales
-        const inputsProyectados = document.querySelectorAll('.input-projected');
-        const inputsReales = document.querySelectorAll('.input-real');
+        // Obtener todos los inputs de tipo "number"
+        const inputsProjected = document.querySelectorAll('.input-projected');
+        const inputsReal = document.querySelectorAll('.input-real');
 
-        inputsProyectados.forEach(input => {
-            totalProyectado += parseFloat(input.value) || 0; // Sumar valores, considerando NaN como 0
+        // Sumar los valores de los inputs proyectados
+        inputsProjected.forEach(input => {
+            totalProjected += parseFloat(input.value) || 0; // Convertir a número y sumar
         });
 
-        inputsReales.forEach(input => {
-            totalReal += parseFloat(input.value) || 0; // Sumar valores, considerando NaN como 0
+        // Sumar los valores de los inputs reales
+        inputsReal.forEach(input => {
+            totalReal += parseFloat(input.value) || 0; // Convertir a número y sumar
         });
 
-        // Actualizar los valores totales en la interfaz
-        document.querySelector('.total-projected-value').textContent = totalProyectado;
-        document.querySelector('.total-real-value').textContent = totalReal;
+        // Actualizar los valores en los spans
+        document.querySelector('.total-projected-value').textContent = totalProjected.toFixed(2); // Formatear a 2 decimales
+        document.querySelector('.total-real-value').textContent = totalReal.toFixed(2); // Formatear a 2 decimales
 
-        // Calcular y actualizar el porcentaje de cumplimiento
-        const totalCumplimiento = totalProyectado > 0 ? (totalReal / totalProyectado) * 100 : 0;
-        document.querySelector('.total-percent-value').textContent = totalCumplimiento.toFixed(2) + '%';
+        // Calcular el porcentaje total (si deseas calcularlo)
+        const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(2) : 0;
+        document.querySelector('.total-percent-value').textContent = totalPercent + '%';
+    };
+
+    function actualizarTotales() {
+        // Llama a calcularTotal para asegurarte de que los totales están al día
+        calcularTotal();
     }
 });

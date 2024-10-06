@@ -9,6 +9,7 @@
 
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
 @endpush
 
 @section('content')
@@ -26,10 +27,36 @@
     <!-- Contenedor diligenciamiento de información proyecto -->
     <div class="form-fields">
             <!-- Primer Formulario -->
-            <x-detalles-proyecto :empresas="$empresas" :encargados="$encargados" :estados="$estados" />
+
+            <div class="accordion acordeon" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                        Paso 1
+                    </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+                        <div class="accordion-body">
+                            <x-detalles-proyecto :empresas="$empresas" :encargados="$encargados" :estados="$estados" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                        Paso 2
+                    </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
+                        <div class="accordion-body">
+                            <x-facturacion-table texto="Facturación" />
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- Componente de Facturación -->
-            <x-facturacion-table texto="Facturación" />
 
             <!-- Componente de Tiempos -->
             <!-- <div class="tiempos">

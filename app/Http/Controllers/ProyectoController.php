@@ -45,6 +45,10 @@ class ProyectoController extends Controller
                 'stf_ncode_supervisor' => 'required|integer',
                 'pro_dstart' => 'required|date',
                 'pro_dend' => 'required|date|after_or_equal:pro_dstart',
+                'facturacion' => 'required|array',
+                'facturacion.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
+                'facturacion.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
+                'facturacion.*.real' => 'nullable|numeric', // Real puede estar vacía
             ]);
 
             Log::info('Validación exitosa.', $request->all());
@@ -62,6 +66,16 @@ class ProyectoController extends Controller
                 'USER_ID_CREATED' => auth()->id(), // Aquí asignas el ID del usuario
             ]);
 
+            foreach ($request->facturacion as $factura) {
+                $billing = new ProBilling();
+                $billing->PRO_NCODE = $proyecto->PRO_NCODE; // Asegúrate de que esta propiedad existe
+                $billing->BIL_MONTH = $factura['mes']; // Usar el mes del input oculto
+                $billing->BIL_PROJECTED = $factura['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
+                $billing->BIL_REAL = $factura['real'] ?? 0; // Ajusta esto según la lógica que desees
+                $billing->BIL_DCREATED = now();
+                $billing->save();
+            }
+
             Log::info('Proyecto creado.', $proyecto->toArray());
 
             return response()->json(['project_id' => $proyecto->PRO_NCODE]);
@@ -74,6 +88,12 @@ class ProyectoController extends Controller
             ]);
             return response()->json(['error' => 'Error al guardar el proyecto.'], 500);
         }
+    }
+
+
+    public function storetwo()
+    {
+
     }
 
 
