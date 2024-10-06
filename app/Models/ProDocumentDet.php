@@ -22,7 +22,8 @@ class ProDocumentDet extends Model
     protected $fillable = [
         'DOCE_NCODE',
         'DOC_MONTH',
-        'DOC_QUANTITY'
+        'DOC_QUANTITY',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

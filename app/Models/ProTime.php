@@ -24,7 +24,8 @@ class ProTime extends Model
         'TIM_PROJECTED',
         'TIM_MONTH',
         'TIM_REAL',
-        'TIM_DCREATE'
+        'TIM_DCREATE',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

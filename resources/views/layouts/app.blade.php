@@ -91,7 +91,7 @@
             </div>
             <div id="layoutSidenav_content">
                 <main>
-                    <div class="container-fluid px-4">
+                    <div class="container-fluid px-4 bg-mine">
                         <section class="content">
                             @yield('content')
                         </section>
@@ -113,5 +113,7 @@
         <!-- Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
-    </body>
+</body>
+
+@stack('scripts') <!-- Aquí se agregará el contenido de los scripts de cada vista -->
 </html>

@@ -21,7 +21,8 @@ class ProDocumentEnc extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'PRO_NCODE',
-        'DOCE_CNAME'
+        'DOCE_CNAME',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

@@ -16,6 +16,10 @@
     clear: both;
 }
 
+.step {
+    padding: 10px 10px;
+}
+
 /* INFO RUTA */
 .info-route {
     padding: var(--padding-general);
@@ -24,6 +28,28 @@
     font-size: 12px;
 }
 
+/* Validacion erronea */
+.is-invalid {
+    border-color: red;
+}
+
+/* Boton guardar */
+.back-btn {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: end;
+    padding-right: 5px;
+}
+#guardar-btn {
+    width: 140px;
+    background-color: rgb(34, 34, 230);
+    color: white;
+    height: 30px;
+    border: none;
+    /* bottom: 20px; */
+    right: 20px;
+}
 /* CONTENEDOR FORM-FIELDS */
 .form-fields{
     /* background-color: rgb(171, 100, 100); */
@@ -33,16 +59,23 @@
     padding: 10px 3px;
     height: auto;
 }
+/* FORMULARIO */
+.form-detalles-proyecto {
+    position: relative;
+}
 .form-fields .proyecto-data {
-    background-color: rgb(238, 238, 238);
-    padding: 10px 5px;
+    background-color: rgb(250, 250, 250);
+    /* padding: 10px 5px; */
     width: 100%;
-    height: 300px;
+    height: 370px;
+}
+.step {
+    padding: 10px 10px;
+    font-family: var(--roboto);
 }
 .form-fields .content-one label,
 .form-fields .content-two label {
-    background-color: white;
-    border: 1px solid rgb(157, 157, 157);
+    background-color: rgb(43, 40, 40);
     border-radius: 5px;
     width: 100%;
     text-align: center;
@@ -50,6 +83,7 @@
     height: 35px;
     box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
     padding: 5px 0;
+    color: white;
 }
 .form-fields .content-one input,
 #estado,
@@ -79,7 +113,7 @@
 }
 
 /* BOTON FORMULARIO */
-.btn-save {
+.btn-proyecto {
     /* background-color: lightblue; */
     width: 100%;
     margin-top: 20px;
@@ -87,7 +121,7 @@
     justify-content: end;
     padding: 10px 10px;
 }
-.btn-save button {
+.btn-proyecto button {
     width: 170px;
     background-color: var(--blue);
     color: white;
@@ -96,7 +130,7 @@
     font-family: var(--roboto);
     box-shadow: 1px 5px 10px rgba(0, 0, 0, 0.2);
 }
-.btn-save button:active {
+.btn-proyecto button:active {
     transform: scale(.99);
 }
 

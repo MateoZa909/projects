@@ -22,7 +22,8 @@ class ProDeliverableDet extends Model
     protected $fillable = [
         'DELE_NCODE',
         'DEL_MONTH',
-        'DEL_QUANTITY'
+        'DEL_QUANTITY',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

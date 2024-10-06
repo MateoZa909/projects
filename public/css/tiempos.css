@@ -10,16 +10,28 @@
     --back-inputs: #f4f4f4;
 }
 
-.content-times {
+#back-black {
+    background-color: rgb(43, 40, 40);
+}
+
+.tiempos {
+    display: flex;
+    flex-direction: column;
+    /* background-color: lightcoral; */
+    background-color: var(--back-component);
+    height: 390px;
     margin-top: 20px;
-    background-color: rgb(238, 238, 238);
+}
+.content-times {
     padding: var(--padding-general);
     display: grid;
     grid-template-columns: 230px 790px 130px;
     gap: 30px;
-    margin-top: 20px;
-    height: 300px;
     position: relative;
+    margin-top: -20px;
+}
+.step {
+    padding: 10px 10px;
 }
 .content-times .first-container-tiempos {
     /* background-color: lightcyan; */
@@ -55,7 +67,7 @@
 }
 .content-times .first-container-tiempos .back-time:nth-child(3) {
     margin-top: 10px;
-    background-color: var(--color-thead);
+    background-color: rgb(43, 40, 40);
     border-radius: 7px;
     padding: 5px 5px;
     color: white;
@@ -162,7 +174,7 @@
     justify-content: space-between;
 }
 .content-times .back-total-tiempos {
-    background-color: var(--color-thead);
+    background-color: rgb(43, 40, 40);
     width: 100%;
     text-align: center;
     border-radius: 5px;
@@ -185,7 +197,8 @@
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
 .content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-percent-tiempos-tiempos {
+.content-times .total-inputs-tiempos .total-accumulated-tiempos,
+.content-times .total-percent-tiempos {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
@@ -193,9 +206,9 @@
     height: 30px;
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
+.content-times .total-inputs-tiempos .total-accumulated-tiempos,
 .content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-percent-tiempos-tiempos span {
+.content-times .total-percent-tiempos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
@@ -205,3 +218,7 @@
     box-sizing: border-box; /* Incluye padding y border en el tamaño total */
 }
 
+/* CONTENEDOR TEXT0 */
+.info-fill {
+    padding: var(--padding-general);
+}

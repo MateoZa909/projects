@@ -24,7 +24,7 @@ class ProBilling extends Model
         'BIL_MONTH',
         'BIL_PROJECTED',
         'BIL_REAL',
-        'BIL_DCREATED'
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

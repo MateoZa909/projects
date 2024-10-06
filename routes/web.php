@@ -45,6 +45,7 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
 // Controlador proyecto
 Route::middleware(['auth'])->group(function () {
     Route::get('/proyectos', [ProyectoController::class, 'index'])->name('projects.index');
+    Route::get('/proyectos/{id}', [ProyectoController::class, 'show'])->name('projects.show');
     Route::post('/proyectos', [ProyectoController::class, 'store'])->name('projects.store'); // Ruta para almacenar
 });
 

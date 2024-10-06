@@ -19,10 +19,12 @@ html, body {
     margin: 0;
 }
 
-.wrapper {
-    background: #b7b7b7; /* Color de fondo de la página */
+.bg-mine {
+    background-color: #d9d9d9;
 }
-
+#back-black {
+    background-color: rgb(43, 40, 40);
+}
 .title-main {
     color: white;
     font-size: 20px;
@@ -32,17 +34,14 @@ html, body {
     color: white;
     font-family: var(--roboto)
 }
-
 .brand-link {
     /* background-color: lightcoral; */
     margin-left: 50px;
 }
-
 .role {
     padding-top: 5px;
     margin-right: 15px;
 }
-
 .nav-link {
     gap: 5px;
     padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);

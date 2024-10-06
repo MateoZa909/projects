@@ -23,7 +23,8 @@ class ProCost extends Model
         'PRO_NCODE',
         'COS_PROJECTED',
         'COS_REAL',
-        'COS_DCREATED'
+        'COS_DCREATED',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

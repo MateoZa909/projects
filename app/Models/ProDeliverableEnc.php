@@ -22,11 +22,12 @@ class ProDeliverableEnc extends Model
     protected $fillable = [
         'PRO_NCODE',
         'DELE_CNAME',
-        'DELE_BUDGET'
+        'DELE_BUDGET',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental
-    protected $incrementing = true;
+    public $incrementing = true;
 
     // Tipo de la clave primaria
     protected $keyType = 'int';

@@ -21,7 +21,8 @@ class ProState extends Model
     // Define los atributos que se pueden asignar masivamente
     protected $fillable = [
         'STA_CNAME',
-        'STA_DCREATRE'
+        'STA_DCREATRE',
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

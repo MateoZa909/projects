@@ -45,15 +45,9 @@ class ProyectoController extends Controller
                 'stf_ncode_supervisor' => 'required|integer',
                 'pro_dstart' => 'required|date',
                 'pro_dend' => 'required|date|after_or_equal:pro_dstart',
-                'facturacion' => 'required|array',
-                'facturacion.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
-                'facturacion.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
-                'facturacion.*.real' => 'nullable|numeric', // Real puede estar vacía
-                'tiempos' => 'required|array', // Validación para los tiempos
-                'tiempos.*.mes' => 'required|string', // Asegúrate de que cada mes esté presente
-                'tiempos.*.proyectada' => 'nullable|numeric', // Proyectada puede estar vacía
-                'tiempos.*.real' => 'nullable|numeric', // Real puede estar vacía
             ]);
+
+            Log::info('Validación exitosa.', $request->all());
 
             // Crear un nuevo proyecto con los datos del formulario
             $proyecto = ProProject::create([
@@ -65,41 +59,23 @@ class ProyectoController extends Controller
                 'STF_NCODE_SUPERVISOR' => $request->stf_ncode_supervisor,
                 'PRO_DSTART' => $request->pro_dstart,
                 'PRO_DEND' => $request->pro_dend,
-                'PRO_DCREATED' => now(),
+                'USER_ID_CREATED' => auth()->id(), // Aquí asignas el ID del usuario
             ]);
 
-            // Guardar los datos de facturación
-            foreach ($request->facturacion as $factura) {
-                $billing = new ProBilling();
-                $billing->PRO_NCODE = $proyecto->PRO_NCODE; // Asegúrate de que esta propiedad existe
-                $billing->BIL_MONTH = $factura['mes']; // Usar el mes del input oculto
-                $billing->BIL_PROJECTED = $factura['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
-                $billing->BIL_REAL = $factura['real'] ?? 0; // Ajusta esto según la lógica que desees
-                $billing->BIL_DCREATED = now();
-                $billing->save();
-            }
+            Log::info('Proyecto creado.', $proyecto->toArray());
 
-            // Guardar los datos de tiempos
-            foreach ($request->tiempos as $tiempo) {
-                $time = new ProTime(); // Asegúrate de que el modelo ProTime esté correctamente importado
-                $time->PRO_NCODE = $proyecto->PRO_NCODE; // Referencia al proyecto
-                $time->TIM_MONTH = $tiempo['mes']; // Usar el mes del input
-                $time->TIM_PROJECTED = $tiempo['proyectada'] ?? 0; // Ajusta esto según la lógica que desees
-                $time->TIM_REAL = $tiempo['real'] ?? 0; // Ajusta esto según la lógica que desees
-                $time->TIM_DCREATE = now();
-                $time->save();
-            }
-
-            // Redirigir a la lista de proyectos con un mensaje de éxito
-            return response()->json(['message' => 'Proyecto creado con éxito.']);
+            return response()->json(['project_id' => $proyecto->PRO_NCODE]);
         } catch (\Exception $e) {
-            return response()->json([
-                'error' => $e->getMessage(),
+            Log::error('Error al guardar el proyecto', [
+                'message' => $e->getMessage(),
                 'line' => $e->getLine(),
                 'file' => $e->getFile(),
-                'trace' => $e->getTraceAsString()
-            ], 500);
+                'trace' => $e->getTraceAsString(),
+            ]);
+            return response()->json(['error' => 'Error al guardar el proyecto.'], 500);
         }
     }
+
+
 
 }
