@@ -1,20 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const guardarBtn = document.getElementById('guardar-btn');
-    const fechaInicioInput = document.getElementById('fecha_inicio');
-    const fechaFinInput = document.getElementById('fecha_fin');
+    const fechaInicioInput = document.getElementById('fecha_inicio'); // Input de fecha de inicio
+    const fechaFinInput = document.getElementById('fecha_fin'); // Input de fecha de fin
 
     // Escuchar cambios en los campos de fecha
     fechaInicioInput.addEventListener('change', generarTablas);
     fechaFinInput.addEventListener('change', generarTablas);
 
-    guardarBtn.addEventListener('click', function() {
-        // Lógica adicional al hacer clic en guardar (si es necesario)
-    });
-
     function generarTablas() {
         const fechaInicio = new Date(fechaInicioInput.value);
         const fechaFin = new Date(fechaFinInput.value);
-        const secondContainer = document.querySelector('.second-container');
+        const secondContainer = document.querySelector('.second-container-tiempos');
 
         // Limpiar el contenedor antes de agregar nuevas tablas
         secondContainer.innerHTML = '';
@@ -31,26 +26,24 @@ document.addEventListener('DOMContentLoaded', function() {
         let fechaActual = new Date(fechaInicio);
 
         while (fechaActual <= fechaFin) {
-            // Obtener el mes y el año desde la fecha actual
             const mesAbreviado = mesesAbreviados[fechaActual.getMonth()];
             const año = fechaActual.getFullYear();
 
-            // Crear el nuevo contenido siguiendo la estructura de la tabla
+            // Crear el nuevo contenido para tiempos
             const nuevoContenido = `
-                <div class="colu">
-                    <span class="mes-año">${mesAbreviado}-${año}</span>
+                <div class="colu-tiempos">
+                    <span class="mes-año-tiempos">${mesAbreviado}-${año}</span>
 
-                    <div class="inputs">
-                        <input type="number" class="input-projected" placeholder="$" oninput="calcularTotal(this)">
-                        <input type="number" class="input-acumulado" placeholder="$" oninput="calcularTotal(this)">
-                        <input type="number" class="input-real" placeholder="$" oninput="calcularTotal(this)">
+                    <div class="inputs-tiempos">
+                        <input type="number" class="input-projected-tiempos" placeholder="%" oninput="calcularTotalTiempos(this)">
+                        <input type="number" class="input-acumulado" placeholder="%" oninput="calcularTotalTiempos(this)">
+                        <input type="number" class="input-real-tiempos" placeholder="%" oninput="calcularTotalTiempos(this)">
                     </div>
 
-                    <span class="porcentaje month-percent">0%</span>
+                    <span class="porcentaje month-percent-tiempos">0%</span>
                 </div>
             `;
 
-            // Insertar el nuevo contenido en el secondContainer
             secondContainer.insertAdjacentHTML('beforeend', nuevoContenido);
 
             // Avanzar al siguiente mes
@@ -58,89 +51,46 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Llamar a actualizarTotales para asegurarse de que los totales están al día
-        actualizarTotales();
+        actualizarTotalesTiempos();
     }
 
-    // Función para calcular y mostrar los totales
-    window.calcularTotal = function(input) {
+    // Función para calcular y mostrar los totales para tiempos
+    window.calcularTotalTiempos = function(input) {
         let totalProjected = 0;
+        let totalAccumulated = 0;
         let totalReal = 0;
 
-        // Obtener todos los inputs de tipo "number"
-        const inputsProjected = document.querySelectorAll('.input-projected');
-        const inputsReal = document.querySelectorAll('.input-real');
+        const inputsProjected = document.querySelectorAll('.input-projected-tiempos');
+        const inputsAccumulated = document.querySelectorAll('.input-acumulado');
+        const inputsReal = document.querySelectorAll('.input-real-tiempos');
+        const monthPercentElements = document.querySelectorAll('.month-percent-tiempos');
 
-        // Sumar los valores de los inputs proyectados
-        inputsProjected.forEach(input => {
-            totalProjected += parseFloat(input.value) || 0; // Convertir a número y sumar
+        // Sumar los valores y calcular porcentaje por mes
+        inputsProjected.forEach((inputProjected, index) => {
+            const projectedValue = parseFloat(inputProjected.value) || 0;
+            const accumulatedValue = parseFloat(inputsAccumulated[index].value) || 0;
+            const realValue = parseFloat(inputsReal[index].value) || 0;
+
+            totalProjected += projectedValue;
+            totalAccumulated += accumulatedValue;
+            totalReal += realValue;
+
+            const monthPercent = projectedValue !== 0 ? ((realValue / projectedValue) * 100).toFixed(2) : 0;
+            monthPercentElements[index].textContent = monthPercent + '%';
         });
 
-        // Sumar los valores de los inputs reales
-        inputsReal.forEach(input => {
-            totalReal += parseFloat(input.value) || 0; // Convertir a número y sumar
-        });
+        // Actualizar los valores en los spans de totales generales
+        document.querySelector('.total-projected-value-tiempos').textContent = totalProjected.toFixed(2);
+        document.querySelector('.total-accumulated-value-tiempos').textContent = totalAccumulated.toFixed(2); // Actualizar acumulado
+        document.querySelector('.total-real-value-tiempos').textContent = totalReal.toFixed(2);
 
-        // Actualizar los valores en los spans
-        document.querySelector('.total-projected-value').textContent = totalProjected.toFixed(2); // Formatear a 2 decimales
-        document.querySelector('.total-real-value').textContent = totalReal.toFixed(2); // Formatear a 2 decimales
-
-        // Calcular el porcentaje total (si deseas calcularlo)
+        // Calcular el porcentaje total (general)
         const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(2) : 0;
-        document.querySelector('.total-percent-value').textContent = totalPercent + '%';
+        document.querySelector('.total-percent-value-tiempos').textContent = totalPercent + '%';
     };
 
-    function actualizarTotales() {
-        // Llama a calcularTotal para asegurarte de que los totales están al día
-        calcularTotal();
+    function actualizarTotalesTiempos() {
+        // Llama a calcularTotalTiempos para asegurarte de que los totales están al día
+        calcularTotalTiempos();
     }
 });
-
-$(document).ready(function() {
-    $('#guardar-btn').on('click', function(event) {
-        event.preventDefault(); // Evita el envío del formulario por defecto
-
-        // Array para almacenar los datos de facturación
-        let facturacionData = [];
-
-        // Recoger los valores de los inputs de facturación
-        $('.inputs').each(function() {
-            const projected = $(this).find('.input-projected').val();
-            const real = $(this).find('.input-real').val();
-            const month = 'nombre_del_mes'; // Define cómo obtendrás el mes correspondiente
-
-            // Agregar los datos a la array
-            facturacionData.push({
-                mes: month,
-                proyectada: projected,
-                real: real
-            });
-        });
-
-        // Enviar los datos al servidor
-        $.ajax({
-            url: '#project-facturacion-form'.replace(':projectId', $('#project_id').val()),
-            type: 'POST',
-            data: {
-                facturacion: facturacionData,
-                _token: '{{ csrf_token() }}'
-            },
-            success: function(response) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Éxito',
-                    text: 'La facturación se ha guardado correctamente.',
-                });
-            },
-            error: function(xhr) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: 'Hubo un problema al guardar la facturación.',
-                });
-            }
-        });
-    });
-});
-
-
-

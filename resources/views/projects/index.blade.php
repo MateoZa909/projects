@@ -126,7 +126,7 @@
 
     <script src="{{ asset('js/detalles-proyecto.js') }}"></script>
     <script src="{{ asset('js/facturacion.js') }}"></script>
-    <!-- <script src="{{ asset('js/tiempos.js') }}"></script> -->
+    <script src="{{ asset('js/tiempos.js') }}"></script>
 
 @endsection
 

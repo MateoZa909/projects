@@ -39,6 +39,7 @@
     justify-content: space-between;
     height: 150px;
     gap: 10px;
+    margin-top: -20px;
 }
 .content-times .first-container-tiempos .back-time {
     /* background-color: lightcoral; */
@@ -91,7 +92,7 @@
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
 
-.second-container-tiempos .colu {
+.second-container-tiempos .colu-tiempos {
     flex: 0 0 150px; /* Establece un ancho base para cada columna. */
     margin-top: 12px;
     height: auto;
@@ -102,11 +103,11 @@
     align-items: center;
     gap: 20px;
 }
-.second-container-tiempos .colu:nth-child(n) {
+.second-container-tiempos .colu-tiempos:nth-child(n) {
     max-width: 150px; /* Ancho máximo */
     overflow: hidden; /* Oculta el desbordamiento */
 }
-.second-container-tiempos .inputs input {
+.second-container-tiempos .inputs-tiempos input {
     position: relative; /* Necesario para posicionar los pseudo-elementos */
     width: 100%;
     background-color: var(--gris-content);
@@ -114,7 +115,7 @@
     text-align: center;
     text-align: right; /* Alinear texto a la izquierda */
 }
-.second-container-tiempos .inputs input::before  {
+.second-container-tiempos .inputs-tiempos input::before  {
     content: '$'; /* Signo de dólar */
     width: 30px;
     position: absolute; /* Posición absoluta */
@@ -124,12 +125,12 @@
     color: #999; /* Color del signo */
     pointer-events: none; /* Asegurarse de que no interfiera con el input */
 }
-.second-container-tiempos .inputs input::placeholder {
+.second-container-tiempos .inputs-tiempos input::placeholder {
     text-align: start;
     color: #999; /* Color del placeholder (ajustar si es necesario) */
     opacity: 1; /* Asegurarse de que el placeholder no se vuelva transparente */
 }
-.second-container-tiempos .colu span {
+.second-container-tiempos .colu-tiempos span {
     width: 100%;
     text-overflow: ellipsis;
     font-size: 12px;
@@ -141,7 +142,7 @@
     text-align: center;
     white-space: nowrap; /* El texto no se va a ajustar a otra línea */
 }
-.second-container-tiempos .colu .porcentaje {
+.second-container-tiempos .colu-tiempos .porcentaje {
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
@@ -183,7 +184,7 @@
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
 .content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-inputs-tiempos .total-acumulado,
+.content-times .total-inputs-tiempos .total-accumulated-tiempos,
 .content-times .total-percent-tiempos {
     /* width: 80px; */
     background-color: var(--gris-content);
@@ -192,7 +193,7 @@
     height: 30px;
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
-.content-times .total-inputs-tiempos .total-acumulado,
+.content-times .total-inputs-tiempos .total-accumulated-tiempos,
 .content-times .total-inputs-tiempos .total-real-tiempos,
 .content-times .total-percent-tiempos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */

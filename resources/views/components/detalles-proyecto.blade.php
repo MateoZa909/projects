@@ -14,7 +14,7 @@
 
     <form id="project-details-form" action="{{ route('projects.store') }}" method="POST">
         @csrf
-        <input type="hidden" name="project_id" id="project_id"> <!-- ID del proyecto -->
+        <!-- <input type="hidden" name="project_id" id="project_id">  -->
             <div class="row g-3">
                 <div class="col-md-6 content-one"> <!-- Primer columna -->
                     <div class="content-one">
