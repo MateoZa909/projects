@@ -51,9 +51,9 @@
             </div>
         </div>
 
-        <div class="back-btn-two">
+        <!-- <div class="back-btn-two">
             <button type="button" id="guardar-btn-two">Guardar</button>
-        </div>
+        </div> -->
     </form>
 </div>
 

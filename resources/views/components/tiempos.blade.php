@@ -7,53 +7,51 @@
 @endpush
 
 <div class="tiempos">
-                <p class="step"><strong>Paso 3:</strong></p>
-                <div class="info-fill"> <!-- Contenedor texto -->
-                <p>Por favor agregar los campos necesarios relacionados con tiempos y diligencie los campos base:</p>
-                <div class="content-times">
-                    <div class="first-container-tiempos">
-                        <div class="back-time tiempos">
-                            <span>Tiempos</span>
-                        </div>
+    <p class="step"><strong>Paso 3:</strong></p>
+    <div class="info-fill"> <!-- Contenedor texto -->
+    <p>Por favor agregar los campos necesarios relacionados con tiempos y diligencie los campos base:</p>
 
-                        <div class="back-time proyectada-real-tiempos">
-                            <span>Proyectada</span>
-                            <span>Acumulado</span>
-                            <span>Real</span>
-                        </div>
-
-                        <div class="back-time cumplimiento-tiempos">
-                            <span>% Cumplimiento</span>
-                        </div>
-                    </div>
-
-                    <div class="container-overflow-tiempos">
-                        <div class="second-container-tiempos">
-
-                        </div>
-                    </div>
-
-                    <div class="third-container-tiempos">
-                        <div class="back-total-tiempos">Total</div>
-                        <div class="total-inputs-tiempos">
-                            <div class="total-projected-tiempos">
-                                <span class="total-projected-value-tiempos">0</span> <!-- Mostrar total proyectado -->
-                            </div>
-                            <div class="total-accumulated-tiempos">
-                                <span class="total-accumulated-value-tiempos">0</span> <!-- Mostrar total proyectado -->
-                            </div>
-                            <div class="total-real-tiempos">
-                                <span class="total-real-value-tiempos">0</span> <!-- Mostrar total real -->
-                            </div>
-                        </div>
-                        <div class="total-percent-tiempos">
-                            <span class="total-percent-value-tiempos">0</span> % <!-- Mostrar porcentaje -->
-                        </div>
-                    </div>
-                </div>
+    <div class="content-times">
+        <div class="first-container-tiempos">
+            <div class="back-time tiempos">
+                <span>Tiempos</span>
             </div>
 
-<script src="{{ asset('js/tiempos.js') }}"></script>
+            <div class="back-time proyectada-real-tiempos">
+                <span>Proyectada</span>
+                <span>Acumulado</span>
+                <span>Real</span>
+            </div>
+
+            <div class="back-time cumplimiento-tiempos">
+                <span>% Cumplimiento</span>
+            </div>
+        </div>
+
+        <div class="second-container-tiempos">
+            <!-- Generación dinámica -->
+        </div>
+
+        <div class="third-container-tiempos">
+            <div class="back-total-tiempos">Total</div>
+            <div class="total-inputs-tiempos">
+                <div class="total-projected-tiempos">
+                    <span class="total-projected-value-tiempos">0</span>
+                </div>
+                <div class="total-accumulated-tiempos">
+                    <span class="total-accumulated-value-tiempos">0</span>
+                </div>
+                <div class="total-real-tiempos">
+                    <span class="total-real-value-tiempos">0</span>
+                </div>
+            </div>
+            <div class="total-percent-tiempos">
+                <span class="total-percent-value-tiempos">0</span>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

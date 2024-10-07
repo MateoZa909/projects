@@ -25,10 +25,8 @@
 .content-times {
     padding: var(--padding-general);
     display: grid;
-    grid-template-columns: 230px 790px 130px;
+    grid-template-columns: 1fr 4fr 110px;
     gap: 30px;
-    position: relative;
-    margin-top: -20px;
 }
 .step {
     padding: 10px 10px;
@@ -75,91 +73,79 @@
 }
 
 /* SECOND CONTAINER */
-.container-overflow-tiempos {
-    width: 100%; /* Ajusta según el tamaño deseado */
-    overflow-x: auto; /* Desplazamiento horizontal */
-    white-space: nowrap; /* Evita que el contenido baje a la siguiente línea */
-    /* background-color: rgb(128, 212, 240); */
-    height: 195px;
+.second-container-tiempos {
+    width: 100%;
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    padding-top: 5px;
-
-    box-shadow: inset -10px 0 10px -5px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    /* background-color: lightcoral; */
 }
-/* Estilo para el scrollbar (solo para navegadores webkit) */
-.container-overflow-tiempos::-webkit-scrollbar {
+.second-container-tiempos::-webkit-scrollbar {
     width: 12px; /* Ancho del scrollbar */
     height: 8px; /* Altura del scrollbar */
 }
-.container-overflow-tiempos::-webkit-scrollbar-thumb {
+.second-container-tiempos::-webkit-scrollbar-thumb {
     background-color: #888; /* Color del thumb del scrollbar */
     border-radius: 10px; /* Bordes redondeados del thumb */
 }
-.container-overflow-tiempos::-webkit-scrollbar-thumb:hover {
+.second-container-tiempos::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
-.content-times .second-container-tiempos {
-    /* background-color: rgb(128, 212, 240); */
+
+.second-container-tiempos .colu {
+    flex: 0 0 150px; /* Establece un ancho base para cada columna. */
+    margin-top: 12px;
+    height: auto;
+    padding: 5px 3px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    margin-top: 10px;
-    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
 }
-.content-times .second-container-tiempos .content-title-month {
-    /* background-color: lightcoral; */
+.second-container-tiempos .colu:nth-child(n) {
+    max-width: 150px; /* Ancho máximo */
+    overflow: hidden; /* Oculta el desbordamiento */
+}
+.second-container-tiempos .inputs input {
+    position: relative; /* Necesario para posicionar los pseudo-elementos */
     width: 100%;
-    padding: 4px 5px;
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    position: relative;
-}
-.content-times .second-container-tiempos .content-title-month span {
-    background-color: var(--color-thead);
-    width: 150px;
-    text-align: center;
-    border-radius: 5px;
-    color: white;
-    font-size: 12px;
-    word-wrap: break-word;
-}
-.content-times .second-container-tiempos .content-inputs {
-    width: 100%;
-    margin-top: 5px;
-    padding: 4px 5px;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-}
-.content-times .second-container-tiempos .content-inputs .content {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-}
-.content-times .second-container-tiempos .content-inputs input {
-    flex-grow: 1;
-    width: 80px;
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
-    text-align: end;
-}
-.content-times .second-container-tiempos .percent {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin-bottom: 5px;
-    padding: 4px 5px;
-}
-.content-times .second-container-tiempos .percent span {
-    background-color: var(--gris-content);
     text-align: center;
+    text-align: right; /* Alinear texto a la izquierda */
+}
+.second-container-tiempos .inputs input::before  {
+    content: '$'; /* Signo de dólar */
+    width: 30px;
+    position: absolute; /* Posición absoluta */
+    left: 5px; /* Espaciado desde el borde izquierdo */
+    top: 50%; /* Centrado verticalmente */
+    transform: translateY(-50%); /* Ajustar el centrado */
+    color: #999; /* Color del signo */
+    pointer-events: none; /* Asegurarse de que no interfiera con el input */
+}
+.second-container-tiempos .inputs input::placeholder {
+    text-align: start;
+    color: #999; /* Color del placeholder (ajustar si es necesario) */
+    opacity: 1; /* Asegurarse de que el placeholder no se vuelva transparente */
+}
+.second-container-tiempos .colu span {
+    width: 100%;
+    text-overflow: ellipsis;
     font-size: 12px;
-    border: 1px solid rgb(159, 159, 159);
+    background-color: rgb(43, 40, 40);
+    border-radius: 7px;
+    padding: 3px 5px;
+    color: white;
+    font-family: var(--roboto);
+    text-align: center;
+    white-space: nowrap; /* El texto no se va a ajustar a otra línea */
+}
+.second-container-tiempos .colu .porcentaje {
+    background-color: var(--gris-content);
+    border: 1px solid rgb(158, 155, 155);
+    text-align: center;
     color: black;
-    flex-grow: 1;
 }
 
 /* third-container-tiempos */
@@ -197,7 +183,7 @@
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
 .content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-inputs-tiempos .total-accumulated-tiempos,
+.content-times .total-inputs-tiempos .total-acumulado,
 .content-times .total-percent-tiempos {
     /* width: 80px; */
     background-color: var(--gris-content);
@@ -206,7 +192,7 @@
     height: 30px;
 }
 .content-times .total-inputs-tiempos .total-projected-tiempos,
-.content-times .total-inputs-tiempos .total-accumulated-tiempos,
+.content-times .total-inputs-tiempos .total-acumulado,
 .content-times .total-inputs-tiempos .total-real-tiempos,
 .content-times .total-percent-tiempos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */

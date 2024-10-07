@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <div class="inputs">
                         <input type="number" class="input-projected" placeholder="$" oninput="calcularTotal(this)">
+                        <input type="number" class="input-acumulado" placeholder="$" oninput="calcularTotal(this)">
                         <input type="number" class="input-real" placeholder="$" oninput="calcularTotal(this)">
                     </div>
 

@@ -78,9 +78,9 @@
                     </div>
                 </div>
             </div>
-            <div class="back-btn">
+            <!-- <div class="back-btn">
                 <button type="button" id="guardar-btn">Guardar</button>
-            </div>
+            </div> -->
     </form>
 </div>
 

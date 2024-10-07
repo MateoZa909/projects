@@ -1,15 +1,10 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const guardarBtn = document.getElementById('guardar-btn');
     const fechaInicioInput = document.getElementById('fecha_inicio');
     const fechaFinInput = document.getElementById('fecha_fin');
 
     // Escuchar cambios en los campos de fecha
     fechaInicioInput.addEventListener('change', generarTablas);
     fechaFinInput.addEventListener('change', generarTablas);
-
-    guardarBtn.addEventListener('click', function() {
-        // Lógica adicional al hacer clic en guardar (si es necesario)
-    });
 
     function generarTablas() {
         const fechaInicio = new Date(fechaInicioInput.value);
@@ -68,25 +63,34 @@ document.addEventListener('DOMContentLoaded', function() {
         // Obtener todos los inputs de tipo "number"
         const inputsProjected = document.querySelectorAll('.input-projected');
         const inputsReal = document.querySelectorAll('.input-real');
+        const monthPercentElements = document.querySelectorAll('.month-percent'); // Obtener todos los spans de porcentaje mensual
 
-        // Sumar los valores de los inputs proyectados
-        inputsProjected.forEach(input => {
-            totalProjected += parseFloat(input.value) || 0; // Convertir a número y sumar
+        // Sumar los valores de los inputs proyectados y reales, y calcular porcentaje por mes
+        inputsProjected.forEach((inputProjected, index) => {
+            const projectedValue = parseFloat(inputProjected.value) || 0;
+            const realValue = parseFloat(inputsReal[index].value) || 0;
+
+            // Actualizar los totales proyectados y reales
+            totalProjected += projectedValue;
+            totalReal += realValue;
+
+            // Calcular el porcentaje para cada mes
+            const monthPercent = projectedValue !== 0 ? ((realValue / projectedValue) * 100).toFixed(2) : 0;
+            monthPercentElements[index].textContent = monthPercent + '%'; // Actualizar el span de porcentaje mensual
         });
 
-        // Sumar los valores de los inputs reales
-        inputsReal.forEach(input => {
-            totalReal += parseFloat(input.value) || 0; // Convertir a número y sumar
-        });
+        // Actualizar los valores en los spans de totales generales
+        document.querySelector('.total-projected-value').textContent = formatCurrency(totalProjected); // Formatear a pesos colombianos
+        document.querySelector('.total-real-value').textContent = formatCurrency(totalReal); // Formatear a pesos colombianos
 
-        // Actualizar los valores en los spans
-        document.querySelector('.total-projected-value').textContent = totalProjected.toFixed(2); // Formatear a 2 decimales
-        document.querySelector('.total-real-value').textContent = totalReal.toFixed(2); // Formatear a 2 decimales
-
-        // Calcular el porcentaje total (si deseas calcularlo)
+        // Calcular el porcentaje total (general)
         const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(2) : 0;
         document.querySelector('.total-percent-value').textContent = totalPercent + '%';
     };
+
+    function formatCurrency(value) {
+        return value.toLocaleString('es-CO', { style: 'currency', currency: 'COP' });
+    }
 
     function actualizarTotales() {
         // Llama a calcularTotal para asegurarte de que los totales están al día
