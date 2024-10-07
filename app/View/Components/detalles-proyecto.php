@@ -4,7 +4,7 @@ namespace App\View\Components;
 
 use Illuminate\View\Component;
 
-class detalles-proyecto extends Component
+class detallesroyecto extends Component
 {
     /**
      * Create a new component instance.

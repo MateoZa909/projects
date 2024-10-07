@@ -29,7 +29,7 @@
             <!-- Primer Formulario -->
 
             <div class="accordion acordeon" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
+                <div class="accordion-item"> <!-- Primer formulario -->
                     <h2 class="accordion-header" id="panelsStayOpen-headingOne">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
                         Paso 1
@@ -42,7 +42,7 @@
                     </div>
                 </div>
 
-                <div class="accordion-item">
+                <div class="accordion-item"> <!-- Segundo formulario -->
                     <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
                         Paso 2
@@ -51,6 +51,19 @@
                     <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
                         <div class="accordion-body">
                             <x-facturacion-table texto="Facturación" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item"> <!-- Segundo formulario -->
+                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
+                        Paso 3
+                    </button>
+                    </h2>
+                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
+                        <div class="accordion-body">
+                            <x-tiempos />
                         </div>
                     </div>
                 </div>

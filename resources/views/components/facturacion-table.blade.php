@@ -52,7 +52,7 @@
         </div>
 
         <div class="back-btn-two">
-            <button type="button" id="guardar-btn">Guardar</button>
+            <button type="button" id="guardar-btn-two">Guardar</button>
         </div>
     </form>
 </div>

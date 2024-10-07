@@ -93,3 +93,52 @@ document.addEventListener('DOMContentLoaded', function() {
         calcularTotal();
     }
 });
+
+$(document).ready(function() {
+    $('#guardar-btn').on('click', function(event) {
+        event.preventDefault(); // Evita el envío del formulario por defecto
+
+        // Array para almacenar los datos de facturación
+        let facturacionData = [];
+
+        // Recoger los valores de los inputs de facturación
+        $('.inputs').each(function() {
+            const projected = $(this).find('.input-projected').val();
+            const real = $(this).find('.input-real').val();
+            const month = 'nombre_del_mes'; // Define cómo obtendrás el mes correspondiente
+
+            // Agregar los datos a la array
+            facturacionData.push({
+                mes: month,
+                proyectada: projected,
+                real: real
+            });
+        });
+
+        // Enviar los datos al servidor
+        $.ajax({
+            url: '#project-facturacion-form'.replace(':projectId', $('#project_id').val()),
+            type: 'POST',
+            data: {
+                facturacion: facturacionData,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Éxito',
+                    text: 'La facturación se ha guardado correctamente.',
+                });
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Hubo un problema al guardar la facturación.',
+                });
+            }
+        });
+    });
+});
+
+

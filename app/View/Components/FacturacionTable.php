@@ -12,7 +12,7 @@ class FacturacionTable extends Component
     public function __construct($texto = 'Facturación', $paso = 'Paso 2:')
     {
         $this->texto = $texto;
-        $this->paso = $paso; 
+        $this->paso = $paso;
     }
 
     public function render()
