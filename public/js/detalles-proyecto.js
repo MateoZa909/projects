@@ -12,32 +12,43 @@ $(document).ready(function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                // Si el usuario confirma, preparamos los datos
-                let formData = $('#project-details-form').serializeArray(); // Serializamos los datos del formulario
-                let facturacionData = []; // Array para los datos de facturación
+                // Crear un FormData para manejar correctamente los archivos y datos del formulario
+                let formData = new FormData(document.getElementById('project-details-form')); // Creamos un FormData del formulario principal
+
+                // Inicializa el array para almacenar los datos de facturación
+                let facturacionData = [];
 
                 // Recoger datos de facturación del DOM
-                $('.second-container .colu').each(function () {
-                    const bil_month = $(this).find('span[name="bil_month"]').text(); // Obtener el mes
-                    const bil_projected = $(this).find('.input-projected').val(); // Obtener el valor proyectado
-                    const bil_real = $(this).find('.input-real').val(); // Obtener el valor real
+                $('.second-container .colu').each(function (index) {
+                    // Aquí estamos capturando el mes y el año de cada fila
+                    const bil_month = $(this).find('span.mes-año').text();
+                    const bil_projected = $(this).find('.input-projected').val();
+                    const bil_real = $(this).find('.input-real').val();
+
+                    console.log(`Mes-Año: ${bil_month}, Proyectado: ${bil_projected}, Real: ${bil_real}`);
 
                     // Agregar los datos al array de facturación
                     facturacionData.push({
                         bil_month: bil_month,
-                        bil_projected: bil_projected,
-                        bil_real: bil_real,
+                        bil_projected: bil_projected || 0, // Evitar valores vacíos
+                        bil_real: bil_real || 0 // Evitar valores vacíos
                     });
+
+                    // También agregamos estos valores al formData
+                    formData.append(`facturacion[${index}][bil_month]`, bil_month);
+                    formData.append(`facturacion[${index}][bil_projected]`, bil_projected || 0);
+                    formData.append(`facturacion[${index}][bil_real]`, bil_real || 0);
                 });
 
-                // Agregar los datos de facturación al formData
-                formData.push({ name: 'facturacion', value: JSON.stringify(facturacionData) });
+                console.log('Datos de facturación listos para enviar:', facturacionData);
 
-                // Enviar la solicitud AJAX
+                // Enviar la solicitud AJAX con FormData
                 $.ajax({
                     url: "/proyectos", // Ruta donde se envían los datos
                     method: "POST",
                     data: formData,
+                    processData: false,  // Necesario para enviar FormData correctamente
+                    contentType: false,  // Necesario para enviar FormData correctamente
                     success: function (response) {
                         // Mostrar mensaje de éxito
                         Swal.fire({

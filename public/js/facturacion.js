@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Asegurarse de que la fecha de inicio sea anterior a la de fin
         if (fechaInicio > fechaFin) {
+            alert("La fecha de inicio no puede ser mayor que la fecha de fin.");
             return; // O puedes manejar el error aquí
         }
 
@@ -35,22 +36,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Crear el nuevo contenido siguiendo la estructura de la tabla
             const nuevoContenido = `
-                     <div class="colu">
-                        <span class="mes-año">${mesAbreviado}-${año}</span>
-                        <div class="inputs">
-                            <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}">
-                            <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected" placeholder="$" oninput="calcularTotal(this)">
-                            <input type="number" name="facturacion[${index}][bil_real]" class="input-real" placeholder="$" oninput="calcularTotal(this)">
-                        </div>
-                        <span class="porcentaje month-percent">0%</span>
+                <div class="colu">
+                    <span class="mes-año">${mesAbreviado}-${año}</span>
+                    <div class="inputs">
+                        <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}">
+                        <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected" placeholder="$" oninput="calcularTotal()">
+                        <input type="number" name="facturacion[${index}][bil_real]" class="input-real" placeholder="$" oninput="calcularTotal()">
                     </div>
-                `;
+                    <span class="porcentaje month-percent">0%</span>
+                </div>
+            `;
 
             // Insertar el nuevo contenido en el secondContainer
             secondContainer.insertAdjacentHTML('beforeend', nuevoContenido);
 
             // Avanzar al siguiente mes
             fechaActual.setMonth(fechaActual.getMonth() + 1);
+            index++; // Asegurarse de que el índice avanza correctamente
         }
 
         // Llamar a actualizarTotales para asegurarse de que los totales están al día
@@ -58,7 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para calcular y mostrar los totales
-    window.calcularTotal = function(input) {
+    window.calcularTotal = function() {
         let totalProjected = 0;
         let totalReal = 0;
 

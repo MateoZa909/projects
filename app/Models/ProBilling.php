@@ -21,6 +21,7 @@ class ProBilling extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'PRO_NCODE',
+        'BIL_YYYYMM',
         'BIL_MONTH',
         'BIL_PROJECTED',
         'BIL_REAL',
