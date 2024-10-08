@@ -3,10 +3,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const fechaFinInput = document.getElementById('fecha_fin'); // Input de fecha de fin
 
     // Escuchar cambios en los campos de fecha
-    fechaInicioInput.addEventListener('change', generarTablas);
-    fechaFinInput.addEventListener('change', generarTablas);
+    fechaInicioInput.addEventListener('change', generarTablasTiempos);
+    fechaFinInput.addEventListener('change', generarTablasTiempos);
 
-    function generarTablas() {
+    function generarTablasTiempos() {
         const fechaInicio = new Date(fechaInicioInput.value);
         const fechaFin = new Date(fechaFinInput.value);
         const secondContainer = document.querySelector('.second-container-tiempos');
@@ -32,12 +32,12 @@ document.addEventListener('DOMContentLoaded', function() {
             // Crear el nuevo contenido para tiempos
             const nuevoContenido = `
                 <div class="colu-tiempos">
-                    <span class="mes-año-tiempos">${mesAbreviado}-${año}</span>
+                    <span class="mes-año-tiempos" name="tim_month" value="{{ old('bil_month') }}">${mesAbreviado}-${año}</span>
 
                     <div class="inputs-tiempos">
-                        <input type="number" class="input-projected-tiempos" placeholder="%" oninput="calcularTotalTiempos(this)">
+                        <input type="number" class="input-projected-tiempos" name="tim_projected" value="{{ old('bil_month') }}" placeholder="%" oninput="calcularTotalTiempos(this)">
                         <input type="number" class="input-acumulado" placeholder="%" oninput="calcularTotalTiempos(this)">
-                        <input type="number" class="input-real-tiempos" placeholder="%" oninput="calcularTotalTiempos(this)">
+                        <input type="number" class="input-real-tiempos" name="tim_real" value="{{ old('bil_month') }}" placeholder="%" oninput="calcularTotalTiempos(this)">
                     </div>
 
                     <span class="porcentaje month-percent-tiempos">0%</span>
@@ -80,9 +80,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Actualizar los valores en los spans de totales generales
-        document.querySelector('.total-projected-value-tiempos').textContent = totalProjected.toFixed(2);
-        document.querySelector('.total-accumulated-value-tiempos').textContent = totalAccumulated.toFixed(2); // Actualizar acumulado
-        document.querySelector('.total-real-value-tiempos').textContent = totalReal.toFixed(2);
+        document.querySelector('.total-projected-value-tiempos').textContent = totalProjected.toFixed(0) + '%';
+        document.querySelector('.total-accumulated-value-tiempos').textContent = totalAccumulated.toFixed(0) + '%'; // Actualizar acumulado
+        document.querySelector('.total-real-value-tiempos').textContent = totalReal.toFixed(0) + '%';
 
         // Calcular el porcentaje total (general)
         const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(2) : 0;

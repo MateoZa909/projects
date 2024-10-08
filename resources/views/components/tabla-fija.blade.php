@@ -1,5 +1,3 @@
-@props(['texto' => 'Facturación', 'paso' => 'Paso :2'])
-
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/facturacion-table.css') }}">
     <!-- SweetAlert2 CSS -->
@@ -10,15 +8,13 @@
 <div class="billing">
     <p class="step"><strong>{{ $paso }}</strong></p>
     <div class="info-fill"> <!-- Contenedor texto -->
-        <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
+        <p>{{ $textoPaso }}</p>
     </div>
 
-    <form id="project-facturacion-form" action="{{ route('projects.store') }}" method="POST">
-    @csrf
         <div class="content-billing">
             <div class="first-container">
                 <div class="back facturacion">
-                    <span>Facturación</span>
+                    <span>{{ $nameTable }}</span>
                 </div>
 
                 <div class="back proyectada-real">
@@ -39,23 +35,20 @@
                 <div class="back-total">Total</div>
                 <div class="total-inputs">
                     <div class="total-projected">
-                        <span class="total-projected-value">0</span>
+                        <span class="span-projected">0</span>
                     </div>
                     <div class="total-real">
-                        <span class="total-real-value">0</span>
+                        <span class="span-real">0</span>
                     </div>
                 </div>
                 <div class="total-percent">
-                    <span class="total-percent-value">0</span>
+                    <span class="span-percent">0</span>
                 </div>
             </div>
         </div>
-
-        <!-- <div class="back-btn-two">
-            <button type="button" id="guardar-btn-two">Guardar</button>
-        </div> -->
-    </form>
 </div>
+
+<script src="{{ asset('js/facturacion.js') }}"></script>
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

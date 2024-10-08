@@ -36,29 +36,32 @@ class ProyectoController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validación de los datos del formulario (solo los campos necesarios)
+            // Obtener el ID del usuario autenticado
+            $userId = auth()->id();
+
+            // Verificar si el usuario está autenticado
+            if (is_null($userId)) {
+                return response()->json(['error' => 'Usuario no autenticado.'], 403);
+            }
+
+            // Validación de los datos del formulario
             $request->validate([
                 'nombre_proyecto' => 'required|string|max:255',
                 'com_ncode' => 'required|integer|exists:pro_company,COM_NCODE',
                 'stf_ncode_incharge' => 'required|integer|exists:pro_staff,STF_NCODE',
-                'pro_dassignment' => 'required|integer',
+                'pro_dassignment' => 'required|date',
                 'sta_ncode' => 'required|integer|exists:pro_state,STA_NCODE',
                 'stf_ncode_supervisor' => 'required|integer|exists:pro_staff,STF_NCODE',
                 'pro_dstart' => 'required|date',
                 'pro_dend' => 'required|date|after_or_equal:pro_dstart',
-                // Validaciones para la tabla BIL
-                'bil_month' => 'required|string',
-                'bil_projected' => 'required|numeric',
-                'bil_real' => 'required|numeric',
-                // Validaciones para la tabla TIM
-                'tim_month' => 'required|string',
-                'tim_projected' => 'required|numeric',
-                'tim_real' => 'required|numeric',
-                // Validaciones para la tabla COS
-                'cos_month' => 'required|string',
-                'cos_projected' => 'required|numeric',
-                'cos_real' => 'required|numeric',
+                'facturacion' => 'required|array',
+                'facturacion.*.bil_month' => 'required|string', // Formato esperado: 'MMM-YYYY'
+                'facturacion.*.bil_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
+                'facturacion.*.bil_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
             ]);
+
+            // Log de los datos del proyecto
+            Log::info('Datos del proyecto:', $request->all());
 
             // Crear el proyecto
             $proyecto = ProProject::create([
@@ -70,35 +73,22 @@ class ProyectoController extends Controller
                 'STF_NCODE_SUPERVISOR' => $request->stf_ncode_supervisor,
                 'PRO_DSTART' => $request->pro_dstart,
                 'PRO_DEND' => $request->pro_dend,
-                'USER_ID_CREATED' => auth()->id(),
+                'USER_ID_CREATED' => $userId ?? null,
             ]);
 
-            // Crear el registro de BIL
-            ProBilling::create([
-                'PRO_NCODE' => $proyecto->PRO_NCODE,
-                'BIL_MONTH' => $request->bil_month,
-                'BIL_PROJECTED' => $request->bil_projected,
-                'BIL_REAL' => $request->bil_real,
-                'USER_ID_CREATED' => auth()->id(),
-            ]);
+            foreach ($request->facturacion as $item) {
+                $billing = ProBilling::create([
+                    'PRO_NCODE' => $proyecto->PRO_NCODE,
+                    'BIL_MONTH' => $item['bil_month'],
+                    'BIL_PROJECTED' => $item['bil_projected'],
+                    'BIL_REAL' => $item['bil_real'],
+                    'USER_ID_CREATED' => $userId,
+                ]);
 
-            // Crear el registro de TIM
-            ProTime::create([
-                'PRO_NCODE' => $proyecto->PRO_NCODE,
-                'TIM_MONTH' => $request->tim_month,
-                'TIM_PROJECTED' => $request->tim_projected,
-                'TIM_REAL' => $request->tim_real,
-                'USER_ID_CREATED' => auth()->id(),
-            ]);
+                // Log de cada registro de facturación creado
+                Log::info('Registro de facturación creado:', $billing->toArray());
+            }
 
-            // Crear el registro de COS
-            ProCost::create([
-                'PRO_NCODE' => $proyecto->PRO_NCODE,
-                'COS_MONTH' => $request->cos_month,
-                'COS_PROJECTED' => $request->cos_projected,
-                'COS_REAL' => $request->cos_real,
-                'USER_ID_CREATED' => auth()->id(),
-            ]);
 
             return response()->json(['project_id' => $proyecto->PRO_NCODE, 'message' => 'Proyecto y registros relacionados creados exitosamente.']);
         } catch (\Exception $e) {
@@ -111,6 +101,9 @@ class ProyectoController extends Controller
             return response()->json(['error' => 'Error al guardar el proyecto y los registros relacionados.'], 500);
         }
     }
+
+
+
 
 
 }

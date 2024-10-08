@@ -28,11 +28,6 @@
     font-size: 12px;
 }
 
-/* Validacion erronea */
-.is-invalid {
-    border-color: red;
-}
-
 /* Boton guardar */
 .back-btn {
     width: 100%;
@@ -52,8 +47,6 @@
 }
 /* CONTENEDOR FORM-FIELDS */
 .form-fields{
-    /* background-color: rgb(171, 100, 100); */
-    /* margin: 0 10px; */
     display: flex;
     flex-direction: column;
     padding: 10px 3px;

@@ -8,33 +8,24 @@
     --color-blue-second: #267dff;
     --gris-content: #d5d5d5;
     --back-inputs: #f4f4f4;
+    --back-component: rgb(250, 250, 250);
 }
 
-#back-black {
-    background-color: rgb(43, 40, 40);
-}
-.accordion-item {
-    margin-bottom: 15px; /* Ajusta el valor según el espaciado que desees */
-}
 
-.tiempos {
+.costos {
     display: flex;
     flex-direction: column;
-    background-color: lightcoral;
     background-color: var(--back-component);
-    height: 390px;
+    height: 350px;
     margin-top: 20px;
 }
-.content-times {
+.content-costos {
     padding: var(--padding-general);
     display: grid;
     grid-template-columns: 1fr 4fr 110px;
     gap: 30px;
 }
-.step {
-    padding: 10px 10px;
-}
-.content-times .first-container-tiempos {
+.content-costos .first-container-costos {
     /* background-color: lightcyan; */
     height: auto;
     display: flex;
@@ -42,32 +33,30 @@
     justify-content: space-between;
     height: 150px;
     gap: 10px;
-    margin-top: -20px;
 }
-.content-times .first-container-tiempos .back-time {
-    /* background-color: lightcoral; */
+.content-costos .first-container-costos .back-costos {
     height: 35px;
 }
-.content-times .first-container-tiempos .back-time:nth-child(1) {
+.content-costos .first-container-costos .back-costos:nth-child(1) {
     background-color: var(--color-blue-second);
     border-radius: 7px;
     padding: 5px 5px;
     color: white;
     font-family: var(--roboto);
 }
-.content-times .first-container-tiempos .proyectada-real-tiempos {
+.content-costos .first-container-costos .proyectada-real-costos {
     margin-top: 20px;
     background-color: var(--gris-content);
     display: flex;
     flex-direction: column;
     height: auto;
 }
-.content-times .first-container-tiempos .proyectada-real-tiempos span {
+.content-costos .first-container-costos .proyectada-real-costos span {
     border: 1px solid rgb(158, 155, 155);
     padding: 2px 5px;
     font-family: var(--roboto);
 }
-.content-times .first-container-tiempos .back-time:nth-child(3) {
+.content-costos .first-container-costos .back-costos:nth-child(3) {
     margin-top: 10px;
     background-color: rgb(43, 40, 40);
     border-radius: 7px;
@@ -77,25 +66,24 @@
 }
 
 /* SECOND CONTAINER */
-.second-container-tiempos {
+.second-container-costos {
     width: 100%;
     display: flex;
     overflow-x: auto;
     /* background-color: lightcoral; */
 }
-.second-container-tiempos::-webkit-scrollbar {
+.second-container-costos::-webkit-scrollbar {
     width: 12px; /* Ancho del scrollbar */
     height: 8px; /* Altura del scrollbar */
 }
-.second-container-tiempos::-webkit-scrollbar-thumb {
+.second-container-costos::-webkit-scrollbar-thumb {
     background-color: #888; /* Color del thumb del scrollbar */
     border-radius: 10px; /* Bordes redondeados del thumb */
 }
-.second-container-tiempos::-webkit-scrollbar-thumb:hover {
+.second-container-costos::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
-
-.second-container-tiempos .colu-tiempos {
+.second-container-costos .colu-costos {
     flex: 0 0 150px; /* Establece un ancho base para cada columna. */
     margin-top: 12px;
     height: auto;
@@ -106,11 +94,12 @@
     align-items: center;
     gap: 20px;
 }
-.second-container-tiempos .colu-tiempos:nth-child(n) {
+.second-container-costos .colu-costos:nth-child(n) {
+    /* Ajuste para evitar que el texto se desborde */
     max-width: 150px; /* Ancho máximo */
     overflow: hidden; /* Oculta el desbordamiento */
 }
-.second-container-tiempos .inputs-tiempos input {
+.second-container-costos .inputs-costos input {
     position: relative; /* Necesario para posicionar los pseudo-elementos */
     width: 100%;
     background-color: var(--gris-content);
@@ -118,7 +107,7 @@
     text-align: center;
     text-align: right; /* Alinear texto a la izquierda */
 }
-.second-container-tiempos .inputs-tiempos input::before  {
+.second-container-costos .inputs-costos input::before  {
     content: '$'; /* Signo de dólar */
     width: 30px;
     position: absolute; /* Posición absoluta */
@@ -128,12 +117,12 @@
     color: #999; /* Color del signo */
     pointer-events: none; /* Asegurarse de que no interfiera con el input */
 }
-.second-container-tiempos .inputs-tiempos input::placeholder {
+.second-container-costos .inputs-costos input::placeholder {
     text-align: start;
     color: #999; /* Color del placeholder (ajustar si es necesario) */
     opacity: 1; /* Asegurarse de que el placeholder no se vuelva transparente */
 }
-.second-container-tiempos .colu-tiempos span {
+.second-container-costos .colu-costos span {
     width: 100%;
     text-overflow: ellipsis;
     font-size: 12px;
@@ -145,15 +134,15 @@
     text-align: center;
     white-space: nowrap; /* El texto no se va a ajustar a otra línea */
 }
-.second-container-tiempos .colu-tiempos .porcentaje {
+.second-container-costos .colu-costos .porcentaje {
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     color: black;
 }
 
-/* third-container-tiempos */
-.content-times .third-container-tiempos {
+/* third-container-costos */
+.content-costos .third-container-costos {
     /* background-color: lightcoral; */
     margin-top: 5px;
     width: 100%;
@@ -163,7 +152,7 @@
     display: flex;
     justify-content: space-between;
 }
-.content-times .back-total-tiempos {
+.content-costos .back-total-costos {
     background-color: rgb(43, 40, 40);
     width: 100%;
     text-align: center;
@@ -172,33 +161,31 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-.content-times .total-inputs-tiempos {
+.content-costos .total-inputs-costos {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.content-times .total-percent-tiempos {
+.content-costos .total-percent-costos {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.content-times .total-inputs-tiempos .total-projected-tiempos,
-.content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-inputs-tiempos .total-accumulated-tiempos,
-.content-times .total-percent-tiempos {
+.content-costos .total-inputs-costos .total-projected-costos,
+.content-costos .total-inputs-costos .total-real-costos,
+.content-costos .total-percent-costos {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
 }
-.content-times .total-inputs-tiempos .total-projected-tiempos,
-.content-times .total-inputs-tiempos .total-accumulated-tiempos,
-.content-times .total-inputs-tiempos .total-real-tiempos,
-.content-times .total-percent-tiempos span {
+.content-costos .total-inputs-costos .total-projected-costos,
+.content-costos .total-inputs-costos .total-real-costos,
+.content-costos .total-percent-costos span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
@@ -207,8 +194,7 @@
     padding: 5px;        /* Añade algo de espacio interior si es necesario */
     box-sizing: border-box; /* Incluye padding y border en el tamaño total */
 }
-
 /* CONTENEDOR TEXT0 */
-.info-fill {
-    padding: var(--padding-general);
-}
+
+
+

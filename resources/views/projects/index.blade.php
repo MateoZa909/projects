@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="{{ asset('css/proyectos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/facturacion-table.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tiempos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/costos.css') }}">
 
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
@@ -26,109 +27,58 @@
 
     <!-- Contenedor diligenciamiento de información proyecto -->
     <div class="form-fields">
-            <!-- Primer Formulario -->
 
-            <div class="accordion acordeon" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item"> <!-- Primer formulario -->
-                    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Paso 1
-                    </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-                        <div class="accordion-body">
-                            <x-detalles-proyecto :empresas="$empresas" :encargados="$encargados" :estados="$estados" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item"> <!-- Segundo formulario -->
-                    <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                        Paso 2
-                    </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingTwo">
-                        <div class="accordion-body">
-                            <x-facturacion-table texto="Facturación" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="accordion-item"> <!-- Segundo formulario -->
-                    <h2 class="accordion-header" id="panelsStayOpen-headingThree">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo">
-                        Paso 3
-                    </button>
-                    </h2>
-                    <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" aria-labelledby="panelsStayOpen-headingThree">
-                        <div class="accordion-body">
-                            <x-tiempos />
-                        </div>
-                    </div>
+    <form id="project-form" action="{{ route('projects.store') }}" method="POST">
+    @csrf
+    <div class="accordion accordion-flush" id="accordionFlushExample">
+        <!-- Primer Item | Detalles Proyecto -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    Detalles Proyecto
+                </button>
+            </h2>
+            <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <!-- Primer Formulario -->
+                    @include('projects.detalles-proyecto.detalle-proyecto')
                 </div>
             </div>
+        </div>
 
-            <!-- Componente de Facturación -->
-
-            <!-- Componente de Tiempos -->
-            <!-- <div class="tiempos">
-                <p class="step"><strong>Paso 3:</strong></p>
-                <div class="info-fill">
-                    <p>En los siguientes campos digite la información y elija el rango de fechas:</p>
+        <!-- Segundo Item | Facturación -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="flush-headingTwo">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                    Facturación
+                </button>
+            </h2>
+            <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                    <x-tabla-fija
+                        paso="Paso 2"
+                        :textoPaso="'En los siguientes campos digite la información de facturación y diligencie los campos base'"
+                        :nameTable="'Facturación'"
+                    />
                 </div>
-                <div class="content-times">
-                    <div class="first-container-tiempos">
-                        <div class="back-time tiempos">
-                            <span>Tiempos</span>
-                        </div>
-
-                        <div class="back-time proyectada-real-tiempos">
-                            <span>Proyectada</span>
-                            <span>Acumulado</span>
-                            <span>Real</span>
-                        </div>
-
-                        <div class="back-time cumplimiento-tiempos">
-                            <span>% Cumplimiento</span>
-                        </div>
-                    </div>
-
-                    <div class="container-overflow-tiempos">
-                        <div class="second-container-tiempos">
-
-                        </div>
-                    </div>
-
-                    <div class="third-container-tiempos">
-                        <div class="back-total-tiempos">Total</div>
-                        <div class="total-inputs-tiempos">
-                            <div class="total-projected-tiempos">
-                                <span class="total-projected-value-tiempos">0</span>
-                            </div>
-                            <div class="total-real-tiempos">
-                                <span class="total-real-value-tiempos">0</span>
-                            </div>
-                        </div>
-                        <div class="total-percent-tiempos">
-                            <span class="total-percent-value-tiempos">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-
-            <!-- Componente de Costos -->
-
-            <!-- <div class="btn-save">
-                <button id="guardar-btn" type="submit">Guardar</button>
-            </div> -->
+            </div>
+        </div>
     </div>
 
-    <script src="{{ asset('js/detalles-proyecto.js') }}"></script>
-    <script src="{{ asset('js/facturacion.js') }}"></script>
-    <script src="{{ asset('js/tiempos.js') }}"></script>
+    <div class="back-btn">
+        <!-- Botón de guardar dentro del formulario -->
+        <button id="guardar-btn" type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+    </form>
+
+    </div>
 
 @endsection
+
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script src="{{ asset('js/detalles-proyecto.js') }}"></script>
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

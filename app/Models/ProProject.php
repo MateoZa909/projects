@@ -28,7 +28,7 @@ class ProProject extends Model
         'STA_NCODE',
         'PRO_DSTART',
         'PRO_DEND',
-        'USED_ID_CREATED'
+        'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental

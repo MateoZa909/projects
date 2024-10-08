@@ -3,13 +3,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const fechaFinInput = document.getElementById('fecha_fin');
 
     // Escuchar cambios en los campos de fecha
-    fechaInicioInput.addEventListener('change', generarTablasFacturacion);
-    fechaFinInput.addEventListener('change', generarTablasFacturacion);
+    fechaInicioInput.addEventListener('change', generarTablasCostos);
+    fechaFinInput.addEventListener('change', generarTablasCostos);
 
-    function generarTablasFacturacion() {
+    function generarTablasCostos() {
         const fechaInicio = new Date(fechaInicioInput.value);
         const fechaFin = new Date(fechaFinInput.value);
-        const secondContainer = document.querySelector('.second-container');
+        const secondContainer = document.querySelector('.second-container-costos');
 
         // Limpiar el contenedor antes de agregar nuevas tablas
         secondContainer.innerHTML = '';
@@ -22,9 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Array de meses abreviados
         const mesesAbreviados = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
 
-        // Inicializar el índice para los inputs
-        let index = 0; // Para manejar los índices de facturación
-
         // Calcular los meses entre las fechas
         let fechaActual = new Date(fechaInicio);
 
@@ -35,16 +32,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Crear el nuevo contenido siguiendo la estructura de la tabla
             const nuevoContenido = `
-                     <div class="colu">
-                        <span class="mes-año">${mesAbreviado}-${año}</span>
-                        <div class="inputs">
-                            <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}">
-                            <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected" placeholder="$" oninput="calcularTotal(this)">
-                            <input type="number" name="facturacion[${index}][bil_real]" class="input-real" placeholder="$" oninput="calcularTotal(this)">
-                        </div>
-                        <span class="porcentaje month-percent">0%</span>
+                <div class="colu-costos">
+                    <span class="mes-año-costos" name="cost_month" value="{{ old('cos_month') }}">${mesAbreviado}-${año}</span>
+
+                    <div class="inputs-costos">
+                        <input type="number" class="input-projected-costos" name="cost_projected" value="{{ old('cos_projected') }}" placeholder="$" oninput="calcularTotal(this)">
+                        <input type="number" class="input-real-costos" name="cost_real" value="{{ old('cos_real') }}" placeholder="$" oninput="calcularTotal(this)">
                     </div>
-                `;
+
+                    <span class="porcentaje month-percent-costos">0%</span>
+                </div>
+            `;
 
             // Insertar el nuevo contenido en el secondContainer
             secondContainer.insertAdjacentHTML('beforeend', nuevoContenido);
@@ -63,9 +61,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalReal = 0;
 
         // Obtener todos los inputs de tipo "number"
-        const inputsProjected = document.querySelectorAll('.input-projected');
-        const inputsReal = document.querySelectorAll('.input-real');
-        const monthPercentElements = document.querySelectorAll('.month-percent'); // Obtener todos los spans de porcentaje mensual
+        const inputsProjected = document.querySelectorAll('.input-projected-costos');
+        const inputsReal = document.querySelectorAll('.input-real-costos');
+        const monthPercentElements = document.querySelectorAll('.month-percent-costos'); // Obtener todos los spans de porcentaje mensual
 
         // Sumar los valores de los inputs proyectados y reales, y calcular porcentaje por mes
         inputsProjected.forEach((inputProjected, index) => {
@@ -82,17 +80,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Actualizar los valores en los spans de totales generales
-        const spanProjected = document.querySelector('.span-projected');
-        const spanReal = document.querySelector('.span-real');
-        const spanPercent = document.querySelector('.span-percent');
-
-        // Verificar si los spans existen antes de asignar valores
-        if (spanProjected) spanProjected.textContent = formatCurrency(totalProjected); // Formatear a pesos colombianos
-        if (spanReal) spanReal.textContent = formatCurrency(totalReal); // Formatear a pesos colombianos
+        document.querySelector('.total-projected-value-costos').textContent = formatCurrency(totalProjected); // Formatear a pesos colombianos
+        document.querySelector('.total-real-value-costos').textContent = formatCurrency(totalReal); // Formatear a pesos colombianos
 
         // Calcular el porcentaje total (general)
-        const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(2) : 0;
-        if (spanPercent) spanPercent.textContent = totalPercent + '%';
+        const totalPercent = totalProjected !== 0 ? ((totalReal / totalProjected) * 100).toFixed(0) : 0;
+        document.querySelector('.total-percent-value-costos').textContent = totalPercent + '%';
     };
 
     function formatCurrency(value) {
@@ -104,3 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         calcularTotal();
     }
 });
+
+
+
+

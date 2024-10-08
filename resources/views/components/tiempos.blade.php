@@ -7,7 +7,7 @@
 @endpush
 
 <div class="tiempos">
-    <p class="step"><strong>Paso 3:</strong></p>
+    <p class="step"><strong>Paso 4:</strong></p>
     <div class="info-fill"> <!-- Contenedor texto -->
     <p>Por favor agregar los campos necesarios relacionados con tiempos y diligencie los campos base:</p>
 
@@ -52,6 +52,7 @@
     </div>
 </div>
 
+<script src="{{ asset('js/tiempos.js') }}"></script>
 
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
