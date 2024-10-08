@@ -56,6 +56,7 @@ class ProyectoController extends Controller
                 'pro_dend' => 'required|date|after_or_equal:pro_dstart',
                 'facturacion' => 'required|array',
                 'facturacion.*.bil_month' => 'required|string', // Formato esperado: 'MMM-YYYY'
+                'facturacion.*.bil_yyyymm' => 'required|integer',
                 'facturacion.*.bil_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
                 'facturacion.*.bil_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
             ]);
@@ -77,9 +78,34 @@ class ProyectoController extends Controller
             ]);
 
             foreach ($request->facturacion as $item) {
+                // Log para verificar el valor que se recibe
+                Log::info('Valor de bil_month recibido:', ['bil_month' => $item['bil_month']]);
+
+                // Asegúrate de que bil_month tiene el formato esperado
+                if (!preg_match('/^([A-Z]{3})-(\d{4})$/', $item['bil_month'], $matches)) {
+                    Log::error('Formato de bil_month inválido:', ['bil_month' => $item['bil_month']]);
+                    return response()->json(['error' => 'Formato de bil_month inválido. Debe ser "MMM-YYYY".'], 400);
+                }
+
+                // Extraer mes y año usando la expresión regular
+                $mesAbreviado = $matches[1]; // 'MMM'
+                $año = $matches[2]; // 'YYYY'
+
+                // Buscar el índice del mes
+                $mes = array_search($mesAbreviado, ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']);
+
+                if ($mes === false) {
+                    Log::error('Mes no encontrado en la lista de meses:', ['mes' => $mesAbreviado]);
+                    return response()->json(['error' => 'Mes inválido.'], 400);
+                }
+
+                $mes += 1; // Convertir a base 1 para obtener el mes numérico (1-12)
+                $bil_yyyymm = intval($año . str_pad($mes, 2, '0', STR_PAD_LEFT)); // Combinar año y mes
+
                 $billing = ProBilling::create([
                     'PRO_NCODE' => $proyecto->PRO_NCODE,
-                    'BIL_MONTH' => $item['bil_month'],
+                    'BIL_MONTH' => $item['bil_month'], // Guardar el formato 'MMM-YYYY'
+                    'BIL_YYYYMM' => $bil_yyyymm, // Guardar el valor calculado
                     'BIL_PROJECTED' => $item['bil_projected'],
                     'BIL_REAL' => $item['bil_real'],
                     'USER_ID_CREATED' => $userId,
@@ -88,7 +114,6 @@ class ProyectoController extends Controller
                 // Log de cada registro de facturación creado
                 Log::info('Registro de facturación creado:', $billing->toArray());
             }
-
 
             return response()->json(['project_id' => $proyecto->PRO_NCODE, 'message' => 'Proyecto y registros relacionados creados exitosamente.']);
         } catch (\Exception $e) {

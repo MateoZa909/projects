@@ -31,15 +31,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
         while (fechaActual <= fechaFin) {
             // Obtener el mes y el año desde la fecha actual
-            const mesAbreviado = mesesAbreviados[fechaActual.getMonth()];
+            const mes = fechaActual.getMonth() + 1; // Obtener el mes (1-12)
             const año = fechaActual.getFullYear();
 
-            // Crear el nuevo contenido siguiendo la estructura de la tabla
+             // Calcular BIL_YYYYMM como un número (YYYYMM)
+            const bil_yyyymm = año * 100 + (fechaActual.getMonth() + 1); // Agregar 1 porque getMonth() es cero basado (0-11)
+            const mesAbreviado = mesesAbreviados[mes - 1];
+
             const nuevoContenido = `
                 <div class="colu">
                     <span class="mes-año">${mesAbreviado}-${año}</span>
                     <div class="inputs">
-                        <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}">
+                        <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
+                        <input type="hidden" name="facturacion[${index}][bil_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
                         <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected" placeholder="$" oninput="calcularTotal()">
                         <input type="number" name="facturacion[${index}][bil_real]" class="input-real" placeholder="$" oninput="calcularTotal()">
                     </div>
