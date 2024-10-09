@@ -218,4 +218,20 @@
     right: 20px;
 }
 
-
+/* Tiempos */
+/* .content-billing .total-accumulated {
+    width: 100%;
+    background-color: var(--gris-content);
+    border: 1px solid rgb(158, 155, 155);
+    text-align: center;
+    height: 30px;
+}
+.content-billing .total-accumulated .span-accumulated-tiempos {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+} */

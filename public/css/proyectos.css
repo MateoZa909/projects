@@ -10,6 +10,11 @@
     --back-inputs: #f4f4f4;
 }
 
+.roboto {
+    font-family: var(--roboto);
+    font-weight: bold;
+}
+
 .clearfix::after {
     content: "";
     display: table;
@@ -40,10 +45,9 @@
     width: 140px;
     background-color: rgb(34, 34, 230);
     color: white;
-    height: 30px;
     border: none;
-    /* bottom: 20px; */
-    right: 20px;
+    text-align: center;
+    padding-bottom: 5px;
 }
 /* CONTENEDOR FORM-FIELDS */
 .form-fields{

@@ -1,5 +1,6 @@
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/facturacion-table.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tiempos.css') }}">
     <!-- SweetAlert2 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,6 +20,9 @@
 
                 <div class="back proyectada-real">
                     <span>Proyectada</span>
+                    @if ($mostrarAcumulado)
+                        <span>Acumulado</span>
+                    @endif
                     <span>Real</span>
                 </div>
 
@@ -35,14 +39,19 @@
                 <div class="back-total">Total</div>
                 <div class="total-inputs">
                     <div class="total-projected">
-                        <span class="span-projected">0</span>
+                        <span class="span-projected">{{ $valorProyectado }}</span>
                     </div>
+                    @if ($mostrarAcumulado)
+                        <div class="total-accumulated">
+                            <span class="span-accumulated-tiempos">0%</span>
+                        </div>
+                    @endif
                     <div class="total-real">
-                        <span class="span-real">0</span>
+                        <span class="span-real">{{ $valorReal }}</span>
                     </div>
                 </div>
                 <div class="total-percent">
-                    <span class="span-percent">0</span>
+                    <span class="span-percent">%</span>
                 </div>
             </div>
         </div>
