@@ -36,9 +36,6 @@
                 <div class="total-projected-costos">
                     <span class="total-projected-value-costos">0</span>
                 </div>
-                <div class="total-accumulated-costos">
-                    <span class="total-accumulated-value-costos">0</span>
-                </div>
                 <div class="total-real-costos">
                     <span class="total-real-value-costos">0</span>
                 </div>

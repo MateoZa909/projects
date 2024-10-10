@@ -4,6 +4,7 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/edit-role.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 @endpush
 
 @section('content')

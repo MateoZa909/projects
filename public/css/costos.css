@@ -33,6 +33,7 @@
     justify-content: space-between;
     height: 150px;
     gap: 10px;
+    margin-top: -20px;
 }
 .content-costos .first-container-costos .back-costos {
     height: 35px;

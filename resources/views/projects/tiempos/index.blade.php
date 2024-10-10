@@ -34,17 +34,17 @@
             <div class="back-total-tiempos">Total</div>
             <div class="total-inputs-tiempos">
                 <div class="total-projected-tiempos">
-                    <span class="total-projected-value-tiempos">0</span>
+                    <span class="total-projected-value-tiempos">%</span>
                 </div>
                 <div class="total-accumulated-tiempos">
-                    <span class="total-accumulated-value-tiempos">0</span>
+                    <span class="total-accumulated-value-tiempos">%</span>
                 </div>
                 <div class="total-real-tiempos">
-                    <span class="total-real-value-tiempos">0</span>
+                    <span class="total-real-value-tiempos">%</span>
                 </div>
             </div>
             <div class="total-percent-tiempos">
-                <span class="total-percent-value-tiempos">0</span>
+                <span class="total-percent-value-tiempos">%</span>
             </div>
         </div>
     </div>

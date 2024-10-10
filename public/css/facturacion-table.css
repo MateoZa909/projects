@@ -86,7 +86,7 @@
 .second-container::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
-.second-container .colu {
+.second-container .factura-colu {
     flex: 0 0 150px; /* Establece un ancho base para cada columna. */
     margin-top: 12px;
     height: auto;
@@ -97,12 +97,12 @@
     align-items: center;
     gap: 20px;
 }
-.second-container .colu:nth-child(n) {
+.second-container .factura-colu:nth-child(n) {
     /* Ajuste para evitar que el texto se desborde */
     max-width: 150px; /* Ancho máximo */
     overflow: hidden; /* Oculta el desbordamiento */
 }
-.second-container .inputs input {
+.second-container .factura-inputs input {
     position: relative; /* Necesario para posicionar los pseudo-elementos */
     width: 100%;
     background-color: var(--gris-content);
@@ -110,7 +110,7 @@
     text-align: center;
     text-align: right; /* Alinear texto a la izquierda */
 }
-.second-container .inputs input::before  {
+.second-container .factura-inputs input::before  {
     content: '$'; /* Signo de dólar */
     width: 30px;
     position: absolute; /* Posición absoluta */
@@ -120,12 +120,12 @@
     color: #999; /* Color del signo */
     pointer-events: none; /* Asegurarse de que no interfiera con el input */
 }
-.second-container .inputs input::placeholder {
+.second-container .factura-inputs input::placeholder {
     text-align: start;
     color: #999; /* Color del placeholder (ajustar si es necesario) */
     opacity: 1; /* Asegurarse de que el placeholder no se vuelva transparente */
 }
-.second-container .colu span {
+.second-container .factura-colu span {
     width: 100%;
     text-overflow: ellipsis;
     font-size: 12px;
@@ -137,7 +137,7 @@
     text-align: center;
     white-space: nowrap; /* El texto no se va a ajustar a otra línea */
 }
-.second-container .colu .porcentaje {
+.second-container .factura-colu .porcentaje {
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
@@ -145,7 +145,7 @@
 }
 
 /* THIRD-CONTAINER */
-.content-billing .third-container {
+.content-billing .factura-third-container {
     /* background-color: lightcoral; */
     margin-top: 5px;
     width: 100%;
@@ -155,7 +155,7 @@
     display: flex;
     justify-content: space-between;
 }
-.content-billing .back-total {
+.content-billing .factura-back-total {
     background-color: rgb(43, 40, 40);
     width: 100%;
     text-align: center;
@@ -164,31 +164,31 @@
     font-size: 12px;
     word-wrap: break-word;
 }
-.content-billing .total-inputs {
+.content-billing .factura-total-inputs {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.content-billing .total-percent {
+.content-billing .factura-total-percent {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.content-billing .total-inputs .total-projected,
-.content-billing .total-inputs .total-real,
-.content-billing .total-percent {
+.content-billing .factura-total-inputs .factura-total-projected,
+.content-billing .factura-total-inputs .factura-total-real,
+.content-billing .factura-total-percent {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
 }
-.content-billing .total-inputs .total-projected,
-.content-billing .total-inputs .total-real,
-.content-billing .total-percent span {
+.content-billing .factura-total-inputs .factura-total-projected,
+.content-billing .factura-total-inputs .factura-total-real,
+.content-billing .factura-total-percent span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */

@@ -77,15 +77,15 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                             <li class="nav-item">
                                 <a href="{{ route('projects.index') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-project-diagram text-white"></i>
+                                    <i class="fa-solid fa fa-cubes-stacked text-white" style="font-size: 23px;"></i>
                                     <p class="projects">Proyectos en curso</p>
                                 </a>
                                 <a href="{{ route('projects.index') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-project-diagram text-white"></i>
+                                    <i class="fa-solid fa-chart-simple text-white" style="font-size: 23px;"></i>
                                     <p class="projects">Métricas de proyecto</p>
                                 </a>
                                 <a href="{{ route('projects.index') }}" class="nav-link">
-                                    <i class="nav-icon fas fa-project-diagram text-white"></i>
+                                    <i class="nav-icon fas fa-project-diagram text-white" style="font-size: 20px;"></i>
                                     <p class="builder">Constructor de proyectos</p>
                                 </a>
                             </li>

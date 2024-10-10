@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="inputs-costos">
                         <input type="hidden" name="costos[${index}][cos_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="costos[${index}][cos_yyyymm]" value="${cos_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
-                        <input type="number" name="costos[${index}][cos_projected]" class="input-projected-costos" placeholder="%" oninput="calcularTotal()">
-                        <input type="number" name="costos[${index}][cos_real]" class="input-real-costos" placeholder="%" oninput="calcularTotal()">
+                        <input type="number" name="costos[${index}][cos_projected]" class="input-projected-costos" placeholder="$" oninput="calcularTotalCostos()">
+                        <input type="number" name="costos[${index}][cos_real]" class="input-real-costos" placeholder="$" oninput="calcularTotalCostos()">
                     </div>
 
                     <span class="porcentaje month-percent-costos">0%</span>
@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Función para calcular y mostrar los totales
-    window.calcularTotal = function(input) {
+    window.calcularTotalCostos = function(input) {
         let totalProjected = 0;
         let totalReal = 0;
 

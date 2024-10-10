@@ -31,18 +31,18 @@
 
             </div>
 
-            <div class="third-container">
-                <div class="back-total">Total</div>
-                <div class="total-inputs">
-                    <div class="total-projected">
-                        <span class="span-projected">$0,00</span>
+            <div class="factura-third-container">
+                <div class="factura-back-total">Total</div>
+                <div class="factura-total-inputs">
+                    <div class="factura-total-projected">
+                        <span class="factura-span-projected">$0,00</span>
                     </div>
-                    <div class="total-real">
-                        <span class="span-real">$0,00</span>
+                    <div class="factura-total-real">
+                    <span class="factura-span-real">$0,00</span>
                     </div>
                 </div>
-                <div class="total-percent">
-                    <span class="span-percent">%</span>
+                <div class="factura-total-percent">
+                    <span class="factura-span-percent">%</span>
                 </div>
             </div>
         </div>

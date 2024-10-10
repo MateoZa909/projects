@@ -39,15 +39,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const mesAbreviado = mesesAbreviados[mes - 1];
 
             const nuevoContenido = `
-                <div class="colu">
+                <div class="factura-colu">
                     <span class="mes-año">${mesAbreviado}-${año}</span>
-                    <div class="inputs">
+                    <div class="factura-inputs">
                         <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="facturacion[${index}][bil_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
-                        <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected" placeholder="$" oninput="calcularTotal()">
-                        <input type="number" name="facturacion[${index}][bil_real]" class="input-real" placeholder="$" oninput="calcularTotal()">
+                        <input type="number" name="facturacion[${index}][bil_projected]" class="factura-input-projected" placeholder="$" oninput="calcularTotal()">
+                        <input type="number" name="facturacion[${index}][bil_real]" class="factura-input-real" placeholder="$" oninput="calcularTotal()">
                     </div>
-                    <span class="porcentaje month-percent">0%</span>
+                    <span class="factura-month-percent">0%</span>
                 </div>
             `;
 
@@ -69,9 +69,9 @@ document.addEventListener('DOMContentLoaded', function() {
         let totalReal = 0;
 
         // Obtener todos los inputs de tipo "number"
-        const inputsProjected = document.querySelectorAll('.input-projected');
-        const inputsReal = document.querySelectorAll('.input-real');
-        const monthPercentElements = document.querySelectorAll('.month-percent'); // Obtener todos los spans de porcentaje mensual
+        const inputsProjected = document.querySelectorAll('.factura-input-projected');
+        const inputsReal = document.querySelectorAll('.factura-input-real');
+        const monthPercentElements = document.querySelectorAll('.factura-month-percent'); // Obtener todos los spans de porcentaje mensual
 
         // Sumar los valores de los inputs proyectados y reales, y calcular porcentaje por mes
         inputsProjected.forEach((inputProjected, index) => {
@@ -88,9 +88,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Actualizar los valores en los spans de totales generales
-        const spanProjected = document.querySelector('.span-projected');
-        const spanReal = document.querySelector('.span-real');
-        const spanPercent = document.querySelector('.span-percent');
+        const spanProjected = document.querySelector('.factura-span-projected');
+        const spanReal = document.querySelector('.factura-span-real');
+        const spanPercent = document.querySelector('.factura-span-percent');
 
         // Verificar si los spans existen antes de asignar valores
         if (spanProjected) spanProjected.textContent = formatCurrency(totalProjected); // Formatear a pesos colombianos
