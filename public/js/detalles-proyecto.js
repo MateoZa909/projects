@@ -17,6 +17,7 @@ $(document).ready(function () {
 
                 // Inicializa el array para almacenar los datos de facturación
                 let facturacionData = [];
+                let tiemposData = [];
 
                 // Recoger datos de facturación del DOM
                 $('.second-container .colu').each(function (index) {
@@ -41,6 +42,36 @@ $(document).ready(function () {
                 });
 
                 console.log('Datos de facturación listos para enviar:', facturacionData);
+
+                // ********************************
+                // Tiempos
+
+                $('#times .colu-tiempos').each(function (index) {
+                    // Capturando los valores para cada fila de tiempos
+                    const tim_month = $(this).find('span.mes-año-tiempos').text(); // Mes-Año en formato 'MMM-YYYY'
+                    const tim_projected = $(this).find('.input-projected-tiempos').val(); // Proyectado
+                    const tim_real = $(this).find('.input-real-tiempos').val(); // Real
+
+                    console.log(`Mes-Año: ${tim_month}, Proyectado: ${tim_projected}, Real: ${tim_real}`);
+
+                    // Agregar los datos al array de tiempos
+                    tiemposData.push({
+                        tim_month: tim_month,
+                        tim_projected: tim_projected || 0, // Evitar valores vacíos
+                        tim_real: tim_real || 0 // Evitar valores vacíos
+                    });
+
+                    // También agregamos estos valores al formData
+                    formData.append(`tiempos[${index}][tim_month]`, tim_month);
+                    formData.append(`tiempos[${index}][tim_projected]`, tim_projected || 0);
+                    formData.append(`tiempos[${index}][tim_real]`, tim_real || 0);
+                });
+
+                console.log('Datos de tiempos listos para enviar:', tiemposData);
+
+                for (let pair of formData.entries()) {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
 
                 // Enviar la solicitud AJAX con FormData
                 $.ajax({

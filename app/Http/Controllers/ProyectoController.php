@@ -36,6 +36,7 @@ class ProyectoController extends Controller
     public function store(Request $request)
     {
         try {
+            Log::info('Datos recibidos:', $request->all());
             // Obtener el ID del usuario autenticado
             $userId = auth()->id();
 
@@ -59,6 +60,11 @@ class ProyectoController extends Controller
                 'facturacion.*.bil_yyyymm' => 'required|integer',
                 'facturacion.*.bil_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
                 'facturacion.*.bil_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
+                'tiempos' => 'required|array', // Formato esperado: 'MMM-YYYY'
+                'tiempos.*.tim_month' => 'required|string', // Formato esperado: 'MMM-YYYY'
+                'tiempos.*.tim_yyyymm' => 'required|integer',
+                'tiempos.*.tim_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
+                'tiempos.*.tim_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
             ]);
 
             // Log de los datos del proyecto
@@ -77,6 +83,7 @@ class ProyectoController extends Controller
                 'USER_ID_CREATED' => $userId ?? null,
             ]);
 
+            // Billing
             foreach ($request->facturacion as $item) {
                 // Log para verificar el valor que se recibe
                 Log::info('Valor de bil_month recibido:', ['bil_month' => $item['bil_month']]);
@@ -115,6 +122,53 @@ class ProyectoController extends Controller
                 Log::info('Registro de facturación creado:', $billing->toArray());
             }
 
+            // Time
+            foreach ($request->tiempos as $item) {
+                // Log para verificar el valor que se recibe
+                Log::info('Valor de tim_month recibido:', ['tim_month' => $item['tim_month']]);
+
+                // Verifica que tim_month tiene el formato 'MMM-YYYY'
+                if (!preg_match('/^([A-Z]{3})-(\d{4})$/', $item['tim_month'], $matches)) {
+                    Log::error('Formato de tim_month inválido:', ['tim_month' => $item['tim_month']]);
+                    return response()->json(['error' => 'Formato de tim_month inválido. Debe ser "MMM-YYYY".'], 400);
+                }
+
+                // Extraer mes y año usando la expresión regular
+                $mesAbreviado = $matches[1]; // 'MMM'
+                $año = $matches[2]; // 'YYYY'
+
+                // Buscar el índice del mes
+                $mes = array_search($mesAbreviado, ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']);
+
+                if ($mes === false) {
+                    Log::error('Mes no encontrado en la lista de meses:', ['mes' => $mesAbreviado]);
+                    return response()->json(['error' => 'Mes inválido.'], 400);
+                }
+
+                $mes += 1; // Convertir a base 1 para obtener el mes numérico (1-12)
+                $tim_yyyymm = intval($año . str_pad($mes, 2, '0', STR_PAD_LEFT)); // Combinar año y mes
+
+                Log::info('Creando registro en ProTime:', [
+                    'PRO_NCODE' => $proyecto->PRO_NCODE,
+                    'TIM_MONTH' => $item['tim_month'],
+                    'TIM_YYYYMM' => $tim_yyyymm,
+                    'TIM_PROJECTED' => $item['tim_projected'],
+                    'TIM_REAL' => $item['tim_real'],
+                ]);
+
+                $tiempos = ProTime::create([
+                    'PRO_NCODE' => $proyecto->PRO_NCODE,
+                    'TIM_MONTH' => $item['tim_month'], // Guardar el formato 'MMM-YYYY'
+                    'TIM_YYYYMM' => $tim_yyyymm, // Guardar el valor calculado
+                    'TIM_PROJECTED' => $item['tim_projected'],
+                    'TIM_REAL' => $item['tim_real'],
+                    'USER_ID_CREATED' => $userId,
+                ]);
+
+                // Log de cada registro de tiempos creado
+                Log::info('Registro de tiempos creado:', $tiempos->toArray());
+            }
+
             return response()->json(['project_id' => $proyecto->PRO_NCODE, 'message' => 'Proyecto y registros relacionados creados exitosamente.']);
         } catch (\Exception $e) {
             Log::error('Error al guardar el proyecto y sus registros relacionados', [
@@ -126,9 +180,5 @@ class ProyectoController extends Controller
             return response()->json(['error' => 'Error al guardar el proyecto y los registros relacionados.'], 500);
         }
     }
-
-
-
-
 
 }

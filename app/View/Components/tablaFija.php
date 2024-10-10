@@ -13,8 +13,9 @@ class tablaFija extends Component
 
     public $valorProyectado;
     public $valorReal;
+    public $tipoOperacion;
 
-    public function __construct($paso, $textoPaso, $nameTable, $mostrarAcumulado = false, $valorProyectado = '$0,00', $valorReal = '0%')
+    public function __construct($paso, $textoPaso, $nameTable, $mostrarAcumulado = false, $valorProyectado = '$0,00', $valorReal = '0%', $tipoOperacion = 'facturacion')
     {
         $this->paso = $paso;
         $this->textoPaso = $textoPaso;
@@ -22,6 +23,7 @@ class tablaFija extends Component
         $this->mostrarAcumulado = $mostrarAcumulado;
         $this->valorProyectado = $valorProyectado;
         $this->valorReal = $valorReal;
+        $this->tipoOperacion = $tipoOperacion;
     }
 
     /**

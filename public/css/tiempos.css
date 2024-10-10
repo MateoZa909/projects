@@ -207,14 +207,14 @@
 }
 
 /* Acumulado */
-.total-accumulated {
+.total-accumulated-tiempos {
     width: 100%;
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
 }
-.total-accumulated .span-accumulated-tiempos {
+.total-accumulated-tiempos .total-accumulated-value-tiempos {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
