@@ -5,7 +5,7 @@
 @endpush
 
 <div class="tiempos">
-    <p class="step"><strong>Paso 4:</strong></p>
+    <p class="step"><strong>Paso 3:</strong></p>
     <div class="info-fill"> <!-- Contenedor texto -->
     <p>Por favor agregar los campos necesarios relacionados con tiempos y diligencie los campos base:</p>
 

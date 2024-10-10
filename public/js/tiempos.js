@@ -34,13 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const mes = fechaActual.getMonth() + 1; // Obtener el mes (1-12)
             const año = fechaActual.getFullYear();
 
-             // Calcular BIL_YYYYMM como un número (YYYYMM)
+            // Calcular BIL_YYYYMM como un número (YYYYMM)
             const bil_yyyymm = año * 100 + (fechaActual.getMonth() + 1); // Agregar 1 porque getMonth() es cero basado (0-11)
             const mesAbreviado = mesesAbreviados[mes - 1];
 
             const nuevoContenido = `
                 <div class="colu-tiempos">
                     <span class="mes-año-tiempos">${mesAbreviado}-${año}</span>
+
                     <div class="inputs-tiempos">
                         <input type="hidden" name="tiempos[${index}][tim_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="tiempos[${index}][tim_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->

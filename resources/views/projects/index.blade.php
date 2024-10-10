@@ -28,58 +28,61 @@
     <!-- Contenedor diligenciamiento de información proyecto -->
     <div class="form-fields">
 
-    <form id="project-form" action="{{ route('projects.store') }}" method="POST">
-        @csrf
-        <div class="accordion accordion-flush" id="accordionFlushExample">
-            <!-- Primer Item | Detalles Proyecto -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                    <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                        Detalles Proyecto
-                    </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        <!-- Primer Formulario -->
-                        @include('projects.detalles-proyecto.detalle-proyecto')
+        <form id="project-form" action="{{ route('projects.store') }}" method="POST">
+            @csrf
+
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <!-- Primer Item | Detalles Proyecto -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Detalles Proyecto
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            <!-- Primer Formulario -->
+                            @include('projects.detalles-proyecto.detalle-proyecto')
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Tercer Item | Tiempos -->
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwo">
-                    <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-                        Facturación
-                    </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        @include('projects.facturacion.index')
+                <!-- Segundo Item | Facturacion -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Facturación
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            @include('projects.facturacion.index')
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingThree">
-                    <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
-                        Tiempos
-                    </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">
-                        @include('projects.tiempos.index')
+                <div class="accordion-item mb-3">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed roboto" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            Tiempos
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+                            @include('projects.tiempos.index')
+                        </div>
                     </div>
                 </div>
+
             </div>
-        </div>
 
-        <div class="back-btn">
-            <!-- Botón de guardar dentro del formulario -->
-            <button id="guardar-btn" type="submit" class="btn btn-primary">Guardar</button>
-        </div>
-    </form>
+            @include('projects.costos.index')
 
+            <div class="back-btn">
+                <!-- Botón de guardar dentro del formulario -->
+                <button id="guardar-btn" type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </form>
     </div>
 
 @endsection

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function generarTablasCostos() {
         const fechaInicio = new Date(fechaInicioInput.value);
         const fechaFin = new Date(fechaFinInput.value);
-        const secondContainer = document.querySelector('.second-container-costos');
+        const secondContainer = document.querySelector('#costos');
 
         // Limpiar el contenedor antes de agregar nuevas tablas
         secondContainer.innerHTML = '';
@@ -22,22 +22,30 @@ document.addEventListener('DOMContentLoaded', function() {
         // Array de meses abreviados
         const mesesAbreviados = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
 
+        let index = 0;
+
         // Calcular los meses entre las fechas
         let fechaActual = new Date(fechaInicio);
 
         while (fechaActual <= fechaFin) {
             // Obtener el mes y el año desde la fecha actual
-            const mesAbreviado = mesesAbreviados[fechaActual.getMonth()];
+            const mes = fechaActual.getMonth() + 1;
             const año = fechaActual.getFullYear();
+
+            // Calcular BIL_YYYYMM como un número (YYYYMM)
+            const cos_yyyymm = año * 100 + (fechaActual.getMonth() + 1); // Agregar 1 porque getMonth() es cero basado (0-11)
+            const mesAbreviado = mesesAbreviados[mes - 1];
 
             // Crear el nuevo contenido siguiendo la estructura de la tabla
             const nuevoContenido = `
                 <div class="colu-costos">
-                    <span class="mes-año-costos" name="cost_month" value="{{ old('cos_month') }}">${mesAbreviado}-${año}</span>
+                    <span class="mes-año-costos" name="cos_month">${mesAbreviado}-${año}</span>
 
                     <div class="inputs-costos">
-                        <input type="number" class="input-projected-costos" name="cost_projected" value="{{ old('cos_projected') }}" placeholder="$" oninput="calcularTotal(this)">
-                        <input type="number" class="input-real-costos" name="cost_real" value="{{ old('cos_real') }}" placeholder="$" oninput="calcularTotal(this)">
+                        <input type="hidden" name="costos[${index}][cos_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
+                        <input type="hidden" name="costos[${index}][cos_yyyymm]" value="${cos_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
+                        <input type="number" name="costos[${index}][cos_projected]" class="input-projected-costos" placeholder="%" oninput="calcularTotal()">
+                        <input type="number" name="costos[${index}][cos_real]" class="input-real-costos" placeholder="%" oninput="calcularTotal()">
                     </div>
 
                     <span class="porcentaje month-percent-costos">0%</span>

@@ -21,6 +21,7 @@ class ProCost extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'PRO_NCODE',
+        'COS_YYYYMM',
         'COS_PROJECTED',
         'COS_REAL',
         'COS_DCREATED',

@@ -56,15 +56,20 @@ class ProyectoController extends Controller
                 'pro_dstart' => 'required|date',
                 'pro_dend' => 'required|date|after_or_equal:pro_dstart',
                 'facturacion' => 'required|array',
-                'facturacion.*.bil_month' => 'required|string', // Formato esperado: 'MMM-YYYY'
+                'facturacion.*.bil_month' => 'required|string', // Facturacion
                 'facturacion.*.bil_yyyymm' => 'required|integer',
-                'facturacion.*.bil_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
-                'facturacion.*.bil_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
-                'tiempos' => 'required|array', // Formato esperado: 'MMM-YYYY'
-                'tiempos.*.tim_month' => 'required|string', // Formato esperado: 'MMM-YYYY'
+                'facturacion.*.bil_projected' => 'nullable|numeric',
+                'facturacion.*.bil_real' => 'nullable|numeric', // Facturacion
+                'tiempos' => 'required|array', // Tiempos
+                'tiempos.*.tim_month' => 'required|string',
                 'tiempos.*.tim_yyyymm' => 'required|integer',
-                'tiempos.*.tim_projected' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
-                'tiempos.*.tim_real' => 'nullable|numeric', // Asegúrate de que sea un número no negativo
+                'tiempos.*.tim_projected' => 'nullable|numeric',
+                'tiempos.*.tim_real' => 'nullable|numeric', // Tiempos
+                'costos' => 'required|array',
+                'costos.*.cos_month' => 'required|string',
+                'costos.*.cos_yyyymm' => 'required|integer',
+                'costos.*.cos_projected' => 'nullable|numeric',
+                'costos.*.cos_real' => 'nullable|numeric', 
             ]);
 
             // Log de los datos del proyecto
@@ -167,6 +172,53 @@ class ProyectoController extends Controller
 
                 // Log de cada registro de tiempos creado
                 Log::info('Registro de tiempos creado:', $tiempos->toArray());
+            }
+
+            // Costos
+            foreach ($request->costos as $item) {
+                // Log para verificar el valor que se recibe
+                Log::info('Valor de cos_month recibido:', ['cos_month' => $item['cos_month']]);
+
+                // Verifica que tim_month tiene el formato 'MMM-YYYY'
+                if (!preg_match('/^([A-Z]{3})-(\d{4})$/', $item['cos_month'], $matches)) {
+                    Log::error('Formato de cos_month inválido:', ['cos_month' => $item['cos_month']]);
+                    return response()->json(['error' => 'Formato de tim_month inválido. Debe ser "MMM-YYYY".'], 400);
+                }
+
+                // Extraer mes y año usando la expresión regular
+                $mesAbreviado = $matches[1]; // 'MMM'
+                $año = $matches[2]; // 'YYYY'
+
+                // Buscar el índice del mes
+                $mes = array_search($mesAbreviado, ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC']);
+
+                if ($mes === false) {
+                    Log::error('Mes no encontrado en la lista de meses:', ['mes' => $mesAbreviado]);
+                    return response()->json(['error' => 'Mes inválido.'], 400);
+                }
+
+                $mes += 1; // Convertir a base 1 para obtener el mes numérico (1-12)
+                $cos_yyyymm = intval($año . str_pad($mes, 2, '0', STR_PAD_LEFT)); // Combinar año y mes
+
+                Log::info('Creando registro en ProCost:', [
+                    'PRO_NCODE' => $proyecto->PRO_NCODE,
+                    'COS_MONTH' => $item['cos_month'],
+                    'COS_YYYYMM' => $cos_yyyymm,
+                    'COS_PROJECTED' => $item['cos_projected'],
+                    'COS_REAL' => $item['cos_real'],
+                ]);
+
+                $costos = ProCost::create([
+                    'PRO_NCODE' => $proyecto->PRO_NCODE,
+                    'COS_MONTH' => $item['cos_month'], // Guardar el formato 'MMM-YYYY'
+                    'COS_YYYYMM' => $cos_yyyymm, // Guardar el valor calculado
+                    'COS_PROJECTED' => $item['cos_projected'],
+                    'COS_REAL' => $item['cos_real'],
+                    'USER_ID_CREATED' => $userId,
+                ]);
+
+                // Log de cada registro de tiempos creado
+                Log::info('Registro de costos creado:', $costos->toArray());
             }
 
             return response()->json(['project_id' => $proyecto->PRO_NCODE, 'message' => 'Proyecto y registros relacionados creados exitosamente.']);

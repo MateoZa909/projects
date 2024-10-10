@@ -18,6 +18,7 @@ $(document).ready(function () {
                 // Inicializa el array para almacenar los datos de facturación
                 let facturacionData = [];
                 let tiemposData = [];
+                let costosData = [];
 
                 // Recoger datos de facturación del DOM
                 $('.second-container .colu').each(function (index) {
@@ -68,6 +69,33 @@ $(document).ready(function () {
                 });
 
                 console.log('Datos de tiempos listos para enviar:', tiemposData);
+
+                // ********************************
+                // Costos
+
+                $('#costos .colu-costos').each(function (index) {
+                    // Capturando los valores para cada fila de tiempos
+                    const cos_month = $(this).find('span.mes-año-costos').text(); // Mes-Año en formato 'MMM-YYYY'
+                    const cos_projected = $(this).find('.input-projected-costos').val(); // Proyectado
+                    const cos_real = $(this).find('.input-real-costos').val(); // Real
+
+                    console.log(`Mes-Año: ${cos_month}, Proyectado: ${cos_projected}, Real: ${cos_real}`);
+
+                    // Agregar los datos al array de tiempos
+                    costosData.push({
+                        cos_month: cos_month,
+                        cos_projected: cos_projected || 0, // Evitar valores vacíos
+                        cos_real: cos_real || 0 // Evitar valores vacíos
+                    });
+
+                    // También agregamos estos valores al formData
+                    formData.append(`costos[${index}][cos_month]`, cos_month);
+                    formData.append(`costos[${index}][cos_projected]`, cos_projected || 0);
+                    formData.append(`costos[${index}][cos_real]`, cos_real || 0);
+                });
+
+                console.log('Datos de Costos listos para enviar:', costosData);
+
 
                 for (let pair of formData.entries()) {
                     console.log(pair[0] + ': ' + pair[1]);
