@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title', 'Mi Aplicación')</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css">
     <!-- Bootstrap -->
@@ -76,7 +77,7 @@
 
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                             <li class="nav-item">
-                                <a href="{{ route('projects.index') }}" class="nav-link">
+                                <a href="{{ route('projects.listaProyecto') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
                                     <i class="fa-solid fa fa-cubes-stacked text-white" style="font-size: 23px;"></i>
                                     <p class="projects">Proyectos en curso</p>
                                 </a>
@@ -84,7 +85,7 @@
                                     <i class="fa-solid fa-chart-simple text-white" style="font-size: 23px;"></i>
                                     <p class="projects">Métricas de proyecto</p>
                                 </a>
-                                <a href="{{ route('projects.index') }}" class="nav-link">
+                                <a href="{{ route('projects.index') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
                                     <i class="nav-icon fas fa-project-diagram text-white" style="font-size: 20px;"></i>
                                     <p class="builder">Constructor de proyectos</p>
                                 </a>

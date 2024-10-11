@@ -27,7 +27,9 @@
         </div>
 
         <div class="second-container-tiempos" id="times">
-            <!-- Generación dinámica -->
+            <div class="error-message" id="mensaje-error" >
+                Seleccione un rango de fechas para llenar los campos.
+            </div>
         </div>
 
         <div class="third-container-tiempos">

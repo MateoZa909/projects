@@ -74,7 +74,7 @@ $(document).ready(function () {
                 // Costos
 
                 $('#costos .colu-costos').each(function (index) {
-                    // Capturando los valores para cada fila de tiempos
+                    // Capturando los valores para cada fila de costos
                     const cos_month = $(this).find('span.mes-año-costos').text(); // Mes-Año en formato 'MMM-YYYY'
                     const cos_projected = $(this).find('.input-projected-costos').val(); // Proyectado
                     const cos_real = $(this).find('.input-real-costos').val(); // Real
@@ -95,7 +95,6 @@ $(document).ready(function () {
                 });
 
                 console.log('Datos de Costos listos para enviar:', costosData);
-
 
                 for (let pair of formData.entries()) {
                     console.log(pair[0] + ': ' + pair[1]);

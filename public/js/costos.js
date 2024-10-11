@@ -14,6 +14,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Limpiar el contenedor antes de agregar nuevas tablas
         secondContainer.innerHTML = '';
 
+        // Verificar si ambas fechas están seleccionadas
+        if (!fechaInicioInput.value || !fechaFinInput.value) {
+            // Mostrar el mensaje de error
+            mensajeError.style.display = 'block';
+            return; // Detener la ejecución si no se han seleccionado las fechas
+        }
+
         // Asegurarse de que la fecha de inicio sea anterior a la de fin
         if (fechaInicio > fechaFin) {
             return; // O puedes manejar el error aquí

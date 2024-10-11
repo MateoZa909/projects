@@ -28,7 +28,9 @@
             </div>
 
             <div class="second-container" id="facturac">
-
+                <div class="error-message" id="mensaje-error" >
+                    Seleccione un rango de fechas para llenar los campos.
+                </div>
             </div>
 
             <div class="factura-third-container">

@@ -32,6 +32,14 @@ class ProyectoController extends Controller
         return view('projects.index', compact('empresas', 'encargados', 'estados', 'proyectos'));
     }
 
+    public function listaProyectos()
+    {
+        // Obtener todos los proyectos
+        $proyectos = ProProject::all();
+
+        return view('projects.listaProyecto', compact('proyectos'));
+    }
+
     // Método para almacenar un nuevo proyecto
     public function store(Request $request)
     {
@@ -69,13 +77,13 @@ class ProyectoController extends Controller
                 'costos.*.cos_month' => 'required|string',
                 'costos.*.cos_yyyymm' => 'required|integer',
                 'costos.*.cos_projected' => 'nullable|numeric',
-                'costos.*.cos_real' => 'nullable|numeric', 
+                'costos.*.cos_real' => 'nullable|numeric',
             ]);
 
             // Log de los datos del proyecto
             Log::info('Datos del proyecto:', $request->all());
 
-            // Crear el proyecto
+            // Proyecto
             $proyecto = ProProject::create([
                 'PRO_CNAME' => $request->nombre_proyecto,
                 'COM_NCODE' => $request->com_ncode,
