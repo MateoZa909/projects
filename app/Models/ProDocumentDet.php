@@ -21,13 +21,14 @@ class ProDocumentDet extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'DOCE_NCODE',
+        'DEL_YYYYMM',
         'DOC_MONTH',
         'DOC_QUANTITY',
         'USER_ID_CREATED'
     ];
 
     // Clave primaria es autoincremental
-    protected $incrementing = true;
+    public $incrementing = true;
 
     // Tipo de la clave primaria
     protected $keyType = 'int';

@@ -13,7 +13,7 @@ class ProDeliverableDet extends Model
     protected $table = 'PRO_DELIVERABLE_DET';
 
     // Clave primaria
-    protected $primaryKey = 'DEL_NCODE';
+    public $primaryKey = 'DEL_NCODE';
 
     // No tiene timestamps (created_at y updated_at)
     public $timestamps = false;
@@ -21,6 +21,7 @@ class ProDeliverableDet extends Model
     // Atributos que se pueden asignar masivamente
     protected $fillable = [
         'DELE_NCODE',
+        'DEL_YYYYMM',
         'DEL_MONTH',
         'DEL_QUANTITY',
         'USER_ID_CREATED'

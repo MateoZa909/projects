@@ -46,7 +46,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Segundo Item | Facturacion -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="flush-headingTwo">
@@ -76,9 +75,15 @@
 
             </div>
 
+            <!-- Costos -->
             @include('projects.costos.index')
 
+            <!-- Entregables -->
+            @include('projects.entregables.index')
+
             <div class="back-btn">
+                <!-- Boton agregar entregable -->
+                <button class="bg-green" id="agregar-item-entregable">Agregar entregable</button>
                 <!-- Botón de guardar dentro del formulario -->
                 <button id="guardar-btn" type="submit" class="btn btn-primary">Guardar</button>
             </div>
@@ -86,9 +91,6 @@
     </div>
 
 @endsection
-
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="{{ asset('js/detalles-proyecto.js') }}"></script>
 

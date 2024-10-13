@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\FacturacionController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\RolespermisoController;
 use App\Http\Controllers\UserRoleController;
 use App\Models\Role;
 use App\Http\Controllers\ProyectoController;
@@ -57,6 +58,10 @@ Route::get('/roles', function () {
     // Imprimir los roles
     return response()->json($roles); // Retorna los roles en formato JSON
 });
+
+
+// Asignar permisos
+Route::get('/asignar-permisos', [RolespermisoController::class, 'asignarPermisos']);
 
 // Edicion de roles
 Route::middleware(['auth', 'admin'])->group(function () {

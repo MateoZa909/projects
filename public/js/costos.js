@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const fechaInicioInput = document.getElementById('fecha_inicio');
     const fechaFinInput = document.getElementById('fecha_fin');
 
+    let readOnlyProyectada = false;
+    let readOnlyReal = false;
+
+    if(vistaActual == 'projects.index') {
+        readOnlyReal = true;
+    }
+
     // Escuchar cambios en los campos de fecha
     fechaInicioInput.addEventListener('change', generarTablasCostos);
     fechaFinInput.addEventListener('change', generarTablasCostos);
@@ -16,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Verificar si ambas fechas están seleccionadas
         if (!fechaInicioInput.value || !fechaFinInput.value) {
+            const mensajeError = document.querySelector('#mensaje-error')
             // Mostrar el mensaje de error
             mensajeError.style.display = 'block';
             return; // Detener la ejecución si no se han seleccionado las fechas
@@ -51,8 +59,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="inputs-costos">
                         <input type="hidden" name="costos[${index}][cos_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="costos[${index}][cos_yyyymm]" value="${cos_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
-                        <input type="number" name="costos[${index}][cos_projected]" class="input-projected-costos" placeholder="$" oninput="calcularTotalCostos()">
-                        <input type="number" name="costos[${index}][cos_real]" class="input-real-costos" placeholder="$" oninput="calcularTotalCostos()">
+                        <input type="number" name="costos[${index}][cos_projected]" class="input-projected-costos" placeholder="$" oninput="calcularTotalCostos()" ${readOnlyProyectada ? 'readonly' : ''}>
+                        <input type="number" name="costos[${index}][cos_real]" class="input-real-costos" placeholder="$" oninput="calcularTotalCostos()" ${readOnlyReal ? 'readonly' : ''}>
                     </div>
 
                     <span class="porcentaje month-percent-costos">0%</span>

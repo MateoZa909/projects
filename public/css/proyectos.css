@@ -38,8 +38,15 @@
     width: 100%;
     margin-top: 10px;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     padding-right: 5px;
+}
+#agregar-item-entregable {
+    border: none;
+    border-radius: 5px;
+}
+#agregar-item-entregable:active {
+    transform: scale(.99);
 }
 #guardar-btn {
     width: 140px;

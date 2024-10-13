@@ -2,6 +2,13 @@ document.addEventListener('DOMContentLoaded', function() {
     const fechaInicioInput = document.getElementById('fecha_inicio');
     const fechaFinInput = document.getElementById('fecha_fin');
 
+    let readOnlyProyectada = false;
+    let readOnlyReal = false;
+
+    if(vistaActual == 'projects.index') {
+        readOnlyReal = true;
+    }
+
     // Escuchar cambios en los campos de fecha
     fechaInicioInput.addEventListener('change', generarTablasFacturacion);
     fechaFinInput.addEventListener('change', generarTablasFacturacion);
@@ -16,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Verificar si ambas fechas están seleccionadas
         if (!fechaInicioInput.value || !fechaFinInput.value) {
+            const mensajeError = document.querySelector('#mensaje-error')
             // Mostrar el mensaje de error
             mensajeError.style.display = 'block';
             return; // Detener la ejecución si no se han seleccionado las fechas
@@ -52,9 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="inputs-tiempos">
                         <input type="hidden" name="tiempos[${index}][tim_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="tiempos[${index}][tim_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
-                        <input type="number" name="tiempos[${index}][tim_projected]" class="input-projected-tiempos" placeholder="%" oninput="calcularTotalTiempos()">
-                        <input type="number" class="input-acumulado" placeholder="%" oninput="calcularTotalTiempos()">
-                        <input type="number" name="tiempos[${index}][tim_real]" class="input-real-tiempos" placeholder="%" oninput="calcularTotalTiempos()">
+                        <input type="number" name="tiempos[${index}][tim_projected]" class="input-projected-tiempos" placeholder="%" oninput="calcularTotalTiempos()" ${readOnlyProyectada ? 'readonly' : ''}>
+                        <input type="number" class="input-acumulado" placeholder="%" oninput="calcularTotalTiempos()" readonly>
+                        <input type="number" name="tiempos[${index}][tim_real]" class="input-real-tiempos" placeholder="%" oninput="calcularTotalTiempos()" ${readOnlyReal ? 'readonly' : ''}>
                     </div>
                     <span class="porcentaje month-percent-tiempos">0%</span>
                 </div>

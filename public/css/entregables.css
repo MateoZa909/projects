@@ -11,53 +11,68 @@
     --back-component: rgb(250, 250, 250);
 }
 
+.back-btn {
+    width: 100%;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    padding-right: 5px;
+}
+#agregar-item {
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+}
+#agregar-item:active {
+    transform: scale(.99);
+}
 
-.costos {
+.entregables {
     display: flex;
     flex-direction: column;
     background-color: var(--back-component);
-    height: 350px;
+    height: auto;
     margin-top: 20px;
 }
-.content-costos {
+.content-entregables {
     padding: var(--padding-general);
     display: grid;
     grid-template-columns: 1fr 4fr 110px;
     gap: 30px;
 }
-.content-costos .first-container-costos {
+.content-entregables .first-container-entregables {
     /* background-color: lightcyan; */
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 150px;
+    height: auto;
     gap: 10px;
     margin-top: -20px;
 }
-.content-costos .first-container-costos .back-costos {
+.content-entregables .first-container-entregables .back-entregables {
     height: 35px;
 }
-.content-costos .first-container-costos .back-costos:nth-child(1) {
+.content-entregables .first-container-entregables .back-entregables:nth-child(1) {
     background-color: var(--color-blue-second);
     border-radius: 7px;
     padding: 5px 5px;
     color: white;
     font-family: var(--roboto);
 }
-.content-costos .first-container-costos .proyectada-real-costos {
+.content-entregables .first-container-entregables .proyectada-real-entregables {
     margin-top: 20px;
     background-color: var(--gris-content);
     display: flex;
     flex-direction: column;
     height: auto;
 }
-.content-costos .first-container-costos .proyectada-real-costos span {
+.content-entregables .first-container-entregables .proyectada-real-entregables span {
     border: 1px solid rgb(158, 155, 155);
     padding: 2px 5px;
     font-family: var(--roboto);
 }
-.content-costos .first-container-costos .back-costos:nth-child(3) {
+.content-entregables .first-container-entregables .back-entregables:nth-child(3) {
     margin-top: 10px;
     background-color: rgb(43, 40, 40);
     border-radius: 7px;
@@ -67,24 +82,24 @@
 }
 
 /* SECOND CONTAINER */
-.second-container-costos {
+.second-container-entregables {
     width: 100%;
     display: flex;
     overflow-x: auto;
     /* background-color: lightcoral; */
 }
-.second-container-costos::-webkit-scrollbar {
+.second-container-entregables::-webkit-scrollbar {
     width: 12px; /* Ancho del scrollbar */
     height: 8px; /* Altura del scrollbar */
 }
-.second-container-costos::-webkit-scrollbar-thumb {
+.second-container-entregables::-webkit-scrollbar-thumb {
     background-color: #888; /* Color del thumb del scrollbar */
     border-radius: 10px; /* Bordes redondeados del thumb */
 }
-.second-container-costos::-webkit-scrollbar-thumb:hover {
+.second-container-entregables::-webkit-scrollbar-thumb:hover {
     background-color: #555; /* Color del thumb al pasar el mouse */
 }
-.second-container-costos .colu-costos {
+.second-container-entregables .colu-entregables {
     flex: 0 0 150px; /* Establece un ancho base para cada columna. */
     margin-top: -3px;
     height: auto;
@@ -94,13 +109,14 @@
     justify-content: center;
     align-items: center;
     gap: 30px;
+    /* background-color: lightblue; */
 }
-.second-container-costos .colu-costos:nth-child(n) {
+.second-container-entregables .colu-entregables:nth-child(n) {
     /* Ajuste para evitar que el texto se desborde */
     max-width: 150px; /* Ancho máximo */
     overflow: hidden; /* Oculta el desbordamiento */
 }
-.second-container-costos .inputs-costos input {
+.second-container-entregables .inputs-entregables input {
     position: relative; /* Necesario para posicionar los pseudo-elementos */
     width: 100%;
     background-color: var(--gris-content);
@@ -109,7 +125,7 @@
     text-align: right; /* Alinear texto a la izquierda */
     padding-top: 3px;
 }
-.second-container-costos .inputs-costos input::before  {
+.second-container-entregables .inputs-entregables input::before  {
     content: '$'; /* Signo de dólar */
     width: 30px;
     position: absolute; /* Posición absoluta */
@@ -119,12 +135,12 @@
     color: #999; /* Color del signo */
     pointer-events: none; /* Asegurarse de que no interfiera con el input */
 }
-.second-container-costos .inputs-costos input::placeholder {
+.second-container-entregables .inputs-entregables input::placeholder {
     text-align: start;
     color: #999; /* Color del placeholder (ajustar si es necesario) */
     opacity: 1; /* Asegurarse de que el placeholder no se vuelva transparente */
 }
-.second-container-costos .colu-costos span {
+.second-container-entregables .colu-entregables span {
     width: 100%;
     height: 30px;
     text-overflow: ellipsis;
@@ -137,15 +153,15 @@
     text-align: center;
     white-space: nowrap; /* El texto no se va a ajustar a otra línea */
 }
-.second-container-costos .colu-costos .porcentaje {
+.second-container-entregables .colu-entregables .porcentaje {
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     color: black;
 }
 
-/* third-container-costos */
-.content-costos .third-container-costos {
+/* third-container-entregables */
+.content-entregables .third-container-entregables {
     /* background-color: lightcoral; */
     margin-top: 5px;
     width: 100%;
@@ -155,7 +171,7 @@
     display: flex;
     justify-content: space-between;
 }
-.content-costos .back-total-costos {
+.content-entregables .back-total-entregables {
     background-color: rgb(43, 40, 40);
     width: 100%;
     height: 30px;
@@ -166,31 +182,31 @@
     font-size: 15px;
     word-wrap: break-word;
 }
-.content-costos .total-inputs-costos {
+.content-entregables .total-inputs-entregables {
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-.content-costos .total-percent-costos {
+.content-entregables .total-percent-entregables {
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
-.content-costos .total-inputs-costos .total-projected-costos,
-.content-costos .total-inputs-costos .total-real-costos,
-.content-costos .total-percent-costos {
+.content-entregables .total-inputs-entregables .total-projected-entregables,
+.content-entregables .total-inputs-entregables .total-real-entregables,
+.content-entregables .total-percent-entregables {
     /* width: 80px; */
     background-color: var(--gris-content);
     border: 1px solid rgb(158, 155, 155);
     text-align: center;
     height: 30px;
 }
-.content-costos .total-inputs-costos .total-projected-costos,
-.content-costos .total-inputs-costos .total-real-costos,
-.content-costos .total-percent-costos span {
+.content-entregables .total-inputs-entregables .total-projected-entregables,
+.content-entregables .total-inputs-entregables .total-real-entregables,
+.content-entregables .total-percent-entregables span {
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
     overflow: hidden;    /* Esconde el texto que se salga del contenedor */
     text-overflow: ellipsis; /* Muestra puntos suspensivos (...) si el texto es demasiado largo */
@@ -199,6 +215,8 @@
     padding: 5px;        /* Añade algo de espacio interior si es necesario */
     box-sizing: border-box; /* Incluye padding y border en el tamaño total */
 }
+
+
 /* CONTENEDOR TEXT0 */
 
 

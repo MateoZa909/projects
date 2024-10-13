@@ -29,15 +29,28 @@ class ProyectoController extends Controller
         // Obtener todos los proyectos
         $proyectos = ProProject::all();
 
-        return view('projects.index', compact('empresas', 'encargados', 'estados', 'proyectos'));
+        // Obtener el rol del usuario autenticado
+        $userRole = auth()->user()->role_name; // Accesor para obtener el nombre del rol
+
+        return view('projects.index', compact('empresas', 'encargados', 'estados', 'proyectos', 'userRole'));
     }
 
-    public function listaProyectos()
+    // Metodo para listar los proyectos
+    public function listaProyectos(Request $request)
     {
-        // Obtener todos los proyectos
-        $proyectos = ProProject::all();
+        $search = $request->input('search');
 
-        return view('projects.listaProyecto', compact('proyectos'));
+        // Obtener proyectos filtrados si se proporciona un término de búsqueda
+        $proyectos = ProProject::when($search, function ($query, $search) {
+            return $query->where('PRO_CNAME', 'like', "%{$search}%");
+        })->get();
+
+         // Si es una petición AJAX, devolver una respuesta JSON
+        if ($request->ajax()) {
+            return response()->json(['proyectos' => $proyectos]);
+        }
+
+        return view('projects.listaProyecto', compact('proyectos')); // Pasar proyectos filtrados a la vista
     }
 
     // Método para almacenar un nuevo proyecto
@@ -73,11 +86,11 @@ class ProyectoController extends Controller
                 'tiempos.*.tim_yyyymm' => 'required|integer',
                 'tiempos.*.tim_projected' => 'nullable|numeric',
                 'tiempos.*.tim_real' => 'nullable|numeric', // Tiempos
-                'costos' => 'required|array',
+                'costos' => 'required|array', // Costos
                 'costos.*.cos_month' => 'required|string',
                 'costos.*.cos_yyyymm' => 'required|integer',
                 'costos.*.cos_projected' => 'nullable|numeric',
-                'costos.*.cos_real' => 'nullable|numeric',
+                'costos.*.cos_real' => 'nullable|numeric', // Costos
             ]);
 
             // Log de los datos del proyecto
@@ -127,7 +140,7 @@ class ProyectoController extends Controller
                     'BIL_MONTH' => $item['bil_month'], // Guardar el formato 'MMM-YYYY'
                     'BIL_YYYYMM' => $bil_yyyymm, // Guardar el valor calculado
                     'BIL_PROJECTED' => $item['bil_projected'],
-                    'BIL_REAL' => $item['bil_real'],
+                    'BIL_REAL' => $item['bil_real'] ?? 0,
                     'USER_ID_CREATED' => $userId,
                 ]);
 
@@ -174,7 +187,7 @@ class ProyectoController extends Controller
                     'TIM_MONTH' => $item['tim_month'], // Guardar el formato 'MMM-YYYY'
                     'TIM_YYYYMM' => $tim_yyyymm, // Guardar el valor calculado
                     'TIM_PROJECTED' => $item['tim_projected'],
-                    'TIM_REAL' => $item['tim_real'],
+                    'TIM_REAL' => $item['tim_real'] ?? 0,
                     'USER_ID_CREATED' => $userId,
                 ]);
 
@@ -221,7 +234,7 @@ class ProyectoController extends Controller
                     'COS_MONTH' => $item['cos_month'], // Guardar el formato 'MMM-YYYY'
                     'COS_YYYYMM' => $cos_yyyymm, // Guardar el valor calculado
                     'COS_PROJECTED' => $item['cos_projected'],
-                    'COS_REAL' => $item['cos_real'],
+                    'COS_REAL' => $item['cos_real'] ?? 0,
                     'USER_ID_CREATED' => $userId,
                 ]);
 

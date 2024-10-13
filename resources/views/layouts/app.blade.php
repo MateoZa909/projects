@@ -34,19 +34,6 @@
             </a>
 
             <ul class="navbar-nav ml-auto">
-                <!-- Dropdown para roles -->
-                <li class="nav-item dropdown role">
-                    @if(!in_array(auth()->user()->role->name, ['Editor', 'Lectura']))
-                        <a class="nav-link dropdown-toggle text-white" href="#" id="rolesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Roles
-                        </a>
-                    @endif
-                    <div class="dropdown-menu dropdown-menu-right"  aria-labelledby="rolesDropdown">
-                            <a class="dropdown-item" href="{{ route('users.index') }}">Ver usuarios y roles</a>
-                            <a class="dropdown-item" href="{{ route('users.editRole', auth()->user()->id) }}">Asignar roles</a>
-                    </div>
-                </li>
-
                 <!-- Cerrar sesión -->
                 <li class="nav-item role">
                     <form method="POST" action="{{ route('logout') }}">
@@ -77,18 +64,39 @@
 
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
                             <li class="nav-item">
-                                <a href="{{ route('projects.listaProyecto') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
-                                    <i class="fa-solid fa fa-cubes-stacked text-white" style="font-size: 23px;"></i>
-                                    <p class="projects">Proyectos en curso</p>
-                                </a>
-                                <a href="{{ route('projects.index') }}" class="nav-link">
-                                    <i class="fa-solid fa-chart-simple text-white" style="font-size: 23px;"></i>
-                                    <p class="projects">Métricas de proyecto</p>
-                                </a>
-                                <a href="{{ route('projects.index') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
-                                    <i class="nav-icon fas fa-project-diagram text-white" style="font-size: 20px;"></i>
-                                    <p class="builder">Constructor de proyectos</p>
-                                </a>
+
+                                <!-- Proyectos en curso -->
+                                @if(auth()->user()->tienePermiso('MENU_PRO_CUR'))
+                                    <a href="{{ route('projects.listaProyecto') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
+                                        <i class="fa-solid fa fa-cubes-stacked text-white" style="font-size: 23px;"></i>
+                                        <p class="projects">Proyectos en curso</p>
+                                    </a>
+                                @endif
+
+                                <!-- Métricas de proyecto -->
+                                @if(auth()->user()->tienePermiso('MENU_MET_PRO'))
+                                    <a href="{{ route('projects.index') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
+                                        <i class="fa-solid fa-chart-simple text-white" style="font-size: 23px;"></i>
+                                        <p class="projects">Métricas de proyecto</p>
+                                    </a>
+                                @endif
+
+                                <!-- Constructor de proyectos -->
+                                @if(auth()->user()->tienePermiso('MENU_CON_PRO'))
+                                    <a href="{{ route('projects.index') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-project-diagram text-white" style="font-size: 20px;"></i>
+                                        <p class="builder">Constructor de proyectos</p>
+                                    </a>
+                                @endif
+
+                                <!-- Proyectos asignados -->
+                                @if(auth()->user()->tienePermiso('MENU_PRO_ASI'))
+                                    <a href="{{ route('projects.index') }}" class="nav-link {{ request()->routeIs('projects.index') ? 'active' : '' }}">
+                                        <i class="nav-icon fas fa-project-diagram text-white" style="font-size: 20px;"></i>
+                                        <p class="builder">Proyectos asignados</p>
+                                    </a>
+                                @endif
+
                             </li>
                         </ul>
                     </div>
@@ -121,4 +129,11 @@
 </body>
 
 @stack('scripts') <!-- Aquí se agregará el contenido de los scripts de cada vista -->
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    const vistaActual = '{{ request()->route()->getName() }}'; // o algún identificador de la vista
+    const rolActual = '{{ auth()->user()->role_id }}'; // Asumiendo que tienes el ID del rol en el modelo User
+</script>
 </html>

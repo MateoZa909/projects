@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="factura-third-container">
+            <div class="factura-third-container" >
                 <div class="factura-back-total">Total</div>
                 <div class="factura-total-inputs">
                     <div class="factura-total-projected">
@@ -49,6 +49,7 @@
             </div>
         </div>
 </div>
+
 
 <script src="{{ asset('js/facturacion.js') }}"></script>
 

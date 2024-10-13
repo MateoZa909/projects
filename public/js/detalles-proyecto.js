@@ -74,6 +74,7 @@ $(document).ready(function () {
                 // Costos
 
                 $('#costos .colu-costos').each(function (index) {
+                    console.log('Total de elementos de costos:', $('#costos .colu-costos').length);
                     // Capturando los valores para cada fila de costos
                     const cos_month = $(this).find('span.mes-año-costos').text(); // Mes-Año en formato 'MMM-YYYY'
                     const cos_projected = $(this).find('.input-projected-costos').val(); // Proyectado
@@ -145,3 +146,9 @@ $(document).ready(function () {
         });
     });
 });
+
+
+
+
+
+

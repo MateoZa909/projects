@@ -22,6 +22,7 @@ class ProCost extends Model
     protected $fillable = [
         'PRO_NCODE',
         'COS_YYYYMM',
+        'COS_MONTH',
         'COS_PROJECTED',
         'COS_REAL',
         'COS_DCREATED',

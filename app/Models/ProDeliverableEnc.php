@@ -13,7 +13,7 @@ class ProDeliverableEnc extends Model
     protected $table = 'PRO_DELIVERABLE_ENC';
 
     // Clave primaria
-    protected $primaryKey = 'DELE_NCODE';
+    public $primaryKey = 'DELE_NCODE';
 
     // No tiene timestamps (created_at y updated_at)
     public $timestamps = false;

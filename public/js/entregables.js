@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const fechaInicioInput = document.getElementById('fecha_inicio');
     const fechaFinInput = document.getElementById('fecha_fin');
+    const agregarItem = document.querySelector('#agregar-item-entregable');
+    agregarItem.addEventListener('click', agregarEntregable);
 
     let readOnlyProyectada = false;
     let readOnlyReal = false;
@@ -16,10 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
     function generarTablasFacturacion() {
         const fechaInicio = new Date(fechaInicioInput.value);
         const fechaFin = new Date(fechaFinInput.value);
-        const secondContainer = document.querySelector('.second-container');
+        const secondContainer = document.querySelector('#entregables');
+        const thirdContainer = document.querySelector('.fill');
 
         // Limpiar el contenedor antes de agregar nuevas tablas
         secondContainer.innerHTML = '';
+        thirdContainer.innerHTML = '';
 
         // Verificar si ambas fechas están seleccionadas
         if (!fechaInicioInput.value || !fechaFinInput.value) {
@@ -54,15 +58,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const mesAbreviado = mesesAbreviados[mes - 1];
 
             const nuevoContenido = `
-                <div class="factura-colu">
+                <div class="colu-entregables">
                     <span class="mes-año">${mesAbreviado}-${año}</span>
-                    <div class="factura-inputs">
+                    <div class="inputs-entregables">
                         <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
                         <input type="hidden" name="facturacion[${index}][bil_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
-                        <input type="number" name="facturacion[${index}][bil_projected]" class="factura-input-projected" placeholder="$" oninput="calcularTotal()" ${readOnlyProyectada ? 'readonly' : ''}>
-                        <input type="number" name="facturacion[${index}][bil_real]" class="factura-input-real" placeholder="$" oninput="calcularTotal()" ${readOnlyReal ? 'readonly' : ''} >
+                        <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected-entregables" placeholder="P" oninput="calcularTotal()" ${readOnlyProyectada ? 'readonly' : ''}>
+                        <input type="number" name="facturacion[${index}][bil_real]" class="input-real-entregables" placeholder="R" oninput="calcularTotal()" ${readOnlyReal ? 'readonly' : ''} >
                     </div>
-                    <span class="factura-month-percent">0%</span>
+                    <span class="total-percent-entregables">0%</span>
                 </div>
             `;
 
@@ -73,6 +77,19 @@ document.addEventListener('DOMContentLoaded', function() {
             fechaActual.setMonth(fechaActual.getMonth() + 1);
             index++; // Asegurarse de que el índice avanza correctamente
         }
+
+        const nuevoContenidoTotales = `
+            <div class="total-inputs-entregables">
+                <div class="total-projected-entregables">
+                    <span>0</span>
+                </div>
+                <div class="total-real-entregables">
+                    <span>0</span>
+                </div>
+            </div>
+        `;
+        thirdContainer.insertAdjacentHTML('beforeend', nuevoContenidoTotales);
+
 
         // Llamar a actualizarTotales para asegurarse de que los totales están al día
         actualizarTotales();
@@ -125,4 +142,87 @@ document.addEventListener('DOMContentLoaded', function() {
         calcularTotal();
     }
 
+    function agregarEntregable() {
+        const fechaInicio = new Date(fechaInicioInput.value);
+        const fechaFin = new Date(fechaFinInput.value);
+        const secondContainer = document.querySelector('#entregables');
+        const thirdContainer = document.querySelector('.fill');
+
+        // Limpiar el contenedor antes de agregar nuevas tablas
+        secondContainer.innerHTML = '';
+        thirdContainer.innerHTML = '';
+
+        // Verificar si ambas fechas están seleccionadas
+        if (!fechaInicioInput.value || !fechaFinInput.value) {
+            const mensajeError = document.querySelector('#mensaje-error')
+            // Mostrar el mensaje de error
+            mensajeError.style.display = 'block';
+            return; // Detener la ejecución si no se han seleccionado las fechas
+        }
+
+        // Asegurarse de que la fecha de inicio sea anterior a la de fin
+        if (fechaInicio > fechaFin) {
+            alert("La fecha de inicio no puede ser mayor que la fecha de fin.");
+            return; // O puedes manejar el error aquí
+        }
+
+        // Array de meses abreviados
+        const mesesAbreviados = ['ENE', 'FEB', 'MAR', 'ABR', 'MAY', 'JUN', 'JUL', 'AGO', 'SEP', 'OCT', 'NOV', 'DIC'];
+
+        // Inicializar el índice para los inputs
+        let index = 0; // Para manejar los índices de facturación
+
+        // Calcular los meses entre las fechas
+        let fechaActual = new Date(fechaInicio);
+
+        while (fechaActual <= fechaFin) {
+            // Obtener el mes y el año desde la fecha actual
+            const mes = fechaActual.getMonth() + 1; // Obtener el mes (1-12)
+            const año = fechaActual.getFullYear();
+
+            // Calcular BIL_YYYYMM como un número (YYYYMM)
+            const bil_yyyymm = año * 100 + (fechaActual.getMonth() + 1); // Agregar 1 porque getMonth() es cero basado (0-11)
+            const mesAbreviado = mesesAbreviados[mes - 1];
+
+            const nuevoContenido = `
+                <div class="colu-entregables">
+                    <span class="mes-año">${mesAbreviado}-${año}</span>
+                    <div class="inputs-entregables">
+                        <input type="hidden" name="facturacion[${index}][bil_month]" value="${mesAbreviado}-${año}"> <!-- Guardar en el formato MMM-YYYY -->
+                        <input type="hidden" name="facturacion[${index}][bil_yyyymm]" value="${bil_yyyymm}"> <!-- Guardar en el formato YYYYMM -->
+                        <input type="number" name="facturacion[${index}][bil_projected]" class="input-projected-entregables" placeholder="P" oninput="calcularTotal()" ${readOnlyProyectada ? 'readonly' : ''}>
+                        <input type="number" name="facturacion[${index}][bil_real]" class="input-real-entregables" placeholder="R" oninput="calcularTotal()" ${readOnlyReal ? 'readonly' : ''} >
+                    </div>
+                    <span class="total-percent-entregables">0%</span>
+                </div>
+            `;
+
+            // Insertar el nuevo contenido en el secondContainer
+            secondContainer.insertAdjacentHTML('beforeend', nuevoContenido);
+
+            // Avanzar al siguiente mes
+            fechaActual.setMonth(fechaActual.getMonth() + 1);
+            index++; // Asegurarse de que el índice avanza correctamente
+        }
+
+        const nuevoContenidoTotales = `
+            <div class="total-inputs-entregables">
+                <div class="total-projected-entregables">
+                    <span>0</span>
+                </div>
+                <div class="total-real-entregables">
+                    <span>0</span>
+                </div>
+            </div>
+        `;
+        thirdContainer.insertAdjacentHTML('beforeend', nuevoContenidoTotales);
+
+
+        // Llamar a actualizarTotales para asegurarse de que los totales están al día
+        actualizarTotales();
+    }
+
+
 });
+
+
